@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  web:
+    image: php:8.1-apache
+    ports:
+      - "8080:80"  # Redirige le port 80 du conteneur vers le port 8080 de la machine locale
+    volumes:
+      - .:/var/www/html  # Monte le dossier ./src dans le conteneur à l'emplacement où Apache servira les fichiers
+      - ./templates:/var/www/html/templates  # Monte le dossier ./templates dans le conteneur à l'emplacement où Apache cherchera les templates Twig
+      - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf  # Monte ton fichier personnalisé
+    working_dir: /var/www/html  # Définit le répertoire de travail du conteneur pour que Composer et Apache y soient exécutés
