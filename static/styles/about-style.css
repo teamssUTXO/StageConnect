@@ -1,0 +1,153 @@
+/* ======================== */
+/* Hero Section */
+/* ======================== */
+.hero-section {
+    background-color: var(--secondary-color);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.hero-container h1 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ======================== */
+/* Mission Section */
+/* ======================== */
+.mission-section {
+    padding: 60px 20px;
+    background-color: var(--primary-color);
+    text-align: center;
+}
+
+.mission-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.mission-container h2 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.mission-container p {
+    font-size: 1.1rem;
+    color: var(--black);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* ======================== */
+/* Team Section */
+/* ======================== */
+.team-section {
+    padding: 60px 20px;
+    background-color: var(--white);
+    text-align: center;
+}
+
+.team-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-container h2 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.team-container p {
+    color: var(--gray)
+
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-member {
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.team-member h3 {
+    font-size: 1.5rem;
+    color: var(--black);
+    margin-bottom: 10px;
+}
+
+.team-member .role {
+    font-size: 1rem;
+    color: var(--black);
+    margin-bottom: 15px;
+}
+
+.team-member .bio {
+    font-size: 0.95rem;
+    color: var(--black);
+    line-height: 1.5;
+}
+
+/* ======================== */
+/* Values Section */
+/* ======================== */
+.values-section {
+    padding: 60px 20px;
+    background-color: var(--secondary-color);
+    text-align: center;
+}
+
+.values-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.values-container h2 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.value-card {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.value-card p {
+    font-size: 1rem;
+    color: var(--gray);
+    line-height: 1.5;
+}

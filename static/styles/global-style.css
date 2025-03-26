@@ -1,0 +1,318 @@
+/* ======================== */
+/* Reset & Global Styles */
+/* ======================== */
+:root {
+    --primary-color: #F7D154;
+    --secondary-color: #EAE4DE;
+    --accent-color: #e9defc; 
+    --text-color: #000;
+    --white: #fff;
+    --gray: #666;
+    --black: #000;
+    --border-radius: 10px;
+    --transition: 0.3s ease;
+    --font-family: Verdana, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-color);
+    text-align: center;
+}
+
+/* ======================== */
+/* Navbar */
+/* ======================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+.logo img {
+    height: 40px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    position: relative;
+    transition: color var(--transition);
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color: var(--text-color);
+    transition: width var(--transition), left var(--transition);
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* ======================== */
+/* Buttons */
+/* ======================== */
+.btn-login {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    padding: 10px 15px;
+    border: 2px solid var(--black);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.btn-login {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+}
+
+.btn-login:active {
+    transform: scale(0.97);
+}
+
+
+/* ======================== */
+/* Burger Menu */
+/* ======================== */
+.burger-menu-button {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--black);
+}
+
+.burger-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    width: 200px;
+    z-index: 1000;
+}
+
+.burger-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.burger-menu ul li {
+    margin-bottom: 10px;
+}
+
+.burger-menu ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    transition: background-color var(--transition);
+}
+
+.burger-menu ul li a:hover {
+    background: var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+.burger-menu .divider {
+    height: 1px;
+    background: var(--gray);
+    margin: 10px 0;
+}
+
+.button-burger-menu {
+    text-align: center;
+}
+
+.burger-menu .btn-burger-login {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 2px solid var(--black);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: var(--black);
+    color: var(--white);
+    transition: background-color var(--transition), color var(--transition), transform var(--transition);
+    width: 100%; /* Prend toute la largeur */
+    text-align: center;
+    justify-content: center;
+    margin: 10px 0; /* Espacement */
+}
+
+.burger-menu .btn-burger-login:active {
+    transform: scale(0.95);
+}
+
+/* ======================== */
+/* Responsive Design */
+/* ======================== */
+@media screen and (max-width: 768px) {
+    .navbar ul,
+    .navbar .btn-login {
+        display: none;
+    }
+
+    .burger-menu-button {
+        display: block;
+    }
+
+    .burger-menu.active {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .burger-menu {
+      left: 32px;
+      width:unset;
+    }
+}
+
+@media (min-width: 991px) {
+    .burger-menu,
+    .burger-menu.open,
+    .burger-menu-button {
+        display: none; /* Cache le menu burger et son bouton en mode normal */
+    }
+
+    .navbar .links,
+    .navbar .btn-login {
+        display: flex; /* Affiche les liens et le bouton "Se connecter" dans la navbar en mode normal */
+    }
+}
+
+/* ======================== */
+/* Footer */
+/* ======================== */
+footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 40px 20px;
+    text-align: left;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 2px solid var(--white);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin: 8px 0;
+}
+
+.footer-column ul li a {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 14px;
+    transition: all var(--transition);
+}
+
+.footer-column ul li a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: var(--black);
+    font-size: 16px;
+    transition: background-color var(--transition), color var(--transition);
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.legal {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.legal a {
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+}

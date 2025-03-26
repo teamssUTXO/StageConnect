@@ -1,0 +1,200 @@
+/* ======================== */
+/* Fond d'écran animé */
+/* ======================== */
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: none !important;
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFF3B0 100%);
+    text-align: center;
+    position: static;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: #F7D154;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: moveCircle 10s linear infinite;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: #FFD54F;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: moveCircle 15s linear infinite;
+}
+
+@keyframes moveCircle {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(50px, 50px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* ======================== */
+/* Contact Container */
+/* ======================== */
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    margin: 85px auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 40px; /* Espace entre les deux sections */
+}
+
+/* ======================== */
+/* Contact Form Section */
+/* ======================== */
+.contact-form-section {
+    flex: 1;
+    padding: 20px; /* Ajout de padding pour aérer */
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacement entre les éléments */
+}
+
+.contact-form-title h2 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.contact-form-title hr {
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border: none;
+    margin: 0 0 20px 0;
+}
+
+.contact-inputs {
+    padding: 15px; /* Plus de padding pour un meilleur confort */
+    margin-bottom: 20px;
+    border: 1px solid var(--gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+textarea.contact-inputs {
+    height: 150px; /* Hauteur fixe pour le textarea */
+    resize: vertical; /* Permet à l'utilisateur de redimensionner verticalement */
+}
+
+.contact-inputs:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.contact-inputs::placeholder {
+    color: var(--gray);
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 15px; /* Plus de padding pour le bouton */
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* ======================== */
+/* Contact Info Section */
+/* ======================== */
+.contact-info-section {
+    flex: 1;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    height: 100%;
+    max-height: 100%;
+}
+
+.contact-info-title h2 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.contact-info-title hr {
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border: none;
+    margin: 0 0 20px 0;
+}
+
+.contact-info-content {
+    color: var(--text-color);
+}
+
+.contact-info-list {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info-list li {
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.contact-info-list i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.contact-info-list li a {
+    text-decoration: none;
+    color: var(--text-color)
+}
+
+.contact-social-links {
+    margin-top: 20px;
+}
+
+.contact-social-links p {
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.social-icons a {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}

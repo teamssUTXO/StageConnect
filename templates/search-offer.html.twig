@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechercher des offres de stage</title>
+    <link rel="stylesheet" href="../static/styles/global-style.css">
+    <link rel="stylesheet" href="../static/styles/search-offer-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/Stage3.png" alt="Stage Connect Logo">
+            </div>
+            <ul class="links">
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="search-offer.html">Offres</a></li>
+                <li><a href="search-company.html">Entreprises</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> Se connecter</button>
+            </div>
+            <div class="burger-menu-button">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    
+        <div class="burger-menu">
+            <ul class="links">
+                <li class="account-burger" style="display: none;"><a href="#">Mon compte</a></li>
+                <li><a href="home.html">Accueil</a></li>
+                <li><a href="search-offer.html">Offres</a></li>
+                <li><a href="search-company.html">Entreprises</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <div class="divider"></div>
+                <button class="btn-burger-login" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user"></i> Se connecter
+                </button>
+            </ul>
+        </div>
+    </header>
+
+    <div class="search">
+        <h1>Rechercher des offres de stage</h1>
+        <p class="search-description">Trouvez le stage qui correspond à vos compétences et à vos aspirations professionnelles.</p>
+
+        <div class="search-bar" role="search">
+            <input type="text" placeholder="Rechercher des offres..." id="search-input" aria-label="Rechercher des offres de stage">
+            <button aria-label="Lancer la recherche">Rechercher</button>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="location-filter">Localisation</label>
+                <select id="location-filter">
+                    <option value="" hidden selected>Choisir une localisation</option>
+                    <option value="Paris">Paris</option>
+                    <option value="Lyon">Lyon</option>
+                    <option value="Marseille">Marseille</option>
+                    <option value="Rouen">Rouen</option>
+                    <option value="Lille">Lille</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="category-filter">Secteur</label>
+                <select id="category-filter">
+                    <option value="" hidden selected>Choisir un secteur</option>
+                    <option value="IT">IT</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Commerce">Commerce</option>
+                    <option value="Droit">Droit</option>
+                    <option value="Langues">Langues</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="company-filter">Entreprise</label>
+                <select id="company-filter">
+                    <option value="" hidden selected>Choisir une entreprise</option>
+                    <option value="Apprentice">FrameIP</option>
+                    <option value="Full-time">CESI</option>
+                    <option value="Full-time">Xefi</option>
+                    <option value="Full-time">SNCF</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="duration-filter">Durée</label>
+                <select id="duration-filter">
+                    <option value="" hidden selected>Choisir une durée</option>
+                    <option value="1-3">1 à 3 mois</option>
+                    <option value="3-6">3 à 6 mois</option>
+                    <option value="6+">6 mois et plus</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="type-filter">Type de stage</label>
+                <select id="type-filter">
+                    <option value="" hidden selected>Choisir un type</option>
+                    <option value="full-time">Temps plein</option>
+                    <option value="part-time">Temps partiel</option>
+                    <option value="remote">Télétravail</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="education-filter">Niveau d'études</label>
+                <select id="education-filter">
+                    <option value="" hidden selected>Choisir un niveau</option>
+                    <option value="bac">Bac</option>
+                    <option value="bac+2">Bac+2</option>
+                    <option value="bac+3">Bac+3</option>
+                    <option value="bac+5">Bac+5</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="reset-div">
+            <button class="reset-filters">Réinitialiser les filtres</button>
+        </div>
+
+        <div class="sort-filter">
+            <div class="sort-items">
+                <label for="sort-by">Rechercher :</label>
+                <select id="sort-by">
+                    <option selected value="offer">Des offres de stage</option>
+                    <option value="company">Des entreprises</option>
+                </select>
+            </div>
+            
+            <div class="sort-items">
+                <label for="sort-by">Trier par :</label>
+                <select id="sort-by">
+                    <option value="date">Date de publication</option>
+                    <option value="relevance">Pertinence</option>
+                    <option value="location">Localisation</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search-results-info">
+            <p id="results-count">5 offres trouvées</p>
+        </div>
+
+        <div class="job-list" id="job-list">
+            <!-- Exemple d'offre de stage -->
+            <div class="job-item">
+                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
+                <div class="job-content">
+                    <h3 class="job-title">Développeur Front-End H/F</h3>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
+                        <p><i class="fa-solid fa-building"></i> CESI</p>
+                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
+                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="apply-btn">Postuler</button>
+                    <a class="details-btn">Voir plus de détails</a>
+                    <i class="far fa-heart favorite-icon"></i>
+                </div>
+            </div>
+
+            <div class="modal-overlay" id="modal-overlay">
+                <div class="modal">
+                    <!-- En-tête de la modale -->
+                    <div class="modal-header">
+                        <h2 class="modal-title">Développeur Front-End H/F</h2>
+                        <button class="close-modal">&times;</button>
+                    </div>
+            
+                    <!-- Corps de la modale -->
+                    <div class="modal-body">
+                        <!-- Section Résumé -->
+                        <div class="summary-section">
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="summary-content">
+                                        <span class="summary-label">Localisation</span>
+                                        <span class="summary-value">Rouen</span>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <i class="fa-solid fa-building"></i>
+                                    <div class="summary-content">
+                                        <span class="summary-label">Entreprise</span>
+                                        <span class="summary-value">CESI</span>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <i class="fa-solid fa-file-lines"></i>
+                                    <div class="summary-content">
+                                        <span class="summary-label">Type</span>
+                                        <span class="summary-value">Stage</span>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div class="summary-content">
+                                        <span class="summary-label">Posté il y a</span>
+                                        <span class="summary-value">16 jours</span>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <i class="fa-solid fa-euro-sign"></i>
+                                    <div class="summary-content">
+                                        <span class="summary-label">Rémunération</span>
+                                        <span class="summary-value">800€/mois</span>
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <div class="summary-content">
+                                        <span class="summary-label">Durée</span>
+                                        <span class="summary-value">6 mois</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Section Description -->
+                        <div class="description-section">
+                            <h3>Description du poste</h3>
+                            <p>
+                                Nous recherchons un développeur Front-End passionné pour rejoindre notre équipe.
+                                Vous serez en charge de la conception et du développement d'interfaces utilisateur modernes.
+                                Vous travaillerez en étroite collaboration avec les designers et les développeurs Back-End
+                                pour créer des expériences utilisateur fluides et réactives.
+                            </p>
+                        </div>
+            
+                        <!-- Section Compétences -->
+                        <div class="skills-section">
+                            <h3>Compétences requises</h3>
+                            <ul>
+                                <li>Maîtrise de HTML, CSS et JavaScript</li>
+                                <li>Expérience avec React ou Vue.js</li>
+                                <li>Connaissance des bonnes pratiques SEO</li>
+                                <li>Capacité à travailler en équipe</li>
+                                <li>Bonne compréhension des outils de versioning (Git)</li>
+                            </ul>
+                        </div>
+            
+                        <!-- Section Avantages -->
+                        <div class="benefits-section">
+                            <h3>Avantages</h3>
+                            <ul>
+                                <li>Tickets restaurant</li>
+                                <li>Transport pris en charge à 50%</li>
+                                <li>Environnement de travail dynamique</li>
+                                <li>Accès à des formations en ligne</li>
+                            </ul>
+                        </div>
+            
+                        <!-- Section Informations pratiques -->
+                        <div class="practical-info-section">
+                            <h3>Informations pratiques</h3>
+                            <ul>
+                                <li><strong>Date de début :</strong> 1er septembre 2023</li>
+                                <li><strong>Horaires :</strong> 9h - 18h, du lundi au vendredi</li>
+                                <li><strong>Télétravail :</strong> 2 jours/semaine</li>
+                                <li><strong>Adresse :</strong> 123 Rue de l'Exemple, 76000 Rouen</li>
+                            </ul>
+                        </div>
+                    </div>
+            
+                    <!-- Pied de la modale -->
+                    <div class="modal-footer">
+                        <button class="candidacy-btn" onclick="window.location.href='candidacy.html'">Postuler</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Répéter pour d'autres offres -->
+            <div class="job-item">
+                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
+                <div class="job-content">
+                    <h3 class="job-title">Développeur Front-End H/F</h3>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
+                        <p><i class="fa-solid fa-building"></i> CESI</p>
+                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
+                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="apply-btn">Postuler</button>
+                    <a class="details-btn">Voir plus de détails</a>
+                    <i class="far fa-heart favorite-icon"></i>
+                </div>
+            </div>
+
+            <div class="job-item">
+                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
+                <div class="job-content">
+                    <h3 class="job-title">Développeur Front-End H/F</h3>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
+                        <p><i class="fa-solid fa-building"></i> CESI</p>
+                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
+                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="apply-btn">Postuler</button>
+                    <a class="details-btn">Voir plus de détails</a>
+                    <i class="far fa-heart favorite-icon"></i>
+                </div>
+            </div>
+
+            <div class="job-item">
+                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
+                <div class="job-content">
+                    <h3 class="job-title">Développeur Front-End H/F</h3>
+                    <div class="job-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
+                        <p><i class="fa-solid fa-building"></i> CESI</p>
+                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
+                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="apply-btn">Postuler</button>
+                    <a class="details-btn">Voir plus de détails</a>
+                    <i class="far fa-heart favorite-icon"></i>
+                </div>
+            </div>
+
+            <!-- Skeleton loading pendant le chargement -->
+            <div class="job-item skeleton">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton-line" style="width: 70%;"></div>
+                    <div class="skeleton-line" style="width: 50%;"></div>
+                    <div class="skeleton-line" style="width: 60%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="no-results" style="display: none;">
+            <p>Aucune offre ne correspond à votre recherche. Essayez de modifier vos filtres.</p>
+        </div>
+
+        <div class="pagination">
+            <button class="pagination-button">Précédent</button>
+            <span class="pagination-page">Page 1</span>
+            <button class="pagination-button">Suivant</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>StageConnect</h3>
+                <ul>
+                    <li><a href="about.html">À Propos</a></li>
+                    <li><a href="cesi.fr" target="_blank">CESI</a></li>
+                    <li><a href="legal-notices.html">Mentions Légales</a></li>
+                    <li><a href="privacy-policy.html">Confidentialité</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="home.html">Accueil</a></li>
+                    <li><a href="user.html">Mon Compte</a></li>
+                    <li><a href="search.html">Offres</a></li>
+                    <li><a href="#">Entreprises</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Ressources</h3>
+                <ul>
+                    <li><a href="https://support.viacesi.info/" target="_blank">FAQ</a></li>
+                    <li><a href="https://www.cesi.fr/categorie/fr/actualites/" target="_blank">Actus</a></li>
+                    <li><a href="https://www.cesi.fr/categorie/fr/temoignages/" target="_blank">Parcours Inspirants</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="contact-info">
+                    <li><a href="mailto:stageconnect@gmail.com">stageconnect@gmail.com</a></li>
+                    <li><a href="+33144459200">+33 1 44 45 92 00</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/CESIingenieurs/?locale=fr_FR" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/cesi_officiel?lang=fr" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/cesi_officiel/?hl=fr" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/school/cesi-officiel/posts/?feedView=all" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="legal">
+            <a href="legal-notices.html">Mentions légales</a>
+            <a href="cgu.html">CGU</a>
+            <a href="privacy-policy.html">Politique de confidentialité</a>
+            <a href="cookies-policy.html">Politique cookies</a>
+            <a href="#">Gestion des cookies</a>
+        </div>
+    </footer>
+
+    <script src="../static/scripts/navbar-script.js"></script>
+    <script src="../static/scripts/search-script.js"></script>
+</body>
+</html>

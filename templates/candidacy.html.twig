@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postuler</title>
+    <link rel="stylesheet" href="../static/styles/candidacy-style.css">
+    <link rel="stylesheet" href="../static/styles/global-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+    <h1>Postuler à l'offre de stage : Développeur Web</h1>
+
+    <div class="summary-section">
+        <div class="summary-grid">
+            <div class="summary-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="summary-content">
+                    <span class="summary-label">Localisation</span>
+                    <span class="summary-value">Rouen</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <i class="fa-solid fa-building"></i>
+                <div class="summary-content">
+                    <span class="summary-label">Entreprise</span>
+                    <span class="summary-value">CESI</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <i class="fa-solid fa-file-lines"></i>
+                <div class="summary-content">
+                    <span class="summary-label">Type</span>
+                    <span class="summary-value">Stage</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <i class="fas fa-clock"></i>
+                <div class="summary-content">
+                    <span class="summary-label">Posté il y a</span>
+                    <span class="summary-value">16 jours</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <i class="fa-solid fa-euro-sign"></i>
+                <div class="summary-content">
+                    <span class="summary-label">Rémunération</span>
+                    <span class="summary-value">800€/mois</span>
+                </div>
+            </div>
+            <div class="summary-item">
+                <i class="fa-solid fa-calendar-days"></i>
+                <div class="summary-content">
+                    <span class="summary-label">Durée</span>
+                    <span class="summary-value">6 mois</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form action="">
+        <div class="cv-section">
+            <h2>Votre CV</h2>
+            <iframe src="images/CV.pdf"></iframe>
+            <div class="cv-upload-container">
+                <label for="cv-upload" class="cv-upload-label">
+                    <i class="fas fa-upload"></i> Modifier son CV
+                </label>
+                <input type="file" id="cv-upload" class="cv-upload-input" accept=".pdf,.doc,.docx">
+            </div>
+        </div>
+    
+        <div class="message-section">
+            <details>
+                <summary>Laissez un message au recruteur</summary>
+                <textarea id="messageTextarea" maxlength="200" placeholder="Écrivez votre message ici... (200 caractères max)"></textarea>
+                <p id="charCount">200 caractères restants</p>
+            </details>
+        </div>
+    
+        <div class="privacy-policy">
+            <label>
+                <input type="checkbox" required>
+                J'accepte les <a href="privacy-policy.html">politiques de confidentialité</a>
+            </label>
+        </div>
+    
+        <button class="btn-apply" id="applyButton">
+            Postuler
+            <div class="loader"></div>
+        </button>
+    </form>
+
+    <div class="popup" id="popup">
+        <p>Formulaire envoyé avec succès !</p>
+    </div>
+    
+    <script src="../static/scripts/candidacy-script.js"></script>
+</body>
+</html>

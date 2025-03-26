@@ -1,0 +1,259 @@
+/* ======================== */
+/* Styles de base */
+/* ======================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ======================== */
+/* Page de présentation d'entreprise */
+/* ======================== */
+.company-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.company-logo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.company-info h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.company-slogan {
+    font-size: 18px;
+    color: var(--gray);
+    margin-bottom: 20px;
+}
+
+.company-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.rating-stars {
+    color: var(--primary-color); /* Couleur des étoiles */
+}
+
+.rating-value {
+    font-weight: bold;
+    color: #333;
+}
+
+.rating-count {
+    color: #666;
+}
+
+.company-links {
+    display: flex;
+    gap: 15px;
+}
+
+.company-links a {
+    text-decoration: none;
+    color: var(--primary-color);;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.company-links a:hover {
+    color: var(--black);;
+}
+
+/* ======================== */
+/* Détails de l'entreprise */
+/* ======================== */
+.company-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.company-details h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.detail-item i {
+    font-size: 24px;
+    color: var(--primary-color);;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.detail-value {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* ======================== */
+/* Avis des utilisateurs */
+/* ======================== */
+.company-reviews {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.company-reviews h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-item {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.review-rating {
+    color: var(--primary-color);;
+}
+
+.review-content {
+    color: #555;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* ======================== */
+/* Formulaire d'évaluation */
+/* ======================== */
+.company-rating-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.company-rating-form h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.rating-stars-input {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.rating-stars-input .star {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.rating-stars-input .star:hover,
+.rating-stars-input .star.active {
+    color: var(--primary-color);;
+}
+
+#rating-form textarea {
+    width: 100%;
+    max-width: -webkit-fill-available;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--black);;
+}

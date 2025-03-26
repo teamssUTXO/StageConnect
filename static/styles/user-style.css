@@ -1,0 +1,313 @@
+body {
+    text-align: unset !important;
+}
+
+/* ======================== */
+/* Container */
+/* ======================== */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ======================== */
+/* Sidebar */
+/* ======================== */
+.sidebar {
+    width: 250px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+}
+
+.sidebar ul li:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.sidebar ul li.active {
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: bold;
+}
+
+/* ======================== */
+/* Content */
+/* ======================== */
+.content {
+    flex: 1;
+    padding: 40px;
+    background: var(--secondary-color);
+}
+
+.content-section {
+    display: none;
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* ======================== */
+/* Profil Section */
+/* ======================== */
+.div-pdp {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pdp-user {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    object-fit: cover;
+}
+
+.pdp-modify {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.div-info {
+    margin-bottom: 15px;
+}
+
+.info-title {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+
+.div-info div[contenteditable="true"] {
+    padding: 10px;
+    border: 1px solid var(--gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--black);
+    transition: border-color var(--transition);
+}
+
+.div-info div[contenteditable="true"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.div-para {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 15px;
+}
+
+.separator {
+    height: 1px;
+    background: var(--gray);
+    margin: 20px 0;
+}
+
+/* ======================== */
+/* Buttons */
+/* ======================== */
+.buttonLogout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--black);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all var(--transition);
+}
+
+.buttonLogout:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+
+.signLogout svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--white);
+}
+
+.changeMDP {
+    background: var(--primary-color);
+    color: var(--black);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all var(--transition);
+}
+
+.changeMDP:hover {
+    background: #f5c542;
+    transform: scale(1.05);
+}
+
+/* ======================== */
+/* CV Input Container */
+/* ======================== */
+.cv-input-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cv-input-label {
+    display: inline-block;
+    background: var(--primary-color);
+    color: var(--black);
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cv-input-label:hover {
+    background: #f5c542;
+    transform: scale(1.05);
+}
+
+.cv-input-label:active {
+    transform: scale(0.95);
+}
+
+.cv-input {
+    display: none; /* Cache l'input par défaut */
+}
+
+/* ======================== */
+/* CV Preview */
+/* ======================== */
+.cv-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cv-preview a {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.cv-preview a:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+
+.cv-preview a:active {
+    transform: scale(0.95);
+}
+
+/* Icône pour le lien de téléchargement */
+.cv-preview a i {
+    margin-right: 8px;
+}
+
+/* ======================== */
+/* Tables */
+/* ======================== */
+.pilots-table, .promotions-table, .students-table, .companies-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.pilots-table th, .promotions-table th, .students-table th, .companies-table th {
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+}
+
+.pilots-table td, .promotions-table td, .students-table td, .companies-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray);
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.btn.modify, .btn.add-student {
+    background: var(--primary-color);
+    color: var(--black);
+}
+
+.btn.delete, .btn.block {
+    background: #ff4d4d;
+    color: var(--white);
+}
+
+.btn.add, .btn.create {
+    background: var(--black);
+    color: var(--white);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* ======================== */
+/* Responsive Design */
+/* ======================== */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .div-pdp img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .buttonLogout, .changeMDP {
+        width: 100%;
+        justify-content: center;
+    }
+}

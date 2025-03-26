@@ -1,0 +1,127 @@
+/* ======================== */
+/* Conteneur principal */
+/* ======================== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--secondary-color); /* Utilisation de la couleur secondaire du site */
+}
+
+/* ======================== */
+/* Carte de connexion */
+/* ======================== */
+.login-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+}
+
+/* Logo */
+.login-logo img {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+/* Titre */
+.login-title {
+    font-size: 1.8rem;
+    color: var(--black);
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Formulaire */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color var(--transition);
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Lien mot de passe oublié */
+.forgot-password {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.forgot-password:hover {
+    color: var(--black);
+    text-decoration: underline;
+}
+
+/* Bouton de connexion */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    transform: scale(1.02);
+}
+
+.login-btn:active {
+    transform: scale(0.98);
+}
+
+/* Lien vers l'inscription */
+.register-link {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-top: 15px;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.register-link a:hover {
+    color: var(--black);
+    text-decoration: underline;
+}
