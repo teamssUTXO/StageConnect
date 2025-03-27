@@ -35,7 +35,7 @@ services:
       - PMA_USER=root # Utilisateur MySQL
       - PMA_PASSWORD=root123 # Mot de passe MySQL
     depends_on:
-      - 
+      - db 
 
 volumes:
   db_data:
