@@ -15,26 +15,28 @@
                 <img src="../static/images/Stage3.png" alt="Stage Connect Logo">
             </div>
 
-            <form class="login-form">
+            <form class="login-form" method="POST" action="/login">
                 <div class="form-group">
                     <label for="email">Adresse mail</label>
-                    <input type="email" id="email" placeholder="Entrez votre adresse mail" required>
+                    <input type="email" name="mail" id="email" placeholder="Entrez votre adresse mail" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
+                    <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe" required>
                 </div>
 
                 <button type="submit" class="login-btn">
                     <i class="fas fa-sign-in-alt"></i> Se connecter
                 </button>
             </form>
-            <div class="error-div">
-                <!--Messages d'erreurs-->
-            </div>
+            {% if error %}
+                <div class="error-div">
+                    <p>{{error}}</p>
+                </div>
+            {% endif %}
         </div>
     </div>
-    <script src="../static/scripts/login-script.js"></script>
+    {# <script src="../static/scripts/login-script.js"></script> #}
 </body>
 
 </html>

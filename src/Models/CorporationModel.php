@@ -4,6 +4,8 @@ use App\Models\Model;
 
 class CorporationModel extends Model {
 
+    protected $table = "Corporation";
+
     public function getEntreprises(): array{
         return [
             ['nom' => 'TechCorp', 'secteur' => 'Technologie', 'ville' => 'Paris'],

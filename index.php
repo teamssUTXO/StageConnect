@@ -3,6 +3,7 @@
 // Inclut l'autoloader de Composer
 require_once __DIR__ . '/vendor/autoload.php';
 
+use App\Controllers\AuthentificationController;
 use App\Controllers\DirController;
 
 $host = 'db'; 
@@ -31,11 +32,30 @@ if ($uri == '' || $uri == '/') {
 }
 
 $controller = new DirController($twig);
+$controllerauth = new AuthentificationController($twig);
+
 
 switch ($uri) {
     case '/':
-        $controller->loginPage();
+        session_start();
+        if (isset($_SESSION['user'])) {
+            // L'utilisateur est déjà connecté, redirige vers /home
+            $controller->homePage();
+            exit;
+        } else {
+            // Sinon, montre la page de login
+            $controller->loginPage();
+        }
         break;
+
+    case '/login':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controllerauth->login(); // traite le formulaire
+        } else {
+            $controller->loginPage(); // affiche la page de login si GET
+        }
+        break;
+        
     // case '/about':
     //     $controller->aboutPage();
     //     break;

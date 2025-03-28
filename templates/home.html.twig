@@ -22,7 +22,13 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-buttons">
-                <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> Se connecter</button>
+            {% if user.Id_Role == 3 %}
+                <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> admin: {{user.name}}</button>
+            {% elseif user.Id_Role == 2 %}
+                <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> pilote: {{user.name}}</button>
+            {% else %}
+                <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> {{user.name}}</button>
+            {% endif %}
             </div>
             <div class="burger-menu-button">
                 <i class="fa-solid fa-bars"></i>
@@ -47,7 +53,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Trouve le qui lance ta carrière !</h1>
+            <h1>Trouve le stage qui lance ta carrière !</h1>
             <p>Plus de <span id="job-count">2</span> jobs vous attendent !</p>
             <div class="search-container">
                 <input type="text" placeholder="Cherchez un Stage par intitulé de poste, mot-clé ou entreprise">
