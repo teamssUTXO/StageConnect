@@ -3,6 +3,8 @@
 // Inclut l'autoloader de Composer
 require_once __DIR__ . '/vendor/autoload.php';
 
+use App\Controllers\DirController;
+
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
 $username = 'root'; 
@@ -17,9 +19,25 @@ try {
 
 // Charge Twig
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
-$twig = new \Twig\Environment($loader);
+$twig = new \Twig\Environment($loader, [
+    'debug' => true
+]);
 
+$uri = $_SERVER['REQUEST_URI'];
+$uri = explode('?', $uri)[0];
+$uri = str_replace('/index.php', '', $uri);
+if ($uri == '' || $uri == '/') {
+    $uri = '/';
+}
 
-$template = $twig->load('home.html.twig');
+$controller = new DirController($twig);
 
-echo $template->render();
+switch ($uri) {
+    case '/':
+        $controller->WelcomePage();
+        break;
+
+    default:
+        echo '404 Not Found';
+        break;
+}
