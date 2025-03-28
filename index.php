@@ -33,8 +33,28 @@ if ($uri == '' || $uri == '/') {
 $controller = new DirController($twig);
 
 switch ($uri) {
-    case '/':
+        case '/':
         $controller->WelcomePage();
+        break;
+
+        case '/search-offer':
+            $controller->OffersPage(); 
+        break;
+
+        case '/search-company':
+            $controller->CompaniesPage();
+        break;
+
+        case '/about':
+            $controller->AboutPage();
+        break;
+
+        case '/contact':
+            $controller->ContactPage();
+        break;
+
+        case '/login':
+            $controller->LoginPage();
         break;
 
     default:

@@ -1,25 +1,60 @@
-<?php 
+<?php
 namespace App\Controllers;
 
-use App\Models\CorporationModel;
+class DirController
+{
+    private $twig;
 
-class DirController extends Controller {
-
-    public function __construct($templateEngine) {
-        $this->model = new CorporationModel();
-        $this->templateEngine = $templateEngine;
+    public function __construct($twig)
+    {
+        $this->twig = $twig;
     }
 
-    public function welcomePage() {
-        echo $this->templateEngine->render('home.html.twig');
-    }    
-
-
-    public function offerPage() {
-        echo $this->templateEngine->render('offres.html.twig');
+    public function WelcomePage()
+    {
+        echo $this->twig->render('home.html.twig', [
+            'title' => 'Accueil',
+            // Ajoutez ici les variables nécessaires pour la vue
+        ]);
     }
 
-    public function uploadPage() {
+    public function OffersPage()
+{
+    echo $this->twig->render('search-offer.html.twig', [
+        'title' => 'Rechercher des offres de stage',
+        // Ajoutez ici des données dynamiques si nécessaire
+    ]);
+}
 
+    public function CompaniesPage()
+    {
+        echo $this->twig->render('search-company.html.twig', [
+            'title' => 'Rechercher des entreprises',
+            // Ajoutez ici les données dynamiques nécessaires pour la vue
+        ]);
+    }
+
+    public function AboutPage()
+    {
+        echo $this->twig->render('about.html.twig', [
+            'title' => 'À propos',
+            // Ajoutez ici les données dynamiques nécessaires pour la vue
+        ]);
+    }
+
+    public function ContactPage()
+    {
+        echo $this->twig->render('contact.html.twig', [
+            'title' => 'Contact',
+            // Ajoutez ici les données dynamiques nécessaires pour la vue
+        ]);
+    }
+
+    public function LoginPage()
+    {
+        echo $this->twig->render('login.html.twig', [
+            'title' => 'Connexion',
+            // Ajoutez ici les données dynamiques nécessaires pour la vue
+        ]);
     }
 }
