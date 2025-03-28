@@ -16,12 +16,7 @@ class DirController extends Controller {
         $selectedCategory = isset($_GET['category']) ? $_GET['category'] : 'all';
 
         $filteredCompanies = $selectedCategory === 'all' ? $entreprises : array_filter($entreprises, function($entreprise) use ($selectedCategory) {
-            return $entreprise['category'] === $selectedCategory;
-        });
-
-        // Limiter à 10 entreprises
-        $filteredCompanies = $selectedCategory === 'all' ? $entreprises : array_filter($entreprises, function($entreprise) use ($selectedCategory) {
-            return $entreprise['category'] === $selectedCategory; // Assurez-vous que la clé est 'category' dans les données
+            return $entreprise['secteur'] === $selectedCategory;
         });
 
         $filteredCompanies = array_slice($filteredCompanies, 0, 12);
@@ -31,7 +26,7 @@ class DirController extends Controller {
             'entreprises' => $filteredCompanies,
             'selectedCategory' => $selectedCategory
         ]);
-    }    
+    }   
 
 
     // public function offerPage() {

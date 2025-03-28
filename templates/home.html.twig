@@ -76,14 +76,18 @@
                 <button class="category-button {% if selectedCategory == 'Mode' %}active{% endif %}" data-category="Mode">Mode</button>
             </div>
             <div class="menu-items">
-                {% for entreprise in entreprises %}
-                    <div class="company-card">
-                        <img src="{{ entreprise.image }}" alt="{{ entreprise.nom }}">
-                        <h3>{{ entreprise.nom }}</h3>
-                        <p>{{ entreprise.ville }}</p>
-                        <span class="category">{{ entreprise.secteur }}</span>
-                    </div>
-                {% endfor %}
+                {% if entreprises %}
+                    {% for entreprise in entreprises %}
+                        <div class="company-card">
+                            <img src="{{ entreprise.image }}" alt="{{ entreprise.nom }}">
+                            <h3>{{ entreprise.nom }}</h3>
+                            <p>{{ entreprise.ville }}</p>
+                            <span class="category">{{ entreprise.secteur }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucune entreprise dans ce secteur.</p>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -141,6 +145,6 @@
     </footer>
 
     <script src="../static/scripts/navbar-script.js"></script>
-    <script src="../static/scripts/home-script.js"></script>
+    <script src="../static/scripts/home.js"></script>
 </body>
 </html>
