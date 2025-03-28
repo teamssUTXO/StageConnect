@@ -5,7 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Controllers\DirController;
 
-$host = '20.126.97.69'; 
+$host = 'db'; 
 $dbname = 'stageconnectbdd'; 
 $username = 'root'; 
 $password = 'root123'; 
@@ -34,7 +34,7 @@ $controller = new DirController($twig);
 
 switch ($uri) {
     case '/':
-        $controller->homePage();
+        $controller->loginPage();
         break;
     // case '/about':
     //     $controller->aboutPage();

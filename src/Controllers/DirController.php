@@ -28,6 +28,10 @@ class DirController extends Controller {
         ]);
     }   
 
+    public function loginPage() {
+        echo $this->templateEngine->render('login.html.twig');
+    }  
+
 
     // public function offerPage() {
     //     echo $this->templateEngine->render('offres.html.twig');
