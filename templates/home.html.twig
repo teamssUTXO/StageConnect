@@ -19,7 +19,7 @@
                 <li><a href="search-offer.html">Offres</a></li>
                 <li><a href="search-company.html">Entreprises</a></li>
                 <li><a href="about.html">À propos</a></li>
-                <li><a href="contact.html">Contaccxcccct</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-buttons">
                 <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> Se connecter</button>
@@ -66,17 +66,24 @@
             <p>Découvrez leur histoire, rencontrez leurs équipes, comprenez leur culture.</p>
         </div>
         <div class="menu-container">
-            <div class="menu-categories">
-                <button class="category-button active" data-category="all">À découvrir</button>
-                <button class="category-button" data-category="Tech">Tech</button>
-                <button class="category-button" data-category="Economie">Economie collaborative</button>
-                <button class="category-button" data-category="Energie">Energie</button>
-                <button class="category-button" data-category="Media">Média</button>
-                <button class="category-button" data-category="Association">Association</button>
-                <button class="category-button" data-category="Mode">Mode</button>
+            <div class="category-filter">
+                <button class="category-button {% if selectedCategory == 'all' %}active{% endif %}" data-category="all">À découvrir</button>
+                <button class="category-button {% if selectedCategory == 'Tech' %}active{% endif %}" data-category="Tech">Tech</button>
+                <button class="category-button {% if selectedCategory == 'Economie' %}active{% endif %}" data-category="Economie">Economie</button>
+                <button class="category-button {% if selectedCategory == 'Energie' %}active{% endif %}" data-category="Energie">Energie</button>
+                <button class="category-button {% if selectedCategory == 'Media' %}active{% endif %}" data-category="Media">Media</button>
+                <button class="category-button {% if selectedCategory == 'Association' %}active{% endif %}" data-category="Association">Association</button>
+                <button class="category-button {% if selectedCategory == 'Mode' %}active{% endif %}" data-category="Mode">Mode</button>
             </div>
             <div class="menu-items">
-                <!-- Les cartes d'entreprises seront insérées ici dynamiquement -->
+                {% for entreprise in entreprises %}
+                    <div class="company-card">
+                        <img src="{{ entreprise.image }}" alt="{{ entreprise.nom }}">
+                        <h3>{{ entreprise.nom }}</h3>
+                        <p>{{ entreprise.ville }}</p>
+                        <span class="category">{{ entreprise.secteur }}</span>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>
