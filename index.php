@@ -5,7 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Controllers\DirController;
 
-$host = 'db'; 
+$host = '20.126.97.69'; 
 $dbname = 'stageconnectbdd'; 
 $username = 'root'; 
 $password = 'root123'; 
