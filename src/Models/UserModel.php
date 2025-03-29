@@ -17,37 +17,33 @@ class UserModel extends Model {
     }
 
  
-    public function verifyCredentials(string $email, string $password): bool {
-        $user = $this->getUserByEmail($email);
+    // public function verifyCredentials(string $email, string $password): bool {
+    //     $user = $this->getUserByEmail($email);
         
-        if (!$user) {
-            return false;
-        }
+    //     if (!$user) {
+    //         return false;
+    //     }
 
-        return password_verify($password, $user->password);
-    }
+    //     return password_verify($password, $user->password);
+    // }
 
-    /**
-     * Crée un nouvel utilisateur
-     */
-    public function createUser(string $email, string $password, array $additionalData = []): bool {
-        $data = array_merge($additionalData, [
-            'email' => $email,
-            'password' => password_hash($password),
-            'created_at' => date('Y-m-d H:i:s')
-        ]);
+    
+    // public function createUser(string $email, string $password, array $additionalData = []): bool {
+    //     $data = array_merge($additionalData, [
+    //         'email' => $email,
+    //         'password' => password_hash($password),
+    //         'created_at' => date('Y-m-d H:i:s')
+    //     ]);
 
-        return $this->connexion->create($this->table, $data);
-    }
+    //     return $this->connexion->create($this->table, $data);
+    // }
 
-    /**
-     * Met à jour le mot de passe d'un utilisateur
-     */
-    public function updatePassword(int $userId, string $newPassword): bool {
-        return $this->connexion->update(
-            $this->table,
-            ['password' => password_hash($newPassword)],
-            ['id' => $userId]
-        );
-    }
+
+    // public function updatePassword(int $userId, string $newPassword): bool {
+    //     return $this->connexion->update(
+    //         $this->table,
+    //         ['password' => password_hash($newPassword)],
+    //         ['id' => $userId]
+    //     );
+    // }
 }

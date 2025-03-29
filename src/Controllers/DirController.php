@@ -5,8 +5,10 @@ use App\Models\CorporationModel;
 
 class DirController extends Controller {
 
-    public function __construct($templateEngine) {
-        $this->model = new CorporationModel();
+    protected $modelcorporation = null;
+
+    public function __construct($templateEngine) { 
+        $this->modelcorporation = new CorporationModel();
         $this->templateEngine = $templateEngine;
     }
 
@@ -28,15 +30,55 @@ class DirController extends Controller {
         // ]);
 
         $user = $_SESSION['user'] ?? null;
+
+        $companies = $this->modelcorporation->getAll();
         
         echo $this->templateEngine->render("pages/home.html.twig", [
-            "user"=> $user
+            "user"=> $user,
+            "companies" => $companies
         ]);
     }   
 
     public function loginPage() {
-        echo $this->templateEngine->render('login.html.twig');
+        echo $this->templateEngine->render('pages/login.html.twig');
     }  
+
+    public function aboutPage() {
+        echo $this->templateEngine->render('pages/about.html.twig');
+    }
+
+    public function cguPage() {
+        echo $this->templateEngine->render('pages/cgu.html.twig');
+    }
+
+    public function contactPage() {
+        echo $this->templateEngine->render('pages/contact.html.twig');
+    }
+
+    public function cookiesPolicyPage() {
+        echo $this->templateEngine->render('pages/cookies-policy.html.twig');
+    }
+
+    public function legalNoticesPage() {
+        echo $this->templateEngine->render('pages/legal-notices.html.twig');
+    }
+
+    public function privacyPolicyPage() {
+        echo $this->templateEngine->render('pages/privacy-policy.html.twig');
+    }
+
+
+    public function searchOfferPage() {
+        echo $this->templateEngine->render('pages/search-offer.html.twig');
+    }
+
+    public function searchCompanyPage() {
+        echo $this->templateEngine->render('pages/search-company.html.twig');
+    }
+
+    public function accountPage() {
+        echo $this->templateEngine->render('pages/user.html.twig');
+    }
 
 
     // public function offerPage() {

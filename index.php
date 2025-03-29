@@ -39,62 +39,110 @@ switch ($uri) {
     case '/':
         session_start();
         if (isset($_SESSION['user'])) {
-            // L'utilisateur est déjà connecté, redirige vers /home
             $controller->homePage();
             exit;
         } else {
-            // Sinon, montre la page de login
             $controller->loginPage();
         }
         break;
 
     case '/login':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controllerauth->login(); // traite le formulaire
+            $controllerauth->login(); 
         } else {
-            $controller->loginPage(); // affiche la page de login si GET
+            $controller->loginPage();
         }
         break;
         
-    // case '/about':
-    //     $controller->aboutPage();
-    //     break;
-    // case '/candidacy':
-    //     $controller->candidacyPage();
-    //     break;
-    // case '/cgu':
-    //     $controller->cguPage();
-    //     break;
-    // case '/company':
-    //     $controller->companyPage();
-    //     break;
-    // case '/contact':
-    //     $controller->contactPage();
-    //     break;
-    // case '/cookies-policy':
-    //     $controller->cookiesPolicyPage();
-    //     break;
-    // case '/legal-notices':
-    //     $controller->legalNoticesPage();
-    //     break;
-    // case '/login':
-    //     $controller->loginPage();
-    //     break;
-    // case '/privacy-policy':
-    //     $controller->privacyPolicyPage();
-    //     break;
-    // case '/search':
-    //     $controller->searchOfferPage(); // Ca doit rediriger vers la page avec l'uri search-offer
-    //     break;
-    // case '/search-offer':
-    //     $controller->searchCompanyPage(); 
-    //     break;
-    // case '/account':
-    //     $controller->accountPage();
-    //     break;
-    // case '/legal-notices':
-    //     $controller->legalNoticesPage();
-    //     break;
+    case '/about':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->aboutPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/cgu':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->cguPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/contact':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->contactPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/cookies-policy':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->cookiesPolicyPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/legal-notices':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->legalNoticesPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/privacy-policy':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->privacyPolicyPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/search':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->searchOfferPage(); // Ca doit rediriger vers la page avec l'uri search-offer
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/search-company':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->searchCompanyPage(); 
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/account':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->accountPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
 
     default:
         echo '404 Not Found';
