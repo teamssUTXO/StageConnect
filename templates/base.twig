@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}StageConnect{% endblock %}</title>
+    <link rel="stylesheet" href="../../static/styles/global-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    {% block style %}{% endblock %}
+</head>
+<body>
+    {% include 'partials/header.twig' %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    {% include 'partials/footer.twig' %}
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.twig' %}
+
+{% block title %}Accueil - StageConnect{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="../../static/styles/home-style.css">
+{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Trouve le stage qui lance ta carrière !</h1>
+            <p>Plus de <span id="job-count">2</span> jobs vous attendent !</p>
+            <div class="search-container">
+                <input type="text" placeholder="Cherchez un Stage par intitulé de poste, mot-clé ou entreprise">
+                <button class="btn-search" onclick="window.location.href='search-offer.html'"><i class="fa-solid fa-search"></i></button>
+            </div>
+            <p class="opportunity-text">Votre profil intéresse des entreprises. Montrez-leur votre motivation !</p>
+            <div class="button-container">
+                <button class="btn-opportunity">Recevoir des opportunités</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="companies">
+        <div class="companies-header">
+            <h2>Explorez les entreprises</h2>
+            <p>Découvrez leur histoire, rencontrez leurs équipes, comprenez leur culture.</p>
+        </div>
+        <div class="menu-container">
+            <div class="category-filter">
+                <button class="category-button {% if selectedCategory == 'all' %}active{% endif %}" data-category="all">À découvrir</button>
+                <button class="category-button {% if selectedCategory == 'Tech' %}active{% endif %}" data-category="Tech">Tech</button>
+                <button class="category-button {% if selectedCategory == 'Economie' %}active{% endif %}" data-category="Economie">Economie</button>
+                <button class="category-button {% if selectedCategory == 'Energie' %}active{% endif %}" data-category="Energie">Energie</button>
+                <button class="category-button {% if selectedCategory == 'Media' %}active{% endif %}" data-category="Media">Media</button>
+                <button class="category-button {% if selectedCategory == 'Association' %}active{% endif %}" data-category="Association">Association</button>
+                <button class="category-button {% if selectedCategory == 'Mode' %}active{% endif %}" data-category="Mode">Mode</button>
+            </div>
+            <div class="menu-items">
+                {% if entreprises %}
+                    {% for entreprise in entreprises %}
+                        <div class="company-card">
+                            <img src="{{ entreprise.image }}" alt="{{ entreprise.nom }}">
+                            <h3>{{ entreprise.nom }}</h3>
+                            <p>{{ entreprise.ville }}</p>
+                            <span class="category">{{ entreprise.secteur }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucune entreprise dans ce secteur.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+    <script src="../static/scripts/home.js"></script>
+{% endblock %}

@@ -29,7 +29,7 @@ class DirController extends Controller {
 
         $user = $_SESSION['user'] ?? null;
         
-        echo $this->templateEngine->render("home.html.twig", [
+        echo $this->templateEngine->render("pages/home.html.twig", [
             "user"=> $user
         ]);
     }   

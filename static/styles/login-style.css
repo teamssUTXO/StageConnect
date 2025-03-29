@@ -55,7 +55,6 @@
 }
 
 .form-group input {
-    width: 90%;
     padding: 10px;
     border: 1px solid var(--gray);
     border-radius: var(--border-radius);
@@ -128,4 +127,5 @@
 
 .error-div p {
     color: red;
+    margin-bottom: 0;
 }
