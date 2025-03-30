@@ -3,8 +3,9 @@
 // Inclut l'autoloader de Composer
 require_once __DIR__ . '/vendor/autoload.php';
 
-use App\Controllers\AuthentificationController;
 use App\Controllers\DirController;
+use App\Controllers\AuthentificationController;
+use App\Controllers\OfferController;
 
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
@@ -33,6 +34,7 @@ if ($uri == '' || $uri == '/') {
 
 $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
+$controlleroffer = new OfferController($twig);
 
 
 switch ($uri) {
@@ -117,8 +119,11 @@ switch ($uri) {
     case '/search':
         session_start();
         if (isset($_SESSION['user'])) {
-            $controller->searchOfferPage(); // Ca doit rediriger vers la page avec l'uri search-offer
-            exit;
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $controlleroffer->search(); 
+            } else {
+                $controller->searchOfferPage();
+            }
         } else {
             $controller->loginPage();
         }

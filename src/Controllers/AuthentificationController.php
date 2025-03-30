@@ -27,12 +27,12 @@ class AuthentificationController extends Controller {
               header('Location: /');
 
           } else {
-              echo $this->templateEngine->render('login.html.twig', [
+              echo $this->templateEngine->render('pages/login.html.twig', [
                 'error' => 'Email ou mot de passe incorrect.'
               ]);
           }
       } else {
-          echo $this->templateEngine->render('login.html.twig');
+          echo $this->templateEngine->render('pages/login.html.twig');
       }
     }
 

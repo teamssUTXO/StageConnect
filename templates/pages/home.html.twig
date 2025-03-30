@@ -10,11 +10,13 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Trouve le stage qui lance ta carrière !</h1>
-            <p>Plus de <span id="job-count">2</span> jobs vous attendent !</p>
-            <div class="search-container">
-                <input type="text" placeholder="Cherchez un Stage par intitulé de poste, mot-clé ou entreprise">
-                <button class="btn-search" onclick="window.location.href='search-offer.html'"><i class="fa-solid fa-search"></i></button>
-            </div>
+            <p>Plus de <span id="job-count">{{count}}</span> jobs vous attendent !</p>
+            <form class="search-container" method="GET" action="/search">
+                <input type="text" name="q" placeholder="Cherchez un Stage par intitulé de poste, mot-clé ou entreprise">
+                <button class="btn-search" type="submit">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </form>
             <p class="opportunity-text">Votre profil intéresse des entreprises. Montrez-leur votre motivation !</p>
             <div class="button-container">
                 <button class="btn-opportunity">Recevoir des opportunités</button>

@@ -2,10 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuItems = document.getElementById("menu-items");
     const categoryButtons = document.querySelectorAll(".category-button");
 
-    // Affiche toutes les entreprises au début
     displayCompanies(companies);
 
-    // Clic sur les filtres
     categoryButtons.forEach((button) => {
         button.addEventListener("click", function () {
             categoryButtons.forEach((btn) => btn.classList.remove("active"));
@@ -17,7 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 ? companies
                 : companies.filter(company => company.sector === category);
 
-            displayCompanies(filteredCompanies);
+            if (filteredCompanies.length === 0) {
+                menuItems.innerText = "Aucune entreprise trouvée.";
+            } else {
+                 displayCompanies(filteredCompanies);
+            }
+                
         });
     });
 

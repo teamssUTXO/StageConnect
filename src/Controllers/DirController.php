@@ -2,14 +2,18 @@
 namespace App\Controllers;
 
 use App\Models\CorporationModel;
+use App\Models\OfferModel;
 
 class DirController extends Controller {
 
     protected $modelcorporation = null;
+    protected $modeloffer = null;
 
     public function __construct($templateEngine) { 
         $this->modelcorporation = new CorporationModel();
+        $this->modeloffer = new OfferModel();
         $this->templateEngine = $templateEngine;
+        
     }
 
     public function homePage() {
@@ -32,8 +36,10 @@ class DirController extends Controller {
         $user = $_SESSION['user'] ?? null;
 
         $companies = $this->modelcorporation->getAll();
+        $offers = $this->modeloffer->getAll();
         
         echo $this->templateEngine->render("pages/home.html.twig", [
+            'count' => $offers ? count($offers) : 0,
             "user"=> $user,
             "companies" => $companies
         ]);
@@ -44,40 +50,76 @@ class DirController extends Controller {
     }  
 
     public function aboutPage() {
-        echo $this->templateEngine->render('pages/about.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/about.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function cguPage() {
-        echo $this->templateEngine->render('pages/cgu.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/cgu.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function contactPage() {
-        echo $this->templateEngine->render('pages/contact.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/contact.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function cookiesPolicyPage() {
-        echo $this->templateEngine->render('pages/cookies-policy.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/cookies-policy.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function legalNoticesPage() {
-        echo $this->templateEngine->render('pages/legal-notices.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/legal-notices.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function privacyPolicyPage() {
-        echo $this->templateEngine->render('pages/privacy-policy.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/privacy-policy.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
 
     public function searchOfferPage() {
-        echo $this->templateEngine->render('pages/search-offer.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/search-offer.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function searchCompanyPage() {
-        echo $this->templateEngine->render('pages/search-company.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/search-company.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
     public function accountPage() {
-        echo $this->templateEngine->render('pages/user.html.twig');
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/user.html.twig', [
+            "user"=> $user,
+        ]);
     }
 
 

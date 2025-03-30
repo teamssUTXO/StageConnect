@@ -11,10 +11,10 @@
         <h1>Rechercher des offres de stage</h1>
         <p class="search-description">Trouvez le stage qui correspond à vos compétences et à vos aspirations professionnelles.</p>
 
-        <div class="search-bar" role="search">
-            <input type="text" placeholder="Rechercher des offres..." id="search-input" aria-label="Rechercher des offres de stage">
-            <button aria-label="Lancer la recherche">Rechercher</button>
-        </div>
+        <form class="search-bar" role="search" method="GET" action="/search">
+            <input type="text" name="q" placeholder="Rechercher des offres..." id="search-input" value="{{ search|e }}">
+            <button type="submit">Rechercher</button>
+        </form>
 
         <div class="filters">
             <div class="filter-group">
@@ -103,10 +103,38 @@
         </div>
 
         <div class="search-results-info">
-            <p id="results-count">5 offres trouvées</p>
+            {% if count == 0 %}
+                <p id="results-count">Aucune offre trouvée.</p>
+            {% else %}
+                <p id="results-count">{{ count }} offre{% if count > 1 %}s{% endif %} trouvée{% if count > 1 %}s{% endif %}</p>
+            {% endif %}
         </div>
 
         <div class="job-list" id="job-list">
+            {% if offers is not empty %}
+                {% for offer in offers %}
+                    <div class="job-item">
+                        <img src="{{ offer.image }}" alt="Logo de l'entreprise">
+                        <div class="job-content">
+                            <h3 class="job-title">{{ offer.title }}</h3>
+                            <div class="job-details">
+                                <p><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</p>
+                                <p><i class="fa-solid fa-building"></i> {{ offer.company }}</p>
+                                <p><i class="fas fa-clock"></i> Posté il y a {{ offer.publication_date }} jours</p>
+                            </div>
+                        </div>
+                        <div class="job-actions">
+                            <button class="apply-btn">Postuler</button>
+                            <a class="details-btn" href="/offre/{{ offer.Id_Offer }}">Voir plus de détails</a>
+                            <i class="far fa-heart favorite-icon"></i>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+
+        {# <div class="job-list" id="job-list">
             <!-- Exemple d'offre de stage -->
             <div class="job-item">
                 <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
@@ -301,7 +329,7 @@
                     <div class="skeleton-line" style="width: 60%;"></div>
                 </div>
             </div>
-        </div>
+        </div> #}
 
         <div class="no-results" id="no-results" style="display: none;">
             <p>Aucune offre ne correspond à votre recherche. Essayez de modifier vos filtres.</p>
