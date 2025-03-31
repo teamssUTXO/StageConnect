@@ -4,6 +4,8 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Controllers\DirController;
+use App\Controllers\AuthentificationController;
+use App\Controllers\OfferController;
 
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
@@ -31,50 +33,121 @@ if ($uri == '' || $uri == '/') {
 }
 
 $controller = new DirController($twig);
+$controllerauth = new AuthentificationController($twig);
+$controlleroffer = new OfferController($twig);
+
 
 switch ($uri) {
     case '/':
-        $controller->loginPage();
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->homePage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
         break;
-    // case '/about':
-    //     $controller->aboutPage();
-    //     break;
-    // case '/candidacy':
-    //     $controller->candidacyPage();
-    //     break;
-    // case '/cgu':
-    //     $controller->cguPage();
-    //     break;
-    // case '/company':
-    //     $controller->companyPage();
-    //     break;
-    // case '/contact':
-    //     $controller->contactPage();
-    //     break;
-    // case '/cookies-policy':
-    //     $controller->cookiesPolicyPage();
-    //     break;
-    // case '/legal-notices':
-    //     $controller->legalNoticesPage();
-    //     break;
-    // case '/login':
-    //     $controller->loginPage();
-    //     break;
-    // case '/privacy-policy':
-    //     $controller->privacyPolicyPage();
-    //     break;
-    // case '/search':
-    //     $controller->searchOfferPage(); // Ca doit rediriger vers la page avec l'uri search-offer
-    //     break;
-    // case '/search-offer':
-    //     $controller->searchCompanyPage(); 
-    //     break;
-    // case '/account':
-    //     $controller->accountPage();
-    //     break;
-    // case '/legal-notices':
-    //     $controller->legalNoticesPage();
-    //     break;
+
+    case '/login':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controllerauth->login(); 
+        } else {
+            $controller->loginPage();
+        }
+        break;
+        
+    case '/about':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->aboutPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/cgu':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->cguPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/contact':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->contactPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/cookies-policy':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->cookiesPolicyPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/legal-notices':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->legalNoticesPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/privacy-policy':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->privacyPolicyPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/search':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $controlleroffer->search(); 
+            } else {
+                $controller->searchOfferPage();
+            }
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/search-company':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->searchCompanyPage(); 
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
+
+    case '/account':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controller->accountPage();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
 
     default:
         echo '404 Not Found';

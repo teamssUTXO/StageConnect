@@ -1,0 +1,50 @@
+{% extends 'base.twig' %}
+
+{% block title %}Contact - StageConnect{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="../../static/styles/contact-style.css">
+{% endblock %}
+
+{% block content %}
+    <div class="contact-container">
+        <!-- Section pour envoyer un message -->
+        <div class="contact-form-section">
+            <form action="" class="contact-form">
+                <div class="contact-form-title">
+                    <h2>Envoyez-nous un message</h2>
+                    <hr>
+                </div>
+                <input type="text" name="name" placeholder="Prénom et Nom" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="Email" class="contact-inputs" required>
+                <textarea name="message" style="resize:none;" placeholder="Votre message" class="contact-inputs" rows="8" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    
+        <!-- Section pour les informations de support -->
+        <div class="contact-info-section">
+            <div class="contact-info-title">
+                <h2>Support</h2>
+                <hr>
+            </div>
+            <div class="contact-info-content">
+                <p>Nous sommes là pour vous aider ! Voici comment nous contacter :</p>
+                <ul class="contact-info-list">
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:contact@stageconnect.com">contact@stageconnect.com</a></li>
+                    <li><i class="fas fa-phone"></i> <a href="tel:+33600000000">+33 6 00 00 00 00</a></li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Rue de l'Exemple, 75000 Paris</li>
+                </ul>
+                <div class="contact-social-links">
+                    <p>Suivez-nous sur les réseaux sociaux :</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
