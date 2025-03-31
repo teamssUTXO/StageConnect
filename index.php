@@ -144,7 +144,7 @@ switch ($uri) {
         }
         break;
 
-    case '/account':
+        case '/account':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->accountPage();
@@ -153,6 +153,14 @@ switch ($uri) {
             $controller->loginPage();
         }
         break;
+
+        case '/logout': 
+            session_start();
+            session_destroy(); 
+            header('Location: /login'); 
+            exit;
+
+        
 
     default:
         echo '404 Not Found';
