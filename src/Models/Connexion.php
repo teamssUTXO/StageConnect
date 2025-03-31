@@ -53,14 +53,15 @@ class connexion {
     public function selectJoin($Table, $join = "", $conditions = []) {
         // Colonnes à sélectionner
         $sql = "SELECT * FROM $Table";
-        echo $join;
+        //echo $join;
         // Ajouter les jointures
         $sql .= " " . $join;
-        echo $sql;
+        //echo $sql;
         // Préparer les conditions
         $params = [];
         if (!empty($conditions)) {
             $where = [];
+            print_r($conditions);
             foreach ($conditions as $column => $value) {
                 $where[] = "$column = :$column";
                 $params[$column] = $value;
