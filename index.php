@@ -137,7 +137,7 @@ switch ($uri) {
                 if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                     $controllercompany->search(); 
                 } else {
-                    $controllercompany->searchOfferPage();
+                    $controller->searchCompanyPage();
                 }
         } else {
             $controller->loginPage();

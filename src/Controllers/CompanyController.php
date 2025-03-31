@@ -6,7 +6,7 @@ use App\Models\CorporationModel;
 class CompanyController extends Controller {
 
   protected $templateEngine;
-  protected $companyModel;
+  protected $corporationModel;
 
   public function __construct($templateEngine) {
     $this->templateEngine = $templateEngine;
@@ -23,10 +23,11 @@ class CompanyController extends Controller {
         $company = $this->corporationModel->searchcorporation($search);
     } else {
         // si rien dans bdd, on récupère toutes les offres (ou rien)
-        $company = null;
+        $company = $this->corporationModel->getAll();
     }
 
     echo $this->templateEngine->render('pages/search-company.html.twig', [
+      'user' => $user,
       'companies' => $company,
       'name' => $search,
       'search' => $search ?? '',
