@@ -14,7 +14,6 @@ class DirController
     {
         echo $this->twig->render('home.html.twig', [
             'title' => 'Accueil',
-            // Ajoutez ici les variables nécessaires pour la vue
         ]);
     }
 
@@ -22,7 +21,6 @@ class DirController
 {
     echo $this->twig->render('search-offer.html.twig', [
         'title' => 'Rechercher des offres de stage',
-        // Ajoutez ici des données dynamiques si nécessaire
     ]);
 }
 
@@ -30,7 +28,6 @@ class DirController
     {
         echo $this->twig->render('search-company.html.twig', [
             'title' => 'Rechercher des entreprises',
-            // Ajoutez ici les données dynamiques nécessaires pour la vue
         ]);
     }
 
@@ -38,7 +35,6 @@ class DirController
     {
         echo $this->twig->render('about.html.twig', [
             'title' => 'À propos',
-            // Ajoutez ici les données dynamiques nécessaires pour la vue
         ]);
     }
 
@@ -46,7 +42,6 @@ class DirController
     {
         echo $this->twig->render('contact.html.twig', [
             'title' => 'Contact',
-            // Ajoutez ici les données dynamiques nécessaires pour la vue
         ]);
     }
 
@@ -54,7 +49,6 @@ class DirController
     {
         echo $this->twig->render('login.html.twig', [
             'title' => 'Connexion',
-            // Ajoutez ici les données dynamiques nécessaires pour la vue
         ]);
     }
 }
