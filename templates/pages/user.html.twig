@@ -1,64 +1,31 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Utilisateur</title>
-    <link rel="stylesheet" href="../static/styles/user-style.css">
-    <link rel="stylesheet" href="../static/styles/global-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="images/Stage3.png" alt="Stage Connect Logo">
-            </div>
-            <ul class="links">
-                <li><a href="home.html">Accueil</a></li>
-                <li><a href="search-offer.html">Offres</a></li>
-                <li><a href="search-company.html">Entreprises</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-buttons">
-                <button class="btn-login" onclick="window.location.href='login.html'"><i class="fa-solid fa-user"></i> Se connecter</button>
-            </div>
-            <div class="burger-menu-button">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-        </nav>
-    
-        <div class="burger-menu">
-            <ul class="links">
-                <li class="account-burger" style="display: none;"><a href="#">Mon compte</a></li>
-                <li><a href="home.html">Accueil</a></li>
-                <li><a href="search-offer.html">Offres</a></li>
-                <li><a href="search-company.html">Entreprises</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <div class="divider"></div>
-                <button class="btn-burger-login" onclick="window.location.href='login.html'">
-                    <i class="fa-solid fa-user"></i> Se connecter
-                </button>
-            </ul>
-        </div>
-    </header>
-    
+{% extends 'base.twig' %}
+
+{% block title %}Mon compte - StageConnect{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="../../static/styles/user-style.css">
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <div class="container">
             <div class="sidebar">
                 <ul>
-                    <li data-section="settings" onclick="showSection('settings')">Mon compte</li>
+                     <li data-section="settings" onclick="showSection('settings')">Mon compte</li>
                     <li data-section="security" onclick="showSection('security')">Confidentialité</li>
                     <li data-section="whishlist" onclick="showSection('whishlist')">Whishlist</li>
                     <li data-section="candidacy" onclick="showSection('candidacy')">Mes offres</li>
-                    <li data-section="evaluation" onclick="showSection('evaluation')">Évaluation</li>
-                    <li data-section="companies-management" onclick="showSection('companies-management')">Gestion des entreprises</li>
-                    <li data-section="offers-management" onclick="showSection('offers-management')">Gestion des offres</li>
-                    <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
-                    <li data-section="pilots-management" onclick="showSection('pilots-management')">Gestion des pilotes</li>
-                    <li data-section="students-candidacy" onclick="showSection('students-candidacy')">Gestion des candidatures étudiants</li>
+                    {% if user.Id_Role == 3 %}
+                        <li data-section="evaluation" onclick="showSection('evaluation')">Évaluation</li>
+                        <li data-section="companies-management" onclick="showSection('companies-management')">Gestion des entreprises</li>
+                        <li data-section="offers-management" onclick="showSection('offers-management')">Gestion des offres</li>
+                        <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
+                        <li data-section="pilots-management" onclick="showSection('pilots-management')">Gestion des pilotes</li>
+                        <li data-section="students-candidacy" onclick="showSection('students-candidacy')">Gestion des candidatures étudiants</li>
+                    {% elseif user.Id_Role == 2 %}
+                        <li data-section="evaluation" onclick="showSection('evaluation')">Évaluation</li>
+                        <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -105,8 +72,12 @@
                 <div class="separator"></div>
 
                 <div class="div-logout">
-                    <button class="buttonLogout" onclick="logout()">
-                        <div class="signLogout"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                    <button class="buttonLogout" onclick="window.location.href='/logout'">
+                        <div class="signLogout">
+                            <svg viewBox="0 0 512 512">
+                                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                            </svg>
+                        </div>
                         <div class="textLogout">Se déconnecter</div>
                     </button>
                 </div>
@@ -373,7 +344,6 @@
             </div>
         </div>
     </div>
-    <script src="../static/scripts/navbar-script.js"></script>
+    
     <script src="../static/scripts/user-script.js"></script>
-</body>
-</html>
+{% endblock %}

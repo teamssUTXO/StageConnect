@@ -55,7 +55,6 @@
 }
 
 .form-group input {
-    width: 100%;
     padding: 10px;
     border: 1px solid var(--gray);
     border-radius: var(--border-radius);
@@ -124,4 +123,9 @@
 .register-link a:hover {
     color: var(--black);
     text-decoration: underline;
+}
+
+.error-div p {
+    color: red;
+    margin-bottom: 0;
 }

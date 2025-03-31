@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use App\Models\Model;
 
 /**
  * The base controller class for all controllers in the application.
