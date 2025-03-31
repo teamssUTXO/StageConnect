@@ -123,7 +123,7 @@
                             <h3 class="job-title">{{ offer.title }}</h3>
                             <div class="job-details">
                                 <p><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</p>
-                                <p><i class="fa-solid fa-building"></i> {{ offer.company }}</p>
+                                <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
                                 <p><i class="fas fa-clock"></i> Posté il y a {{ offer.publication_date }} jours</p>
                             </div>
                         </div>
@@ -267,77 +267,7 @@
                         <button class="candidacy-btn" onclick="window.location.href='candidacy.html'">Postuler</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Répéter pour d'autres offres -->
-            <div class="job-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="job-content">
-                    <h3 class="job-title">Développeur Front-End H/F</h3>
-                    <div class="job-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
-                        <p><i class="fa-solid fa-building"></i> CESI</p>
-                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
-                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="apply-btn">Postuler</button>
-                    <a class="details-btn">Voir plus de détails</a>
-                    <i class="far fa-heart favorite-icon"></i>
-                </div>
-            </div>
-
-            <div class="job-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="job-content">
-                    <h3 class="job-title">Développeur Front-End H/F</h3>
-                    <div class="job-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
-                        <p><i class="fa-solid fa-building"></i> CESI</p>
-                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
-                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="apply-btn">Postuler</button>
-                    <a class="details-btn">Voir plus de détails</a>
-                    <i class="far fa-heart favorite-icon"></i>
-                </div>
-            </div>
-
-            <div class="job-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="job-content">
-                    <h3 class="job-title">Développeur Front-End H/F</h3>
-                    <div class="job-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
-                        <p><i class="fa-solid fa-building"></i> CESI</p>
-                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
-                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="apply-btn">Postuler</button>
-                    <a class="details-btn">Voir plus de détails</a>
-                    <i class="far fa-heart favorite-icon"></i>
-                </div>
-            </div>
-
-            <!-- Skeleton loading pendant le chargement -->
-            <div class="job-item skeleton">
-                <div class="skeleton-image"></div>
-                <div class="skeleton-content">
-                    <div class="skeleton-line" style="width: 70%;"></div>
-                    <div class="skeleton-line" style="width: 50%;"></div>
-                    <div class="skeleton-line" style="width: 60%;"></div>
-                </div>
-            </div>
-        </div> #}
-
-        <div class="no-results" id="no-results" style="display: none;">
-            <p>Aucune offre ne correspond à votre recherche. Essayez de modifier vos filtres.</p>
-        </div>
+            </div> #}
 
         <div class="pagination">
             <button class="pagination-button">Précédent</button>
@@ -346,5 +276,5 @@
         </div>
     </div>
 
-    <script src="../../static/scripts/filters-script.js" defer></script>
+    <script src="../../static/scripts/filters-script.js"></script>
 {% endblock %}

@@ -19,33 +19,33 @@
         <div class="filters">
             <div class="filter-group">
                 <label for="location-filter">Localisation</label>
-                <select id="location-filter">
-                    <option value="" hidden selected>Choisir une localisation</option>
-                    <option value="Paris">Paris</option>
-                    <option value="Lyon">Lyon</option>
-                    <option value="Marseille">Marseille</option>
-                    <option value="Rouen">Rouen</option>
-                    <option value="Lille">Lille</option>
+                <select name="l" id="location-filter">
+                    <option value="" hidden {% if search[1] is empty %}selected{% endif %}>Choisir une localisation</option>
+                    <option value="Paris" {% if search[1] == 'Paris' %}selected{% endif %}>Paris</option>
+                    <option value="Lyon" {% if search[1] == 'Lyon' %}selected{% endif %}>Lyon</option>
+                    <option value="Marseille" {% if search[1] == 'Marseille' %}selected{% endif %}>Marseille</option>
+                    <option value="Rouen" {% if search[1] == 'Rouen' %}selected{% endif %}>Rouen</option>
+                    <option value="Lille" {% if search[1] == 'Lille' %}selected{% endif %}>Lille</option>
                 </select>
             </div>
             <div class="filter-group">
                 <label for="sector-filter">Secteur d'activité</label>
-                <select id="sector-filter">
-                    <option value="" hidden selected>Choisir un secteur</option>
-                    <option value="IT">Technologie</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Droit">Droit</option>
-                    <option value="Santé">Santé</option>
+                <select name="s" id="sector-filter">
+                    <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>
+                    <option value="IT" {% if search[2] == 'IT' %}selected{% endif %}>Technologie</option>
+                    <option value="Finance" {% if search[2] == 'Finance' %}selected{% endif %}>Finance</option>
+                    <option value="Commerce" {% if search[2] == 'Commerce' %}selected{% endif %}>Commerce</option>
+                    <option value="Droit" {% if search[2] == 'Droit' %}selected{% endif %}>Droit</option>
+                    <option value="Santé" {% if search[2] == 'Santé' %}selected{% endif %}>Santé</option>
                 </select>
             </div>
             <div class="filter-group">
                 <label for="type-filter">Type d'entreprise</label>
-                <select id="type-filter">
-                    <option value="" hidden selected>Choisir un type</option>
-                    <option value="startup">Start-up</option>
-                    <option value="sme">PME</option>
-                    <option value="large-corp">Grand groupe</option>
+                <select name="t" id="type-filter">
+                    <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un type</option>
+                    <option value="startup" {% if search[3] == 'startup' %}selected{% endif %}>Start-up</option>
+                    <option value="pme" {% if search[3] == 'pme' %}selected{% endif %}>PME</option>
+                    <option value="large-corp" {% if search[3] == 'large-corp' %}selected{% endif %}>Grand groupe</option>
                 </select>
             </div>
         </div>
@@ -73,8 +73,6 @@
             </div>
         </div>
 
-
-
       <div class="search-results-info">
             {% if count == 0 %}
                 <p id="results-count">Aucune entreprise trouvée.</p>
@@ -91,11 +89,10 @@
                     <div class="company-content">
                         <h3 class="company-name">{{ company.name }}</h3>
                         <div class="company-details">
-                            <p><i class="fas fa-clock"></i> Posté il y a {{ company.publication_date }} jours</p>
                             <p><i class="fas fa-map-marker-alt"></i> {{ company.location }}</p>
                             <p><i class="fa-solid fa-crosshairs"></i> {{ company.sector }}</p>
                             <p><i class="fa-solid fa-building"></i> {{ company.type }}</p>
-                            <p><i class="fas fa-clock"></i> {{ company.date }}</p>
+                            <p><i class="fas fa-clock"></i> Membre depuis {{ company.publication_date }}</p>
                         </div>
                     </div>
                     <div class="company-actions">
@@ -175,14 +172,12 @@
             </div>
         </div> #}
 
-        <div class="no-results" id="no-results" style="display: none;">
-            <p>Aucune entreprise ne correspond à votre recherche. Essayez de modifier vos filtres.</p>
-        </div>
-
         <div class="pagination">
             <button class="pagination-button">Précédent</button>
             <span class="pagination-page">Page 1</span>
             <button class="pagination-button">Suivant</button>
         </div>
     </div>
+
+    <script src="../../static/scripts/filters-script.js"></script>
 {% endblock %}

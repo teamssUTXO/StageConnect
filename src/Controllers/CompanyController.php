@@ -16,11 +16,12 @@ class CompanyController extends Controller {
   public function search() {
     $user = $_SESSION['user'] ?? null;
 
-    $search = $_GET['q'] ?? null;
+    $search = [$_GET['q'] ?? null, $_GET['l'] ?? null, $_GET['s'] ?? null, $_GET['t'] ?? null];
 
-    if ($search) {
+    if ($search[0] || $search[1] || $search[2] || $search[3]) {
         // on cherche les entreprises correspondant au mot-clé
         $company = $this->corporationModel->searchcorporation($search);
+        
     } else {
         // si rien dans bdd, on récupère toutes les offres (ou rien)
         $company = $this->corporationModel->getAll();

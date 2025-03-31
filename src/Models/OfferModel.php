@@ -3,9 +3,9 @@ namespace App\Models;
 use App\Models\Model;
 
 enum Joins: string {
-    case CORP = "JOIN Corporation ON Offer.Siret = Corporation.Siret;";
-    case WISHLIST = "JOIN Wishlist ON Offer.Id_Offer = Wishlist.Id_Offer JOIN Users ON Wishlist.Id_Users = Users.Id_Users;";
-    case CANDIDATE = "JOIN Candidate ON Offer.Id_Offer = Candidate.Id_Offer Join Users ON Candidate.Id_Users = Users.Id_Users;";
+    case CORP = "JOIN Corporation ON o.Siret = Corporation.Siret";
+    case WISHLIST = "JOIN Wishlist ON o.Id_Offer = Wishlist.Id_Offer JOIN Users ON Wishlist.Id_Users = Users.Id_Users";
+    case CANDIDATE = "JOIN Candidate ON o.Id_Offer = Candidate.Id_Offer Join Users ON Candidate.Id_Users = Users.Id_Users";
 }
 
 class OfferModel extends Model {
@@ -27,7 +27,7 @@ class OfferModel extends Model {
     }
 
     public function getAll(): array{
-        $result = $this->connexion->select($this->table);
+        $result = $this->connexion->selectJoin($this->table,Joins::CORP,[]);
         return $result ?? null;
     }
 
@@ -59,7 +59,7 @@ class OfferModel extends Model {
 
         $filters = array_filter($rawfilters, fn($v) => $v !== null && $v !== '');
 
-        $result = $this->connexion->selectLikeFilters($this->table, $conditions, $filters);
+        $result = $this->connexion->selectJoinWithFilters($this->table, Joins::CORP, $conditions, $filters);
 
         return $result ?? null;
     }
@@ -80,5 +80,5 @@ class OfferModel extends Model {
 }
 
 // echo Joins::WISHLIST->value;
-$offerModel = new OfferModel();  // Création d'une instance de la classe
-echo json_encode($offerModel->offerCorporation(1)); // Appel de la méthode sur l'instance
+// $offerModel = new OfferModel();  // Création d'une instance de la classe
+// echo json_encode($offerModel->offerCorporation(1)); // Appel de la méthode sur l'instance
