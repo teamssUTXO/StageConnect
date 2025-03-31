@@ -51,6 +51,6 @@ class OfferModel extends Model {
     }
 }
 
-echo Joins::WISHLIST->value;
-$offerModel = new OfferModel();  // Création d'une instance de la classe
-echo json_encode($offerModel->wishlist_user(1)); // Appel de la méthode sur l'instance
+// echo Joins::WISHLIST->value;
+// $offerModel = new OfferModel();  // Création d'une instance de la classe
+// echo json_encode($offerModel->wishlist_user(1)); // Appel de la méthode sur l'instance
