@@ -41,16 +41,20 @@ class OfferModel extends Model {
     }
 
     public function wishlist_user ($Id_User){
-        // $result = $this->connexion->selectJoin($this->table, Joins::WISHLIST->value , [
-        //     'Id_Users' => $Id_User, // A changer si on veut chercher par rapport au nom au lieu de l'id
-        // ]);
         $result = $this->connexion->selectJoin($this->table, Joins::WISHLIST->value, [
-            'Id_Users' => $Id_User
+            'Id_Users' => $Id_User // A changer si on veut chercher par rapport au nom au lieu de l'id
+        ]);
+        return $result ?? null;
+    }
+    
+    public function offerCorporation($Id_offer){
+        $result = $this->connexion->selectJoin($this->table, Joins::CORP->value, [
+            'Id_Offer' => $Id_offer
         ]);
         return $result ?? null;
     }
 }
 
 // echo Joins::WISHLIST->value;
-// $offerModel = new OfferModel();  // Création d'une instance de la classe
-// echo json_encode($offerModel->wishlist_user(1)); // Appel de la méthode sur l'instance
+$offerModel = new OfferModel();  // Création d'une instance de la classe
+echo json_encode($offerModel->offerCorporation(1)); // Appel de la méthode sur l'instance
