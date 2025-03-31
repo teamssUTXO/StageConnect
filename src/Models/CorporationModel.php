@@ -15,4 +15,12 @@ class CorporationModel extends Model {
         $result = $this->connexion->select($this->table);
         return $result ?? null;
     }
+
+    public function searchcorporation($search) {
+        $result = $this->connexion->selectLike($this->table, [
+                    'name' => $search
+        ]);
+        return $result ?? null;
+    }
+
 }
