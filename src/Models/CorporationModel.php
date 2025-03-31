@@ -17,9 +17,21 @@ class CorporationModel extends Model {
     }
 
     public function searchcorporation($search) {
-        $result = $this->connexion->selectLike($this->table, [
-                    'name' => $search
-        ]);
+
+        $conditions = [
+            'name'=> $search[0],
+        ];
+
+        $rawfilters = [
+            // 'localisation'=> $search[1],
+            // 'sector'=> $search[2],
+            // 'type'=> $search[3],
+        ];
+
+        $filters = array_filter($rawfilters, fn($v) => $v !== null && $v !== '');
+
+        $result = $this->connexion->selectLikeFilters($this->table, $conditions, $filters);
+        
         return $result ?? null;
     }
 

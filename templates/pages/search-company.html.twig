@@ -11,44 +11,47 @@
         <h1>Rechercher des entreprises</h1>
         <p class="search-description">Trouvez des entreprises qui correspondent à vos aspirations professionnelles.</p>
 
-        <form class="search-bar" role="search" method="GET" action="/search-company">
-            <input type="text" name='q' placeholder="Rechercher des entreprises..." id="search-input" aria-label="Rechercher des entreprises">
-            <button aria-label="Lancer la recherche" type="submit">Rechercher</button>
-        </form>
+        <form method="GET" action="/search-company">
+            <div class="search-bar" role="search">
+                <input type="text" name='q' placeholder="Rechercher des entreprises..." id="search-input" aria-label="Rechercher des entreprises">
+                <button aria-label="Lancer la recherche" type="submit">Rechercher</button>
+            </div>
 
-        <div class="filters">
-            <div class="filter-group">
-                <label for="location-filter">Localisation</label>
-                <select name="l" id="location-filter">
-                    <option value="" hidden {% if search[1] is empty %}selected{% endif %}>Choisir une localisation</option>
-                    <option value="Paris" {% if search[1] == 'Paris' %}selected{% endif %}>Paris</option>
-                    <option value="Lyon" {% if search[1] == 'Lyon' %}selected{% endif %}>Lyon</option>
-                    <option value="Marseille" {% if search[1] == 'Marseille' %}selected{% endif %}>Marseille</option>
-                    <option value="Rouen" {% if search[1] == 'Rouen' %}selected{% endif %}>Rouen</option>
-                    <option value="Lille" {% if search[1] == 'Lille' %}selected{% endif %}>Lille</option>
-                </select>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="location-filter">Localisation</label>
+                    <select name="l" id="location-filter">
+                        <option value="" hidden {% if search[1] is empty %}selected{% endif %}>Choisir une localisation</option>
+                        <option value="Paris" {% if search[1] == 'Paris' %}selected{% endif %}>Paris</option>
+                        <option value="Lyon" {% if search[1] == 'Lyon' %}selected{% endif %}>Lyon</option>
+                        <option value="Marseille" {% if search[1] == 'Marseille' %}selected{% endif %}>Marseille</option>
+                        <option value="Rouen" {% if search[1] == 'Rouen' %}selected{% endif %}>Rouen</option>
+                        <option value="Lille" {% if search[1] == 'Lille' %}selected{% endif %}>Lille</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sector-filter">Secteur d'activité</label>
+                    <select name="s" id="sector-filter">
+                        <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>
+                        <option value="IT" {% if search[2] == 'IT' %}selected{% endif %}>Technologie</option>
+                        <option value="Finance" {% if search[2] == 'Finance' %}selected{% endif %}>Finance</option>
+                        <option value="Commerce" {% if search[2] == 'Commerce' %}selected{% endif %}>Commerce</option>
+                        <option value="Droit" {% if search[2] == 'Droit' %}selected{% endif %}>Droit</option>
+                        <option value="Santé" {% if search[2] == 'Santé' %}selected{% endif %}>Santé</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="type-filter">Type d'entreprise</label>
+                    <select name="t" id="type-filter">
+                        <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un type</option>
+                        <option value="startup" {% if search[3] == 'startup' %}selected{% endif %}>Start-up</option>
+                        <option value="pme" {% if search[3] == 'pme' %}selected{% endif %}>PME</option>
+                        <option value="large-corp" {% if search[3] == 'large-corp' %}selected{% endif %}>Grand groupe</option>
+                    </select>
+                </div>
             </div>
-            <div class="filter-group">
-                <label for="sector-filter">Secteur d'activité</label>
-                <select name="s" id="sector-filter">
-                    <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>
-                    <option value="IT" {% if search[2] == 'IT' %}selected{% endif %}>Technologie</option>
-                    <option value="Finance" {% if search[2] == 'Finance' %}selected{% endif %}>Finance</option>
-                    <option value="Commerce" {% if search[2] == 'Commerce' %}selected{% endif %}>Commerce</option>
-                    <option value="Droit" {% if search[2] == 'Droit' %}selected{% endif %}>Droit</option>
-                    <option value="Santé" {% if search[2] == 'Santé' %}selected{% endif %}>Santé</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="type-filter">Type d'entreprise</label>
-                <select name="t" id="type-filter">
-                    <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un type</option>
-                    <option value="startup" {% if search[3] == 'startup' %}selected{% endif %}>Start-up</option>
-                    <option value="pme" {% if search[3] == 'pme' %}selected{% endif %}>PME</option>
-                    <option value="large-corp" {% if search[3] == 'large-corp' %}selected{% endif %}>Grand groupe</option>
-                </select>
-            </div>
-        </div>
+        </form>
+        
 
         <div class="reset-div">
             <button class="reset-filters">Réinitialiser les filtres</button>
@@ -82,100 +85,47 @@
         </div>
 
         <div class="company-list" id="company-list">
-        {% if companies is not empty %}
-            {% for company in companies %}
-                <div class="company-item">
-                    <img src="{{ company.image }}" alt="Logo de l'entreprise">
-                    <div class="company-content">
-                        <h3 class="company-name">{{ company.name }}</h3>
-                        <div class="company-details">
-                            <p><i class="fas fa-map-marker-alt"></i> {{ company.location }}</p>
-                            <p><i class="fa-solid fa-crosshairs"></i> {{ company.sector }}</p>
-                            <p><i class="fa-solid fa-building"></i> {{ company.type }}</p>
-                            <p><i class="fas fa-clock"></i> Membre depuis {{ company.publication_date }}</p>
+            {% if companies is not empty %}
+                {% for company in companies %}
+                    <div class="company-item">
+                        <img src="{{ company.image }}" alt="Logo de l'entreprise">
+                        <div class="company-content">
+                            <h3 class="company-name">{{ company.name }}</h3>
+                            <div class="company-details">
+                                <p><i class="fas fa-map-marker-alt"></i> {{ company.location }}</p>
+                                <p><i class="fa-solid fa-crosshairs"></i> {{ company.sector }}</p>
+                                <p><i class="fa-solid fa-building"></i> {{ company.type }}</p>
+                                <p><i class="fas fa-clock"></i> Membre depuis 
+                                    {% set diff = date().diff(date(company.creation_date)) %} {# date de création du compte sur stage connect #}
+                                    {% if diff.years > 0 %}
+                                        {{ diff.years }} an{{ diff.years > 1 ? 's' : '' }}
+                                    {% elseif diff.months > 0 %}
+                                        {{ diff.months }} mois
+                                    {% else %}
+                                        moins d'un mois
+                                    {% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="company-actions">
+                            <button class="apply-btn">Postuler</button>
+                            <a class="details-btn" href="/offre/{{ company.Id_companies }}">Voir plus de détails</a>
+                            <i class="far fa-heart favorite-icon"></i>
                         </div>
                     </div>
-                    <div class="company-actions">
-                        <button class="apply-btn">Postuler</button>
-                        <a class="details-btn" href="/offre/{{ company.Id_companies }}">Voir plus de détails</a>
-                        <i class="far fa-heart favorite-icon"></i>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-
-
-
-
-
-
-        {# <div class="company-list" id="company-list">
-            <!-- Exemple de carte d'entreprise -->
-            <div class="company-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="company-content">
-                    <h3 class="company-title">CESI</h3>
-                    <div class="company-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
-                        <p><i class="fa-solid fa-building"></i> Secteur : Éducation</p>
-                        <p><i class="fa-solid fa-users"></i> Taille : Moyenne</p>
-                        <p><i class="fas fa-clock"></i> Membre depuis 5 ans</p>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <button class="details-btn" onclick="window.location.href='company.html'">Voir plus de détails</button>
-                </div>
-            </div>
-
-            <!-- Répéter pour d'autres entreprises -->
-            <div class="company-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="company-content">
-                    <h3 class="company-title">FrameIP</h3>
-                    <div class="company-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Paris</p>
-                        <p><i class="fa-solid fa-building"></i> Secteur : Technologie</p>
-                        <p><i class="fa-solid fa-users"></i> Taille : Petite</p>
-                        <p><i class="fas fa-clock"></i> Membre depuis 3 ans</p>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <button class="details-btn" onclick="window.location.href='company.html'">Voir plus de détails</button>
-                </div>
-            </div>
-
-            <div class="company-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="company-content">
-                    <h3 class="company-title">SNCF</h3>
-                    <div class="company-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Lille</p>
-                        <p><i class="fa-solid fa-building"></i> Secteur : Transport</p>
-                        <p><i class="fa-solid fa-users"></i> Taille : Grande</p>
-                        <p><i class="fas fa-clock"></i> Membre depuis 10 ans</p>
-                    </div>
-                </div>
-                <div class="company-actions">
-                    <button class="details-btn" onclick="window.location.href='company.html'">Voir plus de détails</button>
-                </div>
-            </div>
-
-            <!-- Skeleton loading pendant le chargement -->
-            <div class="company-item skeleton">
-                <div class="skeleton-image"></div>
-                <div class="skeleton-content">
-                    <div class="skeleton-line" style="width: 70%;"></div>
-                    <div class="skeleton-line" style="width: 50%;"></div>
-                    <div class="skeleton-line" style="width: 60%;"></div>
-                </div>
-            </div>
-        </div> #}
+                {% endfor %}
+            {% endif %}
+        </div>
 
         <div class="pagination">
-            <button class="pagination-button">Précédent</button>
-            <span class="pagination-page">Page 1</span>
-            <button class="pagination-button">Suivant</button>
+            {% if currentPage > 1 %}
+                <a href="/search-company?page={{ currentPage - 1 }}" class="pagination-button">Précédent</a>
+            {% endif %}
+
+            <span class="pagination-page">Page {{ currentPage }} sur {{ totalPages }}</span>
+
+            {% if currentPage < totalPages %}
+                <a href="/search-company?page={{ currentPage + 1 }}" class="pagination-button">Suivant</a>
+            {% endif %}
         </div>
     </div>
 

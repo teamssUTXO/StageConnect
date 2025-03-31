@@ -127,11 +127,11 @@ switch ($uri) {
     case '/search':
         session_start();
         if (isset($_SESSION['user'])) {
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            // if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $controlleroffer->search(); 
-            } else {
-                $controller->searchOfferPage();
-            }
+            // } else {
+            //     $controller->searchOfferPage();
+            // }
         } else {
             $controller->loginPage();
         }
@@ -140,11 +140,11 @@ switch ($uri) {
         case '/search-company':
             session_start();
             if (isset($_SESSION['user'])) {
-                if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+                // if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                     $controllercompany->search(); 
-                } else {
-                    $controller->searchCompanyPage();
-                }
+                // } else {
+                //     $controller->searchCompanyPage();
+                // }
         } else {
             $controller->loginPage();
         }
@@ -165,8 +165,6 @@ switch ($uri) {
             session_destroy(); 
             header('Location: /login'); 
             exit;
-
-        
 
     default:
         echo '404 Not Found';

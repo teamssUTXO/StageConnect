@@ -16,11 +16,11 @@
             {% if user %}
                 {% if user.Id_Role == 3 %}
                     <button class="btn-login" onclick="window.location.href='/account'">
-                        <i class="fa-solid fa-user"></i> admin: {{ user.name }}
+                        <i class="fa-solid fa-user"></i> Admin: {{ user.name }}
                     </button>
                 {% elseif user.Id_Role == 2 %}
                     <button class="btn-login" onclick="window.location.href='/account'">
-                        <i class="fa-solid fa-user"></i> pilote: {{ user.name }}
+                        <i class="fa-solid fa-user"></i> Pilote: {{ user.name }}
                     </button>
                 {% else %}
                     <button class="btn-login" onclick="window.location.href='/account'">

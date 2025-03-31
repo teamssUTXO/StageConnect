@@ -124,7 +124,16 @@
                             <div class="job-details">
                                 <p><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</p>
                                 <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
-                                <p><i class="fas fa-clock"></i> Posté il y a {{ offer.publication_date }} jours</p>
+                                <p><i class="fas fa-clock"></i> Posté il y a 
+                                    {% set diff = date().diff(date(offer.publication_date)) %}
+                                    {% if diff.years > 0 %}
+                                        {{ diff.years }} an{{ diff.years > 1 ? 's' : '' }}
+                                    {% elseif diff.months > 0 %}
+                                        {{ diff.months }} mois
+                                    {% else %}
+                                        moins d'un mois
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                         <div class="job-actions">
@@ -270,9 +279,15 @@
             </div> #}
 
         <div class="pagination">
-            <button class="pagination-button">Précédent</button>
-            <span class="pagination-page">Page 1</span>
-            <button class="pagination-button">Suivant</button>
+            {% if currentPage > 1 %}
+                <a href="/search?page={{ currentPage - 1 }}" class="pagination-button">Précédent</a>
+            {% endif %}
+
+            <span class="pagination-page">Page {{ currentPage }} sur {{ totalPages }}</span>
+
+            {% if currentPage < totalPages %}
+                <a href="/search?page={{ currentPage + 1 }}" class="pagination-button">Suivant</a>
+            {% endif %}
         </div>
     </div>
 
