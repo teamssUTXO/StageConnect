@@ -50,31 +50,28 @@ class connexion {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    // public function selectJoin($baseTable, $joins = [], $conditions = [], $columns = '*') {
-    //     // Colonnes à sélectionner
-    //     $sql = "SELECT $columns FROM $baseTable";
-    
-    //     // Ajouter les jointures
-    //     foreach ($joins as $join) {
-    //         // Format attendu : ["INNER JOIN companies c ON c.id = offers.company_id"]
-    //         $sql .= " " . $join;
-    //     }
-    
-    //     // Préparer les conditions
-    //     $params = [];
-    //     if (!empty($conditions)) {
-    //         $where = [];
-    //         foreach ($conditions as $column => $value) {
-    //             $where[] = "$column = :$column";
-    //             $params[$column] = $value;
-    //         }
-    //         $sql .= " WHERE " . implode(" AND ", $where);
-    //     }
-    
-    //     $stmt = $this->pdo->prepare($sql);
-    //     $stmt->execute($params);
-    //     return $stmt->fetchAll(PDO::FETCH_OBJ);
-    // }
+    public function selectJoin($Table, $join = "", $conditions = []) {
+        // Colonnes à sélectionner
+        $sql = "SELECT * FROM $Table";
+        echo $join;
+        // Ajouter les jointures
+        $sql .= " " . $join;
+        echo $sql;
+        // Préparer les conditions
+        $params = [];
+        if (!empty($conditions)) {
+            $where = [];
+            foreach ($conditions as $column => $value) {
+                $where[] = "$column = :$column";
+                $params[$column] = $value;
+            }
+            $sql .= " WHERE " . implode(" AND ", $where);
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
     
 
     public function update($table, $data, $condition) {
