@@ -1,43 +1,65 @@
 <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="../static/images/Stage3.png" alt="Stage Connect Logo"> {# #}
-            </div>
-            <ul class="links">
-                <li><a href="/" >Accueil</a></li>
-                <li><a href="/search">Offres</a></li>
-                <li><a href="/search-company">Entreprises</a></li>
-                <li><a href="/about">À propos</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-            <div class="nav-buttons">
-            {% if user.Id_Role == 3 %}
-                <button class="btn-login"><i class="fa-solid fa-user"></i> Admin: {{user.name}}</button>
-            {% elseif user.Id_Role == 2 %}
-                <button class="btn-login"><i class="fa-solid fa-user"></i> Pilote: {{user.name}}</button>
-            {% else %}
-                <button class="btn-login"><i class="fa-solid fa-user"></i> {{user.name}}</button>
-            {% endif %}
-            </div>
-            <div class="burger-menu-button">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-        </nav>
-    
-        <div class="burger-menu">
-            <ul class="links">
-                <li class="account-burger" style="display: none;"><a href="#">Mon compte</a></li>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/search">Offres</a></li>
-                <li><a href="/search-company">Entreprises</a></li>
-                <li><a href="/about">À propos</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <div class="divider"></div>
-                <button class="btn-burger-login" onclick="window.location.href='login.html'">
-                    <i class="fa-solid fa-user"></i> Se connecter
-                </button> {# utiliser js pour les redirections de boutons #}
-            </ul>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/"> 
+                <img src="../static/images/Stage3.png" alt="Stage Connect Logo">
+            </a>            
         </div>
-    </header>
+        <ul class="links">
+            <li><a href="/" >Accueil</a></li>
+            <li><a href="/search">Offres</a></li>
+            <li><a href="/search-company">Entreprises</a></li>
+            <li><a href="/about">À propos</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            {% if user %}
+                {% if user.Id_Role == 3 %}
+                    <button class="btn-login" onclick="window.location.href='/account'">
+                        <i class="fa-solid fa-user"></i> admin: {{ user.name }}
+                    </button>
+                {% elseif user.Id_Role == 2 %}
+                    <button class="btn-login" onclick="window.location.href='/account'">
+                        <i class="fa-solid fa-user"></i> pilote: {{ user.name }}
+                    </button>
+                {% else %}
+                    <button class="btn-login" onclick="window.location.href='/account'">
+                        <i class="fa-solid fa-user"></i> {{ user.name }}
+                    </button>
+                {% endif %}
+            {% else %}
+                <button class="btn-login" onclick="window.location.href='/login'">
+                    <i class="fa-solid fa-user"></i> Se connecter
+                </button>
+            {% endif %}
+        </div>
+        <div class="burger-menu-button">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="burger-menu">
+        <ul class="links">
+            {% if user %}
+                <li class="account-burger"><a href="/account">Mon compte</a></li>
+            {% endif %}
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/search">Offres</a></li>
+            <li><a href="/search-company">Entreprises</a></li>
+            <li><a href="/about">À propos</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <div class="divider"></div>
+            {% if user %}
+                <button class="btn-burger-login" onclick="window.location.href='/account'">
+                    <i class="fa-solid fa-user"></i> {{ user.name }}
+                </button>
+            {% else %}
+                <button class="btn-burger-login" onclick="window.location.href='/login'">
+                    <i class="fa-solid fa-user"></i> Se connecter
+                </button>
+            {% endif %}
+        </ul>
+    </div>
+</header>
 
 <script src="../../static/scripts/navbar-script.js"></script>

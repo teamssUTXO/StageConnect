@@ -11,10 +11,10 @@
         <h1>Rechercher des entreprises</h1>
         <p class="search-description">Trouvez des entreprises qui correspondent à vos aspirations professionnelles.</p>
 
-        <div class="search-bar" role="search">
-            <input type="text" placeholder="Rechercher des entreprises..." id="search-input" aria-label="Rechercher des entreprises">
-            <button aria-label="Lancer la recherche">Rechercher</button>
-        </div>
+        <form class="search-bar" role="search" method="GET" action="/search-company">
+            <input type="text" name='q' placeholder="Rechercher des entreprises..." id="search-input" aria-label="Rechercher des entreprises">
+            <button aria-label="Lancer la recherche" type="submit">Rechercher</button>
+        </form>
 
         <div class="filters">
             <div class="filter-group">
@@ -59,7 +59,7 @@
                 <label for="sort-by">Rechercher :</label>
                 <select id="sort-by">
                     <option selected value="company">Des entreprises</option>
-                    <option value="offer">Des offres de stage</option>
+                    <option value="companies">Des offres de stage</option>
                 </select>
             </div>
 
@@ -73,11 +73,47 @@
             </div>
         </div>
 
-        <div class="search-results-info">
-            <p id="results-count">5 entreprises trouvées</p>
+
+
+      <div class="search-results-info">
+            {% if count == 0 %}
+                <p id="results-count">Aucune entreprise trouvée.</p>
+            {% else %}
+                <p id="results-count">{{ count }} entreprise{% if count > 1 %}s{% endif %} trouvée{% if count > 1 %}s{% endif %}</p>
+            {% endif %}
         </div>
 
         <div class="company-list" id="company-list">
+        {% if companies is not empty %}
+            {% for company in companies %}
+                <div class="company-item">
+                    <img src="{{ company.image }}" alt="Logo de l'entreprise">
+                    <div class="company-content">
+                        <h3 class="company-name">{{ company.name }}</h3>
+                        <div class="company-details">
+                            <p><i class="fas fa-clock"></i> Posté il y a {{ company.publication_date }} jours</p>
+                            <p><i class="fas fa-map-marker-alt"></i> {{ company.location }}</p>
+                            <p><i class="fa-solid fa-crosshairs"></i> {{ company.sector }}</p>
+                            <p><i class="fa-solid fa-building"></i> {{ company.type }}</p>
+                            <p><i class="fas fa-clock"></i> {{ company.date }}</p>
+                        </div>
+                    </div>
+                    <div class="company-actions">
+                        <button class="apply-btn">Postuler</button>
+                        <a class="details-btn" href="/offre/{{ company.Id_companies }}">Voir plus de détails</a>
+                        <i class="far fa-heart favorite-icon"></i>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+
+
+
+
+        {# <div class="company-list" id="company-list">
             <!-- Exemple de carte d'entreprise -->
             <div class="company-item">
                 <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
@@ -137,7 +173,7 @@
                     <div class="skeleton-line" style="width: 60%;"></div>
                 </div>
             </div>
-        </div>
+        </div> #}
 
         <div class="no-results" id="no-results" style="display: none;">
             <p>Aucune entreprise ne correspond à votre recherche. Essayez de modifier vos filtres.</p>

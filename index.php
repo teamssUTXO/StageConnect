@@ -6,6 +6,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use App\Controllers\DirController;
 use App\Controllers\AuthentificationController;
 use App\Controllers\OfferController;
+use App\Controllers\CompanyController;
 
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
@@ -35,6 +36,7 @@ if ($uri == '' || $uri == '/') {
 $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
+$controllercompany = new CompanyController($twig);
 
 
 switch ($uri) {
@@ -134,18 +136,21 @@ switch ($uri) {
             $controller->loginPage();
         }
         break;
-
-    case '/search-company':
-        session_start();
-        if (isset($_SESSION['user'])) {
-            $controller->searchCompanyPage(); 
-            exit;
+        
+        case '/search-company':
+            session_start();
+            if (isset($_SESSION['user'])) {
+                if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+                    $controllercompany->search(); 
+                } else {
+                    $controller->searchCompanyPage();
+                }
         } else {
             $controller->loginPage();
         }
         break;
 
-    case '/account':
+        case '/account':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->accountPage();
@@ -154,6 +159,14 @@ switch ($uri) {
             $controller->loginPage();
         }
         break;
+
+        case '/logout': 
+            session_start();
+            session_destroy(); 
+            header('Location: /login'); 
+            exit;
+
+        
 
     default:
         echo '404 Not Found';
