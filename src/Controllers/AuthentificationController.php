@@ -25,7 +25,6 @@ class AuthentificationController extends Controller {
               $_SESSION['user'] = $user;
 
               header('Location: /');
-
           } else {
               echo $this->templateEngine->render('pages/login.html.twig', [
                 'error' => 'Email ou mot de passe incorrect.'

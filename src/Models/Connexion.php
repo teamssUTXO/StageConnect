@@ -50,29 +50,68 @@ class connexion {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function selectJoin($Table, $join = "", $conditions = []) {
-        // Colonnes à sélectionner
-        $sql = "SELECT * FROM $Table";
-        //echo $join;
-        // Ajouter les jointures
-        $sql .= " " . $join;
-        //echo $sql;
-        // Préparer les conditions
+    public function selectLikeFilters($table, $conditions = [], $filtres = []) {
+        $sql = "SELECT * FROM $table";
         $params = [];
+        $clauses = [];
+    
+        // Partie LIKE (recherche)
         if (!empty($conditions)) {
-            $where = [];
-            print_r($conditions);
+            $likeClauses = [];
             foreach ($conditions as $column => $value) {
-                $where[] = "$column = :$column";
-                $params[$column] = $value;
+                $paramKey = 'like_' . $column;
+                $likeClauses[] = "$column LIKE :$paramKey";
+                $params[$paramKey] = '%' . $value . '%';
             }
-            $sql .= " WHERE " . implode(" AND ", $where);
+            $clauses[] = '(' . implode(' OR ', $likeClauses) . ')';
         }
-
+    
+        // Partie Filtres (égalités)
+        if (!empty($filtres)) {
+            foreach ($filtres as $column => $value) {
+                $paramKey = 'filter_' . $column;
+                $clauses[] = "$column = :$paramKey";
+                $params[$paramKey] = $value;
+            }
+        }
+    
+        // Si on a des conditions (LIKE ou filtres), on les ajoute au WHERE
+        if (!empty($clauses)) {
+            $sql .= " WHERE " . implode(' AND ', $clauses);
+        }
+    
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
+    
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    
+
+    // public function selectJoin($baseTable, $joins = [], $conditions = [], $columns = '*') {
+    //     // Colonnes à sélectionner
+    //     $sql = "SELECT $columns FROM $baseTable";
+    
+    //     // Ajouter les jointures
+    //     foreach ($joins as $join) {
+    //         // Format attendu : ["INNER JOIN companies c ON c.id = offers.company_id"]
+    //         $sql .= " " . $join;
+    //     }
+    
+    //     // Préparer les conditions
+    //     $params = [];
+    //     if (!empty($conditions)) {
+    //         $where = [];
+    //         foreach ($conditions as $column => $value) {
+    //             $where[] = "$column = :$column";
+    //             $params[$column] = $value;
+    //         }
+    //         $sql .= " WHERE " . implode(" AND ", $where);
+    //     }
+    
+    //     $stmt = $this->pdo->prepare($sql);
+    //     $stmt->execute($params);
+    //     return $stmt->fetchAll(PDO::FETCH_OBJ);
+    // }
     
 
     public function update($table, $data, $condition) {

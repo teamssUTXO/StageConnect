@@ -54,7 +54,13 @@ switch ($uri) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controllerauth->login(); 
         } else {
-            $controller->loginPage();
+            session_start();
+            if (isset($_SESSION['user'])) {
+                $controller->loginPage();
+                exit;
+            } else {
+                $controller->homePage();
+            }
         }
         break;
         
