@@ -50,6 +50,43 @@ class connexion {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function selectLikeFilters($table, $conditions = [], $filtres = []) {
+        $sql = "SELECT * FROM $table";
+        $params = [];
+        $clauses = [];
+    
+        // Partie LIKE (recherche)
+        if (!empty($conditions)) {
+            $likeClauses = [];
+            foreach ($conditions as $column => $value) {
+                $paramKey = 'like_' . $column;
+                $likeClauses[] = "$column LIKE :$paramKey";
+                $params[$paramKey] = '%' . $value . '%';
+            }
+            $clauses[] = '(' . implode(' OR ', $likeClauses) . ')';
+        }
+    
+        // Partie Filtres (égalités)
+        if (!empty($filtres)) {
+            foreach ($filtres as $column => $value) {
+                $paramKey = 'filter_' . $column;
+                $clauses[] = "$column = :$paramKey";
+                $params[$paramKey] = $value;
+            }
+        }
+    
+        // Si on a des conditions (LIKE ou filtres), on les ajoute au WHERE
+        if (!empty($clauses)) {
+            $sql .= " WHERE " . implode(' AND ', $clauses);
+        }
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+    
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+    
+
     // public function selectJoin($baseTable, $joins = [], $conditions = [], $columns = '*') {
     //     // Colonnes à sélectionner
     //     $sql = "SELECT $columns FROM $baseTable";

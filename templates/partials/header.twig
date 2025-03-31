@@ -1,7 +1,7 @@
 <header>
         <nav class="navbar">
             <div class="logo">
-                <img src="../static/images/Stage3.png" alt="Stage Connect Logo" action="/" method="GET">
+                <img src="../static/images/Stage3.png" alt="Stage Connect Logo"> {# #}
             </div>
             <ul class="links">
                 <li><a href="/" >Accueil</a></li>
@@ -12,9 +12,9 @@
             </ul>
             <div class="nav-buttons">
             {% if user.Id_Role == 3 %}
-                <button class="btn-login"><i class="fa-solid fa-user"></i> admin: {{user.name}}</button>
+                <button class="btn-login"><i class="fa-solid fa-user"></i> Admin: {{user.name}}</button>
             {% elseif user.Id_Role == 2 %}
-                <button class="btn-login"><i class="fa-solid fa-user"></i> pilote: {{user.name}}</button>
+                <button class="btn-login"><i class="fa-solid fa-user"></i> Pilote: {{user.name}}</button>
             {% else %}
                 <button class="btn-login"><i class="fa-solid fa-user"></i> {{user.name}}</button>
             {% endif %}

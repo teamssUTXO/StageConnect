@@ -11,73 +11,77 @@
         <h1>Rechercher des offres de stage</h1>
         <p class="search-description">Trouvez le stage qui correspond à vos compétences et à vos aspirations professionnelles.</p>
 
-        <form class="search-bar" role="search" method="GET" action="/search">
-            <input type="text" name="q" placeholder="Rechercher des offres..." id="search-input" value="{{ search|e }}">
-            <button type="submit">Rechercher</button>
-        </form>
+        <form method="GET" action="/search">
+            <div class="search-bar" role="search">
+                <input type="text" name="q" placeholder="Rechercher des offres..." id="search-input" value="{{ search[0]|e }}">
+                <button type="submit">Rechercher</button>
+            </div>
 
-        <div class="filters">
-            <div class="filter-group">
-                <label for="location-filter">Localisation</label>
-                <select id="location-filter">
-                    <option value="" hidden selected>Choisir une localisation</option>
-                    <option value="Paris">Paris</option>
-                    <option value="Lyon">Lyon</option>
-                    <option value="Marseille">Marseille</option>
-                    <option value="Rouen">Rouen</option>
-                    <option value="Lille">Lille</option>
-                </select>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="location-filter">Localisation</label>
+                    <select name="l" id="location-filter">
+                        <option value="" hidden {% if search[1] is empty %}selected{% endif %}>Choisir une localisation</option>
+                        <option value="Paris" {% if search[1] == 'Paris' %}selected{% endif %}>Paris</option>
+                        <option value="Lyon" {% if search[1] == 'Lyon' %}selected{% endif %}>Lyon</option>
+                        <option value="Marseille" {% if search[1] == 'Marseille' %}selected{% endif %}>Marseille</option>
+                        <option value="Rouen" {% if search[1] == 'Rouen' %}selected{% endif %}>Rouen</option>
+                        <option value="Lille" {% if search[1] == 'Lille' %}selected{% endif %}>Lille</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="category-filter">Secteur</label>
+                    <select name="s" id="category-filter">
+                        <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>
+                        <option value="IT" {% if search[2] == 'IT' %}selected{% endif %}>IT</option>
+                        <option value="Finance" {% if search[2] == 'Finance' %}selected{% endif %}>Finance</option>
+                        <option value="Commerce" {% if search[2] == 'Commerce' %}selected{% endif %}>Commerce</option>
+                        <option value="Droit" {% if search[2] == 'Droit' %}selected{% endif %}>Droit</option>
+                        <option value="Langues" {% if search[2] == 'Langues' %}selected{% endif %}>Langues</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="rating-filter">Évaluation</label>
+                    <select name="e" id="rating-filter">
+                        <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir une évaluation</option>
+                        <option value="5" {% if search[3] == '5' %}selected{% endif %}>5⭐</option>
+                        <option value="4" {% if search[3] == '4' %}selected{% endif %}>4⭐</option>
+                        <option value="3" {% if search[3] == '3' %}selected{% endif %}>3⭐</option>
+                        <option value="2" {% if search[3] == '2' %}selected{% endif %}>2⭐</option>
+                        <option value="1" {% if search[3] == '1' %}selected{% endif %}>1⭐</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="duration-filter">Durée</label>
+                    <select name="d" id="duration-filter">
+                        <option value="" hidden {% if search[4] is empty %}selected{% endif %}>Choisir une durée</option>
+                        <option value="1-3" {% if search[4] == "1-3" %}selected{% endif %}>1 à 3 mois</option>
+                        <option value="3-6" {% if search[4] == "3-6" %}selected{% endif %}>3 à 6 mois</option>
+                        <option value="6+" {% if search[4] == "6+" %}selected{% endif %}>6 mois et plus</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="type-filter">Type de stage</label>
+                    <select name="t" id="type-filter">
+                        <option value="" hidden {% if search[5] is empty %}selected{% endif %}>Choisir un type</option>
+                        <option value="full-time" {% if search[5] == "full-time" %}selected{% endif %}>Temps plein</option>
+                        <option value="part-time" {% if search[5] == "part-time" %}selected{% endif %}>Temps partiel</option>
+                        <option value="remote"{% if search[5] == "remote" %}selected{% endif %}>Télétravail</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="education-filter">Niveau d'études</label>
+                    <select name="n" id="education-filter">
+                        <option value="" hidden {% if search[6] is empty %}selected{% endif %}>Choisir un niveau</option>
+                        <option value="bac" {% if search[6] == "bac" %}selected{% endif %}>Bac</option>
+                        <option value="bac+2" {% if search[6] == "bac+2" %}selected{% endif %}>Bac+2</option>
+                        <option value="bac+3" {% if search[6] == "bac+3" %}selected{% endif %}>Bac+3</option>
+                        <option value="bac+4" {% if search[6] == "bac+4" %}selected{% endif %}>Bac+4</option>
+                        <option value="bac+5" {% if search[6] == "bac+5" %}selected{% endif %}>Bac+5</option>
+                    </select>
+                </div>
             </div>
-            <div class="filter-group">
-                <label for="category-filter">Secteur</label>
-                <select id="category-filter">
-                    <option value="" hidden selected>Choisir un secteur</option>
-                    <option value="IT">IT</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Droit">Droit</option>
-                    <option value="Langues">Langues</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="company-filter">Entreprise</label>
-                <select id="company-filter">
-                    <option value="" hidden selected>Choisir une entreprise</option>
-                    <option value="Apprentice">FrameIP</option>
-                    <option value="Full-time">CESI</option>
-                    <option value="Full-time">Xefi</option>
-                    <option value="Full-time">SNCF</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="duration-filter">Durée</label>
-                <select id="duration-filter">
-                    <option value="" hidden selected>Choisir une durée</option>
-                    <option value="1-3">1 à 3 mois</option>
-                    <option value="3-6">3 à 6 mois</option>
-                    <option value="6+">6 mois et plus</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="type-filter">Type de stage</label>
-                <select id="type-filter">
-                    <option value="" hidden selected>Choisir un type</option>
-                    <option value="full-time">Temps plein</option>
-                    <option value="part-time">Temps partiel</option>
-                    <option value="remote">Télétravail</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="education-filter">Niveau d'études</label>
-                <select id="education-filter">
-                    <option value="" hidden selected>Choisir un niveau</option>
-                    <option value="bac">Bac</option>
-                    <option value="bac+2">Bac+2</option>
-                    <option value="bac+3">Bac+3</option>
-                    <option value="bac+5">Bac+5</option>
-                </select>
-            </div>
-        </div>
+        </form>
 
         <div class="reset-div">
             <button class="reset-filters">Réinitialiser les filtres</button>
@@ -341,4 +345,6 @@
             <button class="pagination-button">Suivant</button>
         </div>
     </div>
+
+    <script src="../../static/scripts/filters-script.js" defer></script>
 {% endblock %}
