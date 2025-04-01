@@ -30,6 +30,17 @@
                     </select>
                 </div>
                 <div class="filter-group">
+                    <label for="rating-filter">Évaluation</label>
+                    <select name="e" id="rating-filter">
+                        <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir une évaluation</option>
+                        <option value="5" {% if search[3] == '5' %}selected{% endif %}>5⭐</option>
+                        <option value="4" {% if search[3] == '4' %}selected{% endif %}>4⭐</option>
+                        <option value="3" {% if search[3] == '3' %}selected{% endif %}>3⭐</option>
+                        <option value="2" {% if search[3] == '2' %}selected{% endif %}>2⭐</option>
+                        <option value="1" {% if search[3] == '1' %}selected{% endif %}>1⭐</option>
+                    </select>
+                </div>
+                <div class="filter-group">
                     <label for="sector-filter">Secteur d'activité</label>
                     <select name="s" id="sector-filter">
                         <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>

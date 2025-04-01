@@ -16,14 +16,14 @@ class OfferController extends Controller {
   public function search() {
     $user = $_SESSION['user'] ?? null;
 
-    $search = [$_GET['q'] ?? null, $_GET['l'] ?? null, $_GET['s'] ?? null, $_GET['e'] ?? null, $_GET['d'] ?? null, $_GET['t'] ?? null, $_GET['n'] ?? null];
-    // recherche, localisation, secteur, evaluation, durée, type de stage, niveau d'études
+    $search = [$_GET['q'] ?? null, $_GET['l'] ?? null, $_GET['s'] ?? null, $_GET['d'] ?? null, $_GET['t'] ?? null, $_GET['n'] ?? null];
+    // recherche, localisation, secteur, durée, type de stage, niveau d'études
 
     $currentPage = $_GET['page'] ?? 1;
     $offersPerPage = 10; 
     $offset = ($currentPage - 1) * $offersPerPage;
 
-    if ($search[0] || $search[1] || $search[2] || $search[3] || $search[4] || $search[5] || $search[6]) {
+    if ($search[0] || $search[1] || $search[2] || $search[3] || $search[4] || $search[5]) {
       // recherche avec les filtres
       $offers = $this->offerModel->searchoffer($search);
 

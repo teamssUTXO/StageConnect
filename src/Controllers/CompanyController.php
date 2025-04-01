@@ -16,13 +16,14 @@ class CompanyController extends Controller {
   public function search() {
     $user = $_SESSION['user'] ?? null;
 
-    $search = [$_GET['q'] ?? null, $_GET['l'] ?? null, $_GET['s'] ?? null, $_GET['t'] ?? null];
+    $search = [$_GET['q'] ?? null, $_GET['l'] ?? null, $_GET['e'] ?? null, $_GET['s'] ?? null, $_GET['t'] ?? null];
+    // recherche, localisation, evaluation, secteur, type
 
     $currentPage = $_GET['page'] ?? 1;
     $companiesPerPage = 10; 
     $offset = ($currentPage - 1) * $companiesPerPage;
 
-    if ($search[0] || $search[1] || $search[2] || $search[3]) {
+    if ($search[0] || $search[1] || $search[2] || $search[3] || $search[4]) {
         // on cherche les entreprises correspondant au mot-clé
         $company = $this->corporationModel->searchcorporation($search);
 

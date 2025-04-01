@@ -24,8 +24,9 @@ class CorporationModel extends Model {
 
         $rawfilters = [
             // 'localisation'=> $search[1],
-            // 'sector'=> $search[2],
-            // 'type'=> $search[3],
+            // 'rating'=> $search[2],
+            // 'sector'=> $search[3],
+            // 'type'=> $search[4],
         ];
 
         $filters = array_filter($rawfilters, fn($v) => $v !== null && $v !== '');

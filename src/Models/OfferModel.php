@@ -31,15 +31,6 @@ class OfferModel extends Model {
         return $result ?? null;
     }
 
-    // public function searchoffer($search) {
-    //     $result = $this->connexion->selectLike($this->table, [
-    //                 'title' => $search,
-    //                 'description' => $search,
-    //                 'competence' => $search,
-    //     ]);
-    //     return $result ?? null;
-    // }
-
     public function searchoffer($search = []) {
 
         $conditions = [
@@ -51,10 +42,9 @@ class OfferModel extends Model {
         $rawfilters = [
             // 'localisation'=> $search[1],
             // 'sector'=> $search[2],
-            'rating'=> $search[3],
-            // 'duration'=> $search[4],
-            // 'type'=> $search[5],
-            // 'studies'=> $search[6],
+            // 'duration'=> $search[3],
+            // 'type'=> $search[4],
+            // 'studies'=> $search[5],
         ];
 
         $filters = array_filter($rawfilters, fn($v) => $v !== null && $v !== '');

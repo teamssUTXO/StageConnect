@@ -127,11 +127,7 @@ switch ($uri) {
     case '/search':
         session_start();
         if (isset($_SESSION['user'])) {
-            // if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $controlleroffer->search(); 
-            // } else {
-            //     $controller->searchOfferPage();
-            // }
+            $controlleroffer->search(); 
         } else {
             $controller->loginPage();
         }
@@ -140,11 +136,7 @@ switch ($uri) {
         case '/search-company':
             session_start();
             if (isset($_SESSION['user'])) {
-                // if ($_SERVER['REQUEST_METHOD'] === 'GET'){
-                    $controllercompany->search(); 
-                // } else {
-                //     $controller->searchCompanyPage();
-                // }
+                $controllercompany->search(); 
         } else {
             $controller->loginPage();
         }
