@@ -67,6 +67,13 @@ class OfferModel extends Model {
         ]);
         return $result ?? null;
     }
+
+    public function candidate_user ($Id_User){
+        $result = $this->connexion->selectJoin($this->table, Joins::CANDIDATE->value, [
+            'Id_Users' => $Id_User // A changer si on veut chercher par rapport au nom au lieu de l'id
+        ]);
+        return $result ?? null;
+    }
 }
 
 // echo Joins::WISHLIST->value;

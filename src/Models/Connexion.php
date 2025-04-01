@@ -91,7 +91,11 @@ class connexion {
         $sql = "SELECT * FROM $Table AS o";
         //echo $join;
         // Ajouter les jointures
-        $sql .= " " . $join->value;
+        if (is_object($join) && property_exists($join, 'value')) {
+            $sql .= " " . $join->value;
+        } elseif (is_string($join)) {
+            $sql .= " " . $join; // Si c'est une simple chaîne, on l'ajoute directement
+        }        
         //echo $sql;
         // Préparer les conditions
         $params = [];
