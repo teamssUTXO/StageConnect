@@ -39,11 +39,11 @@ class UserModel extends Model {
     // }
 
 
-    // public function updatePassword(int $userId, string $newPassword): bool {
-    //     return $this->connexion->update(
-    //         $this->table,
-    //         ['password' => password_hash($newPassword)],
-    //         ['id' => $userId]
-    //     );
-    // }
+    public function updatePassword(int $userId, string $newPassword): bool {
+        return $this->connexion->update(
+            $this->table,
+            ['password' => password_hash($newPassword, PASSWORD_DEFAULT)],
+            ['id' => $userId]
+        );
+    }
 }
