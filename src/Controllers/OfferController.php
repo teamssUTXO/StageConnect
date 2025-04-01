@@ -37,6 +37,8 @@ class OfferController extends Controller {
 
     $offersOnPage = array_slice($offers, $offset, $offersPerPage);
 
+    // echo json_encode($offersOnPage);
+
     echo $this->templateEngine->render('pages/search-offer.html.twig', [
       'user' => $user,
       'search' => $search ?? [],

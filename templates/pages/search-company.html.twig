@@ -73,13 +73,13 @@
                 <label for="sort-by">Rechercher :</label>
                 <select id="sort-by">
                     <option selected value="company">Des entreprises</option>
-                    <option value="companies">Des offres de stage</option>
+                    <option value="offer">Des offres de stage</option>
                 </select>
             </div>
 
             <div class="sort-items">
-                <label for="sort-by">Trier par :</label>
-                <select id="sort-by">
+                <label for="sort-by2">Trier par :</label>
+                <select id="sort-by2">
                     <option value="name">Nom de l'entreprise</option>
                     <option value="location">Date d'ancienneté</option>
                     <option value="size">Taille</option>
@@ -118,8 +118,7 @@
                             </div>
                         </div>
                         <div class="company-actions">
-                            <button class="apply-btn">Postuler</button>
-                            <a class="details-btn" href="/offre/{{ company.Id_companies }}">Voir plus de détails</a>
+                            <a class="details-btn" href="/company/{{ company.Siret }}">Voir l'entreprise</a>
                             <i class="far fa-heart favorite-icon"></i>
                         </div>
                     </div>

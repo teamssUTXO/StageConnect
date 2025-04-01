@@ -33,6 +33,8 @@ if ($uri == '' || $uri == '/') {
     $uri = '/';
 }
 
+// $segments = explode('/', trim($uri, '/'));
+
 $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
@@ -56,10 +58,10 @@ switch ($uri) {
         } else {
             session_start();
             if (isset($_SESSION['user'])) {
-                $controller->loginPage();
+                $controller->homePage();
                 exit;
             } else {
-                $controller->homePage();
+                $controller->loginPage();
             }
         }
         break;
@@ -133,16 +135,16 @@ switch ($uri) {
         }
         break;
         
-        case '/search-company':
-            session_start();
-            if (isset($_SESSION['user'])) {
-                $controllercompany->search(); 
+    case '/search-company':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controllercompany->search(); 
         } else {
             $controller->loginPage();
         }
         break;
 
-        case '/account':
+    case '/account':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->accountPage();
@@ -152,11 +154,11 @@ switch ($uri) {
         }
         break;
 
-        case '/logout': 
-            session_start();
-            session_destroy(); 
-            header('Location: /login'); 
-            exit;
+    case '/logout': 
+        session_start();
+        session_destroy(); 
+        header('Location: /login'); 
+        exit;
 
         case '/candidacy':
             session_start();
@@ -171,6 +173,3 @@ switch ($uri) {
         echo '404 Not Found';
         break;
 }
-
-// $template = $twig->load('home.html.twig'); à mettre dans les fonctions du controlleur
-// echo $template->render(); // pareil
