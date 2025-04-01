@@ -158,6 +158,15 @@ switch ($uri) {
             header('Location: /login'); 
             exit;
 
+        case '/candidacy':
+            session_start();
+            if (isset($_SESSION['user'])) {
+                $controlleroffer->candidate();
+                exit;
+            } else {
+                $controller->loginPage();
+            }
+
     default:
         echo '404 Not Found';
         break;

@@ -46,4 +46,10 @@ class OfferController extends Controller {
       'totalPages' => $totalPages,
     ]);
   }
+
+  public function candidate(){
+    $user = $_SESSION['user'] ?? null;
+    echo $this->templateEngine->render('pages/candidacy.html.twig');
+
+  }
 }
