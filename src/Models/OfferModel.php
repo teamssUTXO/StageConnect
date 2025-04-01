@@ -77,8 +77,15 @@ class OfferModel extends Model {
         ]);
         return $result ?? null;
     }
+
+    public function candidate_user ($Id_User){
+        $result = $this->connexion->selectJoin($this->table, Joins::CANDIDATE->value, [
+            'Id_Users' => $Id_User // A changer si on veut chercher par rapport au nom au lieu de l'id
+        ]);
+        return $result ?? null;
+    }
 }
 
 // echo Joins::WISHLIST->value;
-// $offerModel = new OfferModel();  // Création d'une instance de la classe
-// echo json_encode($offerModel->offerCorporation(1)); // Appel de la méthode sur l'instance
+$offerModel = new OfferModel();  // Création d'une instance de la classe
+echo json_encode($offerModel->offerCorporation(1)); // Appel de la méthode sur l'instance
