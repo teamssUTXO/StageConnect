@@ -1,14 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("modal-overlay");
     const closeModalBtn = document.querySelector(".close-modal");
-
-    // Sélectionner TOUS les boutons de détails
     const detailButtons = document.querySelectorAll(".details-btn");
     
-    // Ajouter un écouteur d'événements à chaque bouton
     detailButtons.forEach(button => {
         button.addEventListener("click", () => {
-            // Récupère les données du bouton
+            
             const title = button.getAttribute("data-title") || "Non spécifié";
             const location = button.getAttribute("data-location") || "Non spécifié";
             const compname = button.getAttribute("data-compname") || "Non spécifié";
@@ -22,20 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const compphone = button.getAttribute("data-compphone") || "Non spécifié";
             const rating = button.getAttribute("data-compeval") || "0";
 
-            // Debug - Afficher les données dans la console
-            console.log({
-                title, location, compname, date, remuneration, duration, 
-                description, skills, compdesc, compmail, compphone, rating
-            });
+            // // affiche les données dans la console pour debug
+            // console.log({
+            //     title, location, compname, date, remuneration, duration, 
+            //     description, skills, compdesc, compmail, compphone, rating
+            // });
 
-            // Remplir les champs de la modale
+            // champs de la modale
             document.getElementById("modal-title").textContent = title;
             document.getElementById("modal-location").textContent = location;
             document.getElementById("modal-compname").textContent = compname;
             document.getElementById("modal-compname2").textContent = compname;
             document.getElementById("modal-date").textContent = date;
             
-            // Formatage de la rémunération
             const remunerationText = remuneration && remuneration !== "Non spécifié" ? 
                 `${remuneration} €` : "Non spécifié";
             document.getElementById("modal-remuneration").textContent = remunerationText;
@@ -43,24 +39,24 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("modal-duration").textContent = duration;
             document.getElementById("modal-description").textContent = description;
             document.getElementById("modal-compdesc").textContent = compdesc;
-            document.getElementById("modal-compmail").textContent = `Email: ${compmail}`;
-            document.getElementById("modal-compphone").textContent = `Téléphone: ${compphone}`;
+            document.getElementById("modal-compmail").textContent = `${compmail}`;
+            document.getElementById("modal-compphone").textContent = `${compphone}`;
             
-            // Affichage des étoiles pour l'évaluation
+            // évaluation
             const ratingValue = parseInt(rating) || 0;
-            let ratingHtml = "Évaluation: ";
+            let ratingHtml = "";
             for (let i = 0; i < 5; i++) {
                 if (i < ratingValue) {
-                    ratingHtml += "★"; // Étoile pleine
+                    ratingHtml += `<i class="fa-solid fa-star"></i>`; 
                 } else {
-                    ratingHtml += "☆"; // Étoile vide
+                    ratingHtml += `<i class="fa-regular fa-star"></i>`; 
                 }
             }
             document.getElementById("model-rating").innerHTML = ratingHtml;
             
-            // Transformation des compétences en liste
+            // transformation compétences en liste
             const skillsList = document.getElementById("modal-skills-list");
-            skillsList.innerHTML = ""; // Vider la liste
+            skillsList.innerHTML = "";
             
             if (skills && skills.trim() !== "") {
                 const skillsArray = skills.split(",");
@@ -75,16 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 skillsList.appendChild(li);
             }
 
-            // Afficher la modale
+            // affiche la modal
             modal.style.display = "block";
+            document.body.classList.add("no-scroll");
         });
     });
 
-    // Fermer la modale avec le bouton de fermeture
-    closeModalBtn.addEventListener("click", () => modal.style.display = "none");
+    // gere le bouton de fermeture
+    closeModalBtn.addEventListener("click", () => modal.style.display = "none", document.body.classList.remove("no-scroll"));
     
-    // Fermer la modale en cliquant en dehors
+    // gere clique dehors fermeture 
     modal.addEventListener("click", (event) => {
-        if (event.target === modal) modal.style.display = "none";
+        if (event.target === modal) modal.style.display = "none", document.body.classList.remove("no-scroll");
     });
 });

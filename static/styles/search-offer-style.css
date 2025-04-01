@@ -1,6 +1,10 @@
 /* ======================== */
 /* Search Page Styles */
 /* ======================== */
+.no-scroll {
+    overflow: hidden;
+}
+
 .search {
     padding: 40px 75px;
     background-color: var(--secondary-color);
@@ -324,30 +328,7 @@
     color: var(--black);
 }
 
-/* Skeleton Loading */
-.skeleton {
-    animation: skeleton-loading 1.5s infinite;
-}
 
-.skeleton-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: var(--gray);
-}
-
-.skeleton-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.skeleton-line {
-    height: 12px;
-    background-color: var(--gray);
-    border-radius: var(--border-radius);
-}
 
 @keyframes skeleton-loading {
     0% {
@@ -372,7 +353,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
-    /* display: none; */
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -380,7 +361,7 @@
 
 /* Styles de la modale */
 .modal {
-    position: relative; /* Ajoutez cette ligne */
+    position: relative; 
     background-color: var(--white);
     border-radius: var(--border-radius);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -388,10 +369,10 @@
     max-width: 1100px;
     max-height: 95vh;
     overflow-y: auto;
-    animation: fadeIn 0.3s ease;
-    margin: 20px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    /* margin: 20px; */
     /* Masquer la barre de défilement */
-    scrollbar-width: none; /* Pour Firefox */
+    scrollbar-width: none; 
 }
 
 .modal-header {

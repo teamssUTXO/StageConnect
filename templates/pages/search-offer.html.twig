@@ -128,7 +128,22 @@
                         </div>
                         <div class="job-actions">
                             <button class="apply-btn">Postuler</button>
-                            <button class="details-btn" data-title="{{ offer.title }}" data-location="{{ offer.location }}" data-company="{{ offer.name }}" data-date="{{ offer.publication_date }}" data-description="{{ offer.description }}">
+                            <button class="details-btn"
+
+                                {# pour injecter dans le script js #}
+                                data-title="{{ offer.title ?? '' }}"
+                                data-location="{{ offer.location ?? 'Non spécifié' }}"
+                                data-compname="{{ offer.name ?? '' }}"
+                                data-date="{{ offer.publication_date ?? '' }}"
+                                data-remuneration="{{ offer.remuneration ?? '' }}"
+                                data-duration="{{ offer.duration ?? 'Non spécifié' }}"
+                                data-description="{{ offer.description ?? '' }}"
+                                data-skills="{{ offer.competence ?? '' }}" 
+                                data-compdesc="{{ offer.compdescription ?? '' }}"
+                                data-compmail="{{ offer.mail ?? '' }}"
+                                data-compphone="{{ offer.phone ?? '' }}"
+                                data-compeval="{{ offer.rating ?? 0 }}">
+
                                 Voir plus de détails
                             </button>
                             
@@ -137,39 +152,6 @@
                     </div>
                 {% endfor %}
             {% endif %}
-        </div>
-
-        <div class="job-list" id="job-list">
-            {% for offer in offers %}
-                <div class="job-item">
-                    <img src="{{ offer.image }}" alt="Logo de l'entreprise">
-                    <div class="job-content">
-                        <h3 class="job-title">{{ offer.title }}</h3>
-                        <div class="job-details">
-                            <p><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</p>
-                            <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
-                            <p><i class="fas fa-clock"></i> Posté il y a {{ offer.publication_date }}</p>
-                        </div>
-                    </div>
-                    <div class="job-actions">
-                        <button class="details-btn"
-                            data-title="{{ offer.title ?? '' }}"
-                            data-location="{{ offer.city ?? offer.location ?? 'Non spécifié' }}"
-                            data-compname="{{ offer.name ?? '' }}"
-                            data-date="{{ offer.publication_date ?? '' }}"
-                            data-remuneration="{{ offer.remuneration ?? '' }}"
-                            data-duration="{{ offer.duration ?? 'Non spécifié' }}"
-                            data-description="{{ offer.description ?? '' }}"
-                            data-skills="{{ offer.competence ?? '' }}" 
-                            data-compdesc="{{ offer.compdescription ?? '' }}"
-                            data-compmail="{{ offer.mail ?? '' }}"
-                            data-compphone="{{ offer.phone ?? '' }}"
-                            data-compeval="{{ offer.rating ?? 0 }}">
-                            Voir plus de détails
-                        </button>
-                    </div>
-                </div>
-            {% endfor %}
         </div>
 
         <div class="modal-overlay" id="modal-overlay">
@@ -237,13 +219,12 @@
 
                     <!-- Section Avantages -->
                     <div class="company-section">
-                        <h3>Entreprise</h3>
+                        <h3 id="modal-compname2"></h3>
                         <ul>
-                            <li id="modal-compname2"></li>
                             <li id="modal-compdesc"></li>
-                            <li id="modal-compmail"></li>
-                            <li id="modal-compphone"></li>
-                            <li id="model-rating"></li>
+                            <li><strong>Mail: </strong><span id="model-rating"></span></li>
+                            <li><strong>Téléphone: </strong><span id="model-rating"></span></li>
+                            <li><strong>Évaluation: </strong><span id="model-rating"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -254,51 +235,6 @@
                 </div>
             </div>
         </div>
-
-        {# <div class="modal-overlay" id="modal-overlay" style="display: none;">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2 id="modal-title"></h2>
-                    <button class="close-modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="summary-section">
-                        <div class="summary-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="summary-content">
-                                <span class="summary-label">Localisation</span>
-                                <span id="modal-location"></span>
-                            </div>
-                        </div>
-                        <div class="summary-item">
-                            <i class="fa-solid fa-building"></i>
-                            <div class="summary-content">
-                                <span class="summary-label">Entreprise</span>
-                                <span id="modal-company"></span>
-                            </div>
-                        </div>
-                        <div class="summary-item">
-                            <i class="fas fa-clock"></i>
-                            <div class="summary-content">
-                                <span class="summary-label">Posté il y a</span>
-                                <span id="modal-date"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-section">
-                        <h3>Description du poste</h3>
-                        <p id="modal-description"></p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="candidacy-btn">Postuler</button>
-                </div>
-            </div>
-        </div> #}
-
-            
-
-            
 
         <div class="pagination">
             {% if currentPage > 1 %}
