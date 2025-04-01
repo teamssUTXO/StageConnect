@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const rating = button.getAttribute("data-compeval") || "0";
 
             // // affiche les données dans la console pour debug
-            // console.log({
-            //     title, location, compname, date, remuneration, duration, 
-            //     description, skills, compdesc, compmail, compphone, rating
-            // });
+            console.log({
+                title, location, compname, date, remuneration, duration, 
+                description, skills, compdesc, compmail, compphone, rating
+            });
 
             // champs de la modale
             document.getElementById("modal-title").textContent = title;
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ratingHtml += `<i class="fa-regular fa-star"></i>`; 
                 }
             }
-            document.getElementById("model-rating").innerHTML = ratingHtml;
+            document.getElementById("modal-rating").innerHTML = ratingHtml;
             
             // transformation compétences en liste
             const skillsList = document.getElementById("modal-skills-list");
