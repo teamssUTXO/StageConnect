@@ -33,14 +33,18 @@ if ($uri == '' || $uri == '/') {
     $uri = '/';
 }
 
+$segments = explode('/', trim($uri, '/'));
+
 $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
 
+// echo $segments[0];
+// echo $segments[1];
 
-switch ($uri) {
-    case '/':
+switch ($segments[0]) {
+    case '':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->homePage();
@@ -50,21 +54,21 @@ switch ($uri) {
         }
         break;
 
-    case '/login':
+    case 'login':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controllerauth->login(); 
         } else {
             session_start();
             if (isset($_SESSION['user'])) {
-                $controller->loginPage();
+                $controller->homePage();
                 exit;
             } else {
-                $controller->homePage();
+                $controller->loginPage();
             }
         }
         break;
         
-    case '/about':
+    case 'about':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->aboutPage();
@@ -74,7 +78,7 @@ switch ($uri) {
         }
         break;
 
-    case '/cgu':
+    case 'cgu':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->cguPage();
@@ -84,7 +88,7 @@ switch ($uri) {
         }
         break;
 
-    case '/contact':
+    case 'contact':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->contactPage();
@@ -94,7 +98,7 @@ switch ($uri) {
         }
         break;
 
-    case '/cookies-policy':
+    case 'cookies-policy':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->cookiesPolicyPage();
@@ -104,7 +108,7 @@ switch ($uri) {
         }
         break;
 
-    case '/legal-notices':
+    case 'legal-notices':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->legalNoticesPage();
@@ -114,7 +118,7 @@ switch ($uri) {
         }
         break;
 
-    case '/privacy-policy':
+    case 'privacy-policy':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->privacyPolicyPage();
@@ -124,7 +128,7 @@ switch ($uri) {
         }
         break;
 
-    case '/search':
+    case 'search':
         session_start();
         if (isset($_SESSION['user'])) {
             $controlleroffer->search(); 
@@ -133,16 +137,29 @@ switch ($uri) {
         }
         break;
         
-        case '/search-company':
-            session_start();
-            if (isset($_SESSION['user'])) {
-                $controllercompany->search(); 
+    case 'search-company':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controllercompany->search(); 
         } else {
             $controller->loginPage();
         }
         break;
+    
+    case 'company':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            if (isset($segments[1])) {
+                $controllercompany->company($segments[1]);
+                exit;
+            } else {
+                echo '404 Not Found';
+            }
+        } else {
+            $controller->loginPage();
+        }
 
-        case '/account':
+    case 'account':
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->accountPage();
@@ -152,25 +169,13 @@ switch ($uri) {
         }
         break;
 
-        case '/logout': 
-            session_start();
-            session_destroy(); 
-            header('Location: /login'); 
-            exit;
-
-        case '/candidacy':
-            session_start();
-            if (isset($_SESSION['user'])) {
-                $controlleroffer->candidate();
-                exit;
-            } else {
-                $controller->loginPage();
-            }
+    case 'logout': 
+        session_start();
+        session_destroy(); 
+        header('Location: /login'); 
+        exit;
 
     default:
         echo '404 Not Found';
         break;
 }
-
-// $template = $twig->load('home.html.twig'); à mettre dans les fonctions du controlleur
-// echo $template->render(); // pareil
