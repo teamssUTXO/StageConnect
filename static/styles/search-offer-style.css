@@ -370,7 +370,7 @@
     max-height: 95vh;
     overflow-y: auto;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    /* margin: 20px; */
+    margin: 20px;
     /* Masquer la barre de défilement */
     scrollbar-width: none; 
 }

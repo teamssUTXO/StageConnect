@@ -78,10 +78,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // gere le bouton de fermeture
-    closeModalBtn.addEventListener("click", () => modal.style.display = "none", document.body.classList.remove("no-scroll"));
+    closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        document.body.classList.remove("no-scroll");
+    });
     
     // gere clique dehors fermeture 
     modal.addEventListener("click", (event) => {
-        if (event.target === modal) modal.style.display = "none", document.body.classList.remove("no-scroll");
+        if (event.target === modal) {
+            modal.style.display = "none";
+            document.body.classList.remove("no-scroll");
+        }
     });
 });
