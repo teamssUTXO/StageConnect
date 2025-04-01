@@ -372,7 +372,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
-    display: none;
+    /* display: none; */
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -473,14 +473,14 @@
 
 .description-section,
 .skills-section,
-.benefits-section,
+.company-section,
 .practical-info-section {
     margin-bottom: 30px;
 }
 
 .description-section h3,
 .skills-section h3,
-.benefits-section h3,
+.company-section h3,
 .practical-info-section h3 {
     font-size: 22px;
     color: var(--black);
@@ -491,7 +491,7 @@
 
 .description-section p,
 .skills-section ul,
-.benefits-section ul,
+.company-section ul,
 .practical-info-section ul {
     font-size: 16px;
     color: var(--black);
@@ -500,14 +500,14 @@
 }
 
 .skills-section ul,
-.benefits-section ul,
+.company-section ul,
 .practical-info-section ul {
     list-style: none;
     padding-left: 0;
 }
 
 .skills-section ul li,
-.benefits-section ul li,
+.company-section ul li,
 .practical-info-section ul li {
     margin-bottom: 10px;
     padding-left: 20px;

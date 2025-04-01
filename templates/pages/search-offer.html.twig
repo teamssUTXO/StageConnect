@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="search">
         <h1>Rechercher des offres de stage</h1>
         <p class="search-description">Trouvez le stage qui correspond à vos compétences et à vos aspirations professionnelles.</p>
@@ -127,7 +128,10 @@
                         </div>
                         <div class="job-actions">
                             <button class="apply-btn">Postuler</button>
-                            <a class="details-btn" href="/offre/{{ offer.Id_Offer }}">Voir plus de détails</a>
+                            <button class="details-btn" data-title="{{ offer.title }}" data-location="{{ offer.location }}" data-company="{{ offer.name }}" data-date="{{ offer.publication_date }}" data-description="{{ offer.description }}">
+                                Voir plus de détails
+                            </button>
+                            
                             <i class="far fa-heart favorite-icon"></i>
                         </div>
                     </div>
@@ -135,137 +139,166 @@
             {% endif %}
         </div>
 
-
-        {# <div class="job-list" id="job-list">
-            <!-- Exemple d'offre de stage -->
-            <div class="job-item">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
-                <div class="job-content">
-                    <h3 class="job-title">Développeur Front-End H/F</h3>
-                    <div class="job-details">
-                        <p><i class="fas fa-map-marker-alt"></i> Rouen</p>
-                        <p><i class="fa-solid fa-building"></i> CESI</p>
-                        <p><i class="fa-solid fa-file-lines"></i> Stage</p>
-                        <p><i class="fas fa-clock"></i> Posté il y a 16 jours</p>
+        <div class="job-list" id="job-list">
+            {% for offer in offers %}
+                <div class="job-item">
+                    <img src="{{ offer.image }}" alt="Logo de l'entreprise">
+                    <div class="job-content">
+                        <h3 class="job-title">{{ offer.title }}</h3>
+                        <div class="job-details">
+                            <p><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</p>
+                            <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
+                            <p><i class="fas fa-clock"></i> Posté il y a {{ offer.publication_date }}</p>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="details-btn"
+                            data-title="{{ offer.title ?? '' }}"
+                            data-location="{{ offer.city ?? offer.location ?? 'Non spécifié' }}"
+                            data-compname="{{ offer.name ?? '' }}"
+                            data-date="{{ offer.publication_date ?? '' }}"
+                            data-remuneration="{{ offer.remuneration ?? '' }}"
+                            data-duration="{{ offer.duration ?? 'Non spécifié' }}"
+                            data-description="{{ offer.description ?? '' }}"
+                            data-skills="{{ offer.competence ?? '' }}" 
+                            data-compdesc="{{ offer.compdescription ?? '' }}"
+                            data-compmail="{{ offer.mail ?? '' }}"
+                            data-compphone="{{ offer.phone ?? '' }}"
+                            data-compeval="{{ offer.rating ?? 0 }}">
+                            Voir plus de détails
+                        </button>
                     </div>
                 </div>
-                <div class="job-actions">
-                    <button class="apply-btn">Postuler</button>
-                    <a class="details-btn">Voir plus de détails</a>
-                    <i class="far fa-heart favorite-icon"></i>
-                </div>
-            </div>
+            {% endfor %}
+        </div>
 
-            <div class="modal-overlay" id="modal-overlay">
-                <div class="modal">
-                    <!-- En-tête de la modale -->
-                    <div class="modal-header">
-                        <h2 class="modal-title">Développeur Front-End H/F</h2>
-                        <button class="close-modal">&times;</button>
-                    </div>
-            
-                    <!-- Corps de la modale -->
-                    <div class="modal-body">
-                        <!-- Section Résumé -->
-                        <div class="summary-section">
-                            <div class="summary-grid">
-                                <div class="summary-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div class="summary-content">
-                                        <span class="summary-label">Localisation</span>
-                                        <span class="summary-value">Rouen</span>
-                                    </div>
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal">
+                <!-- En-tête de la modale -->
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modal-title"></h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+
+                <!-- Corps de la modale -->
+                <div class="modal-body">
+                    <!-- Section Résumé -->
+                    <div class="summary-section">
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="summary-content">
+                                    <span class="summary-label">Localisation</span>
+                                    <span class="summary-value" id="modal-location"></span>
                                 </div>
-                                <div class="summary-item">
-                                    <i class="fa-solid fa-building"></i>
-                                    <div class="summary-content">
-                                        <span class="summary-label">Entreprise</span>
-                                        <span class="summary-value">CESI</span>
-                                    </div>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fa-solid fa-building"></i>
+                                <div class="summary-content">
+                                    <span class="summary-label">Entreprise</span>
+                                    <span class="summary-value" id="modal-compname"></span>
                                 </div>
-                                <div class="summary-item">
-                                    <i class="fa-solid fa-file-lines"></i>
-                                    <div class="summary-content">
-                                        <span class="summary-label">Type</span>
-                                        <span class="summary-value">Stage</span>
-                                    </div>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-clock"></i>
+                                <div class="summary-content">
+                                    <span class="summary-label">Posté il y a</span>
+                                    <span class="summary-value" id="modal-date"></span>
                                 </div>
-                                <div class="summary-item">
-                                    <i class="fas fa-clock"></i>
-                                    <div class="summary-content">
-                                        <span class="summary-label">Posté il y a</span>
-                                        <span class="summary-value">16 jours</span>
-                                    </div>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fa-solid fa-euro-sign"></i>
+                                <div class="summary-content">
+                                    <span class="summary-label">Rémunération</span>
+                                    <span class="summary-value" id="modal-remuneration"></span>
                                 </div>
-                                <div class="summary-item">
-                                    <i class="fa-solid fa-euro-sign"></i>
-                                    <div class="summary-content">
-                                        <span class="summary-label">Rémunération</span>
-                                        <span class="summary-value">800€/mois</span>
-                                    </div>
-                                </div>
-                                <div class="summary-item">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <div class="summary-content">
-                                        <span class="summary-label">Durée</span>
-                                        <span class="summary-value">6 mois</span>
-                                    </div>
+                            </div>
+                            <div class="summary-item">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <div class="summary-content">
+                                    <span class="summary-label">Durée</span>
+                                    <span class="summary-value" id="modal-duration"></span>
                                 </div>
                             </div>
                         </div>
-            
-                        <!-- Section Description -->
-                        <div class="description-section">
-                            <h3>Description du poste</h3>
-                            <p>
-                                Nous recherchons un développeur Front-End passionné pour rejoindre notre équipe.
-                                Vous serez en charge de la conception et du développement d'interfaces utilisateur modernes.
-                                Vous travaillerez en étroite collaboration avec les designers et les développeurs Back-End
-                                pour créer des expériences utilisateur fluides et réactives.
-                            </p>
-                        </div>
-            
-                        <!-- Section Compétences -->
-                        <div class="skills-section">
-                            <h3>Compétences requises</h3>
-                            <ul>
-                                <li>Maîtrise de HTML, CSS et JavaScript</li>
-                                <li>Expérience avec React ou Vue.js</li>
-                                <li>Connaissance des bonnes pratiques SEO</li>
-                                <li>Capacité à travailler en équipe</li>
-                                <li>Bonne compréhension des outils de versioning (Git)</li>
-                            </ul>
-                        </div>
-            
-                        <!-- Section Avantages -->
-                        <div class="benefits-section">
-                            <h3>Avantages</h3>
-                            <ul>
-                                <li>Tickets restaurant</li>
-                                <li>Transport pris en charge à 50%</li>
-                                <li>Environnement de travail dynamique</li>
-                                <li>Accès à des formations en ligne</li>
-                            </ul>
-                        </div>
-            
-                        <!-- Section Informations pratiques -->
-                        <div class="practical-info-section">
-                            <h3>Informations pratiques</h3>
-                            <ul>
-                                <li><strong>Date de début :</strong> 1er septembre 2023</li>
-                                <li><strong>Horaires :</strong> 9h - 18h, du lundi au vendredi</li>
-                                <li><strong>Télétravail :</strong> 2 jours/semaine</li>
-                                <li><strong>Adresse :</strong> 123 Rue de l'Exemple, 76000 Rouen</li>
-                            </ul>
-                        </div>
                     </div>
-            
-                    <!-- Pied de la modale -->
-                    <div class="modal-footer">
-                        <button class="candidacy-btn" onclick="window.location.href='candidacy.html'">Postuler</button>
+
+                    <!-- Section Description -->
+                    <div class="description-section">
+                        <h3>Description du poste</h3>
+                        <p id="modal-description"></p>
+                    </div>
+
+                    <!-- Section Compétences -->
+                    <div class="skills-section">
+                        <h3>Compétences requises</h3>
+                        <ul id="modal-skills-list"></ul>
+                    </div>
+
+                    <!-- Section Avantages -->
+                    <div class="company-section">
+                        <h3>Entreprise</h3>
+                        <ul>
+                            <li id="modal-compname2"></li>
+                            <li id="modal-compdesc"></li>
+                            <li id="modal-compmail"></li>
+                            <li id="modal-compphone"></li>
+                            <li id="model-rating"></li>
+                        </ul>
                     </div>
                 </div>
-            </div> #}
+
+                <!-- Pied de la modale -->
+                <div class="modal-footer">
+                    <button class="candidacy-btn">Postuler</button>
+                </div>
+            </div>
+        </div>
+
+        {# <div class="modal-overlay" id="modal-overlay" style="display: none;">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 id="modal-title"></h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="summary-section">
+                        <div class="summary-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="summary-content">
+                                <span class="summary-label">Localisation</span>
+                                <span id="modal-location"></span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fa-solid fa-building"></i>
+                            <div class="summary-content">
+                                <span class="summary-label">Entreprise</span>
+                                <span id="modal-company"></span>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="summary-content">
+                                <span class="summary-label">Posté il y a</span>
+                                <span id="modal-date"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <h3>Description du poste</h3>
+                        <p id="modal-description"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="candidacy-btn">Postuler</button>
+                </div>
+            </div>
+        </div> #}
+
+            
+
+            
 
         <div class="pagination">
             {% if currentPage > 1 %}
@@ -281,4 +314,5 @@
     </div>
 
     <script src="../../static/scripts/filters-script.js"></script>
+    <script src="../../static/scripts/modal-script.js"></script>
 {% endblock %}
