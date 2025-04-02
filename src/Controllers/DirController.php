@@ -1,19 +1,29 @@
 <?php 
 namespace App\Controllers;
 
+use App\Controllers\CompanyController;
+use App\Controllers\UserController;
+
 use App\Models\CorporationModel;
 use App\Models\OfferModel;
 
+
 class DirController extends Controller {
+
+    protected $controllercompany = null;
+    protected $controlleruser = null;
 
     protected $modelcorporation = null;
     protected $modeloffer = null;
 
     public function __construct($templateEngine) { 
+        $this->controllercompany = new CompanyController($templateEngine);
+        $this->controlleruser = new UserController($templateEngine);
+
         $this->modelcorporation = new CorporationModel();
         $this->modeloffer = new OfferModel();
+
         $this->templateEngine = $templateEngine;
-        
     }
 
     public function homePage() {
@@ -114,17 +124,20 @@ class DirController extends Controller {
         ]);
     }
 
-    public function accountPage() {
+
+    public function renderPagesAccount(){
         $user = $_SESSION['user'] ?? null;
-        
+
+        $corporation = $this->controllercompany->listCompany();
+        $students = $this->controlleruser->listUsers();
+
+
         echo $this->templateEngine->render('pages/user.html.twig', [
-            "user"=> $user,
+            'students' => $students, 
+            'corporation' => $corporation, 
+            'user' => $user 
+        
         ]);
-    }
-
-
-    public function renderPages(){
-        $user = $_SESSION['user'] ?? null;
     }
 
 

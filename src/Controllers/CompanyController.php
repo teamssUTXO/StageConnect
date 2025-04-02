@@ -64,13 +64,7 @@ class CompanyController extends Controller {
   }
 
   public function listCompany() {
-    $user = $_SESSION['user'] ?? null; 
-    $corporation = $this->corporationModel->getAll();
-    echo $this->templateEngine->render('pages/user.html.twig', [
-        'corporation' => $corporation, 
-        'user' => $user 
-    
-    ]);
+    return $this->corporationModel->getAll();
 }
 
 }

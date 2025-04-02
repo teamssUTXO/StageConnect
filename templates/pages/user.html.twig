@@ -312,24 +312,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {% for corporations in corporation %}
                             <tr>
-                                <td>{{ corporation.Siret }}</td>
-                                <td>{{ corporation.name }}</td>
-                                <td>{{ corporation.mail }}</td>
+                                <td>{{ corporations.Siret }}</td>
+                                <td>{{ corporations.name }}</td>
+                                <td>{{ corporations.mail }}</td>
                                 <td>
                                     <button class="btn block">Bloquer</button>
                                     <button class="btn delete">Supprimer</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Innovatech</td>
-                                <td>info@innovatech.com</td>
-                                <td>
-                                    <button class="btn block">Bloquer</button>
-                                    <button class="btn delete">Supprimer</button>
-                                </td>
-                            </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="no-data">Aucune entreprise trouvée.</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
 

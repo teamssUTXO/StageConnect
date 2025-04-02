@@ -39,13 +39,7 @@ class UserController extends Controller {
     }
 
     public function listUsers() {
-        $user = $_SESSION['user'] ?? null; // Get the user from the session
-        $students = $this->userModel->getAllStudents(); // Fetch students
-        echo $this->templateEngine->render('pages/user.html.twig', [
-            'students' => $students, 
-            'user' => $user 
-        
-        ]);
+        return $this->userModel->getAllStudents();
     }
 
 }

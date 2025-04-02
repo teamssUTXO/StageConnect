@@ -163,8 +163,10 @@ switch ($segments[0]) {
     case 'account':
         session_start();
         if (isset($_SESSION['user'])) {
-            $controlleruser->listUsers();
-            $controllercompany->listCompany();
+            // $controllercompany->listCompany();
+            // $controlleruser->listUsers();
+            $controller->renderPagesAccount();
+            
             
             
             exit;
