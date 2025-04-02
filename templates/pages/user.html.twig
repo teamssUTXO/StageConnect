@@ -260,13 +260,12 @@
                 </div>
             </div>
 
-            <!-- Section gestion des étudiants -->
             <div id="students-management" class="content-section">
                 <h2>Gestion des étudiants</h2>
 
                 <div class="div-students">
                     <table class="students-table">
-                        <thead> <!--quand tu clique, tu tombe sur son profil avec les offres candidaté etc...-->
+                        <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Nom</th>
@@ -276,28 +275,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Antoine Dupont</td>
-                                <td>jean.dupont@email.com</td>
-                                <td>Promo 2025</td>
-                                <td>
-                                    <button class="btn modify-promo">Modifier Promotion</button>
-                                    <button class="btn block">Bloquer</button>
-                                    <button class="btn delete">Supprimer</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Marie Curie</td>
-                                <td>marie.curie@email.com</td>
-                                <td>Promo 2026</td>
-                                <td>
-                                    <button class="btn modify-promo">Modifier Promotion</button>
-                                    <button class="btn block">Bloquer</button>
-                                    <button class="btn delete">Supprimer</button>
-                                </td>
-                            </tr>
+                            {% for student in students %}
+                                <tr>
+                                    <td>{{ student.id }}</td>
+                                    <td>{{ student.name }} {{ student.surname }}</td>
+                                    <td>{{ student.mail }}</td>
+                                    <td>{{ student.Id_Promotion }}</td>
+                                    <td>
+                                        <button class="btn modify-promo" data-id="{{ student.id }}">Modifier étudiant</button>
+                                        <button class="btn block" data-id="{{ student.id }}">Bloquer</button>
+                                        <button class="btn delete" data-id="{{ student.id }}">Supprimer</button>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="no-data">Aucun étudiant trouvé.</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

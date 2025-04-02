@@ -39,6 +39,7 @@ $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
+$controlleruser = new \App\Controllers\UserController($twig);
 
 // echo $segments[0];
 // echo $segments[1];
@@ -162,7 +163,7 @@ switch ($segments[0]) {
     case 'account':
         session_start();
         if (isset($_SESSION['user'])) {
-            $controller->accountPage();
+            $controlleruser->listUsers();
             exit;
         } else {
             $controller->loginPage();
@@ -183,6 +184,17 @@ switch ($segments[0]) {
             } else {
                 $controller->loginPage();
             }
+
+    case 'students-management':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controlleruser = new \App\Controllers\UserController($twig);
+             // Appeler la méthode pour afficher les étudiants
+            exit;
+        } else {
+            $controller->loginPage();
+        }
+        break;
 
     default:
         echo '404 Not Found';

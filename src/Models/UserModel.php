@@ -16,19 +16,8 @@ class UserModel extends Model {
         return $result[0] ?? null;
     }
 
- 
-    // public function verifyCredentials(string $email, string $password): bool {
-    //     $user = $this->getUserByEmail($email);
-        
-    //     if (!$user) {
-    //         return false;
-    //     }
-
-    //     return password_verify($password, $user->password);
-    // }
-
     
-    public function createUser(string $email, string $password, string $name, string $surname = "", $Id_Prom , $Id_Role = 1 ): bool {
+    public function createUser(string $email, string $password, string $name, string $surname = "", int $Id_Role = 1, int $Id_Prom = 1): bool {
         $data = [
             'name' => $name,
             'surname' => $surname,
@@ -39,6 +28,50 @@ class UserModel extends Model {
         ];
         return $this->connexion->insert($this->table, $data);
     }
+
+    public function getAllStudents(): array {
+        $condition = ['Id_Role' => 1];
+        $students = $this->connexion->select($this->table, $condition);
+
+        if (empty($students)) {
+            error_log("No students found in the database.");
+        }
+        return $students;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // public function deleteUser($condition){
     //     return $this->pdo->delete
@@ -51,5 +84,16 @@ class UserModel extends Model {
     //         ['password' => password_hash($newPassword)],
     //         ['id' => $userId]
     //     );
+    // }
+
+     
+    // public function verifyCredentials(string $email, string $password): bool {
+    //     $user = $this->getUserByEmail($email);
+        
+    //     if (!$user) {
+    //         return false;
+    //     }
+
+    //     return password_verify($password, $user->password);
     // }
 }

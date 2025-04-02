@@ -121,4 +121,12 @@ class DirController extends Controller {
             "user"=> $user,
         ]);
     }
+
+    public function ListUserPage() {
+        $user = $_SESSION['user'] ?? null;
+        
+        echo $this->templateEngine->render('pages/user.html.twig', [
+            "user"=> $user,
+        ]);
+    }
 }
