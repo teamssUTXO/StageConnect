@@ -74,6 +74,10 @@ class OfferModel extends Model {
         ]);
         return $result ?? null;
     }
+
+    public function insertOffer ($Id_offer, $data) {
+        return $this->connexion->insert(this->table, $data);
+    }
 }
 
 // echo Joins::WISHLIST->value;
