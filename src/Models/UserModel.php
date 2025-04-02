@@ -28,14 +28,20 @@ class UserModel extends Model {
     // }
 
     
-    // public function createUser(string $email, string $password, array $additionalData = []): bool {
-    //     $data = array_merge($additionalData, [
-    //         'email' => $email,
-    //         'password' => password_hash($password),
-    //         'created_at' => date('Y-m-d H:i:s')
-    //     ]);
+    public function createUser(string $email, string $password, string $name, string $surname = "", $Id_Prom , $Id_Role = 1 ): bool {
+        $data = [
+            'name' => $name,
+            'surname' => $surname,
+            'mail' => $email,
+            'password' => $password,
+            'Id_Promotion' => $Id_Prom,
+            'Id_Role' => $Id_Role
+        ];
+        return $this->connexion->insert($this->table, $data);
+    }
 
-    //     return $this->connexion->create($this->table, $data);
+    // public function deleteUser($condition){
+    //     return $this->pdo->delete
     // }
 
 
