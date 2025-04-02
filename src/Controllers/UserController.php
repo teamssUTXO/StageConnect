@@ -38,8 +38,38 @@ class UserController extends Controller {
         }
     }
 
+    public function updateUser() {
+        $email = $_POST['email'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $password = $_POST['password'];
+        $Id_Prom = $_POST['Id_Prom'];
+        $Id_Role = $_POST['Id_Role'];
+        $Id_User = $_POST['Id_User'];
+
+        if ($Id_Role == 1) {
+            $role = "étudiant";
+        } elseif ($Id_Role == 2) {
+            $role = "pilote";
+        } else {
+            echo "Rôle non valide.";
+            return;
+        }
+
+        $user = $this->userModel->updateUser($email, $name, $surname, $password, $Id_Prom, $Id_Role, $Id_User);
+        if ($user) {
+            echo "$role modifié avec succès.";
+        } else {
+            echo "$role non modifié.";
+        }
+    }
+
     public function listUsers() {
         return $this->userModel->getAllStudents();
+    }
+
+    public function listTutor(){
+        return $this->userModel->getAllTutor();
     }
 
 }

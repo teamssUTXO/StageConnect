@@ -130,9 +130,11 @@ class DirController extends Controller {
 
         $corporation = $this->controllercompany->listCompany();
         $students = $this->controlleruser->listUsers();
+        $tutor = $this->controlleruser->listTutor();
 
 
         echo $this->templateEngine->render('pages/user.html.twig', [
+            'tutor' => $tutor,
             'students' => $students, 
             'corporation' => $corporation, 
             'user' => $user 

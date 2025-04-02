@@ -198,24 +198,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                         {% for tut in tutor %}
                             <tr>
-                                <td>1</td>
-                                <td>Antonin Mignot--Pilon</td>
-                                <td>anto@gmail.com</td>
+                                <td>{{ tut.Id_Users }}</td>
+                                <td>{{ tut.name }} {{ tut.surname }}</td>
+                                <td>{{ tut.mail }}</td>
                                 <td>
                                     <button class="btn modify">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
                                     <button class="btn delete">Supprimer</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Mattéo Mariani</td>
-                                <td>mat@gmail.com</td>
-                                <td>
-                                    <button class="btn modify">Modifier</button>
-                                    <button class="btn delete">Supprimer</button>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
 
@@ -237,6 +230,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                       
                             <tr>
                                 <td>1</td>
                                 <td>CPI A2</td> <!--Quand on appuie ca retourne vers une page compète avec les étudiants-->
@@ -245,6 +239,7 @@
                                     <button class="btn delete">Supprimer</button>
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td>2</td>
                                 <td>FISA A3</td>
@@ -277,7 +272,7 @@
                         <tbody>
                             {% for student in students %}
                                 <tr>
-                                    <td>{{ student.id }}</td>
+                                    <td>{{ student.Id_Users }}</td>
                                     <td>{{ student.name }} {{ student.surname }}</td>
                                     <td>{{ student.mail }}</td>
                                     <td>{{ student.Id_Promotion }}</td>
@@ -294,6 +289,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    <button class="btn add">Ajouter un étudiant</button>
                 </div>
             </div>
 
