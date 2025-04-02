@@ -68,4 +68,10 @@ class CompanyController extends Controller {
       'totalPages' => $totalPages  
     ]);
   }
+
+  public function listCompany() {
+    return $this->corporationModel->getAll();
 }
+
+}
+

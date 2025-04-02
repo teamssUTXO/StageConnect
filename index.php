@@ -39,6 +39,7 @@ $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
+$controlleruser = new \App\Controllers\UserController($twig);
 
 switch ($segments[0]) {
     case '':
@@ -163,7 +164,12 @@ switch ($segments[0]) {
     case 'account':
         session_start();
         if (isset($_SESSION['user'])) {
-            $controller->accountPage();
+            // $controllercompany->listCompany();
+            // $controlleruser->listUsers();
+            $controller->renderPagesAccount();
+            
+            
+            
             exit;
         } else {
             $controller->loginPage();
