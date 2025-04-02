@@ -40,8 +40,6 @@ $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
 
-// echo $segments[0];
-// echo $segments[1];
 
 switch ($segments[0]) {
     case '':
@@ -175,14 +173,14 @@ switch ($segments[0]) {
         header('Location: /login'); 
         exit;
 
-        case 'candidacy':
-            session_start();
-            if (isset($_SESSION['user'])) {
-                $controlleroffer->candidate();
-                exit;
-            } else {
-                $controller->loginPage();
-            }
+    case 'candidacy':
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $controlleroffer->candidate();
+            exit;
+        } else {
+            $controller->loginPage();
+        }
 
     default:
         echo '404 Not Found';
