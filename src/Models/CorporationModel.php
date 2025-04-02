@@ -47,11 +47,9 @@ class CorporationModel extends Model {
     }
 
 
-    // public function ajouterEntreprise(array $entrepriseData): bool|int{
-    //     return $this->connexion->insert($this->table, $entrepriseData, [
-    //         'Siret' => $siret 
-    //     ]);
-    // }
+    public function ajouterEntreprise(array $entrepriseData): bool|int{
+        return $this->connexion->insert($this->table, $entrepriseData);
+    }
     
     public function supprimerEntreprise(string $siret): bool{
         return $this->connexion->delete($this->table, [
@@ -66,7 +64,7 @@ class CorporationModel extends Model {
     }
     
     
-    // public function evaluerEntreprise()
+//     public function evaluerEntreprise()
 
 }
 
