@@ -51,11 +51,13 @@ class OfferController extends Controller {
 
   public function candidate($id){
     $user = $_SESSION['user'] ?? null;
+    $popup = $_SESSION['flash'] ?? null;
 
     $offer = $this->offerModel->offerCorporation($id);
 
     echo $this->templateEngine->render('pages/candidacy.html.twig', [
       'user'=> $user,
+      'flash' => $popup,
       'offer'=> $offer,
     ]);
   }

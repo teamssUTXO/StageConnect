@@ -16,9 +16,9 @@ class CandidateController extends Controller {
 
     public function candidacy($id_offre) {
         session_start();
-        $id_user = $_SESSION['Id_Users'] ?? null;
+        $user = $_SESSION['user'] ?? null;
 
-        echo $id_offre;
+        $id_user = $user->Id_Users;
 
         if (!$id_user || !$id_offre) {
             die("Erreur : utilisateur ou offre invalide.");
@@ -27,14 +27,15 @@ class CandidateController extends Controller {
         $model = new CandidateModel();
 
         if ($model->candidatureExiste($id_user, $id_offre)) {
-            header("Location: /candidacy/$id_offre?erreur=deja_postule");
+            $_SESSION['flash'] = "Vous avez déjà postulé à cette offre !";
+            header("Location: /candidacy/$id_offre");
             exit();
         }
 
         $message = htmlspecialchars($_POST['message'] ?? '');
 
         // Dossier de destination
-        $dir_path = __DIR__ . "../../data/offre/" . $id_offre;
+        $dir_path = __DIR__ . "/../../data/offre/" . $id_offre;
         if (!is_dir($dir_path)) {
             mkdir($dir_path, 0755, true);
         }
@@ -48,19 +49,21 @@ class CandidateController extends Controller {
         } 
         // Cas 2 : copier le CV de base
         else {
-            $source = __DIR__ . "../../data/cv/cv$id_user.pdf";
+            $source = __DIR__ . "/../../data/cv/cv$id_user.pdf";
             if (file_exists($source)) {
                 copy($source, $destination);
             } else {
-                die("CV de base introuvable pour l'utilisateur.");
+                die("CV introuvable.");
             }
         }
 
-        // Chemin relatif à stocker
+        // Chemin du cv pour la bdd
         $cv_path = "data/offre/$id_offre/$cv_filename";
 
-        // Enregistrement de la candidature
+        // enregistrement dans bdd
         $model->enregistrerCandidature($id_user, $id_offre, $message, $cv_path);
+
+        $_SESSION['flash'] = "Vous avez déjà postulé à cette offre !";
 
         header("Location: /");
         exit();

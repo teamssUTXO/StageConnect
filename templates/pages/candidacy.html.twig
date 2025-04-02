@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block content %}
+    {% if flash %}
+        <div id="popup" class="popup">
+            {{ flash }}
+        </div>
+    {% endif %}
+
     <h1>Postuler à l'offre de stage : {{offer.title}}</h1>
 
     <div class="summary-section">
@@ -84,10 +90,5 @@
             <div class="loader"></div>
         </button>
     </form>
-
-    <div class="popup" id="popup">
-        <p>Formulaire envoyé avec succès !</p>
-    </div>
-    
     <script src="../static/scripts/candidacy-script.js"></script>
 {% endblock %}

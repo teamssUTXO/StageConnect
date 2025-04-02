@@ -48,6 +48,9 @@ switch ($segments[0]) {
         session_start();
         if (isset($_SESSION['user'])) {
             $controller->homePage();
+            if (isset($_SESSION['flash'])) {
+                unset($_SESSION['flash']);
+            }
             exit;
         } else {
             $controller->loginPage();
@@ -187,11 +190,17 @@ switch ($segments[0]) {
     case 'candidacy':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controllercandidate->candidacy($segments[1]); 
+            if (isset($_SESSION['flash'])) {
+                unset($_SESSION['flash']);
+            }
         } else {
             session_start();
             if (isset($_SESSION['user'])) {
                 if (isset($segments[1])) {
                     $controlleroffer->candidate($segments[1]);
+                    if (isset($_SESSION['flash'])) {
+                        unset($_SESSION['flash']);
+                    }
                     exit;
                 } else {
                     echo '404 Not Found';

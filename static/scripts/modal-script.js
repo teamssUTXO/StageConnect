@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const compphone = button.getAttribute("data-compphone") || "Non spécifié";
             const rating = button.getAttribute("data-compeval") || "0";
 
-            // // affiche les données dans la console pour debug
+            // affiche les données dans la console pour debug
             console.log({
                 title, location, compname, date, remuneration, duration, 
                 description, skills, compdesc, compmail, compphone, rating

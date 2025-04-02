@@ -44,6 +44,8 @@ class DirController extends Controller {
         // ]);
 
         $user = $_SESSION['user'] ?? null;
+        $popup = $_SESSION['flash'] ?? null;
+        echo $popup;
 
         $companies = $this->modelcorporation->getAll();
         $offers = $this->modeloffer->getAll();
@@ -51,6 +53,7 @@ class DirController extends Controller {
         echo $this->templateEngine->render("pages/home.html.twig", [
             'count' => $offers ? count($offers) : 0,
             "user"=> $user,
+            'flash' => $popup,
             "companies" => $companies
         ]);
     }   

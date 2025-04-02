@@ -1,3 +1,12 @@
+// // Pop-up
+// const popup = document.getElementById('popup');
+// if (popup) {
+//     popup.style.display = 'block';
+//     setTimeout(() => {
+//         popup.style.display = 'none';
+//     }, 4000); // 4 secondes
+// }
+
 document.addEventListener("DOMContentLoaded", function () {
     const menuItems = document.getElementById("menu-items");
     const categoryButtons = document.querySelectorAll(".category-button");

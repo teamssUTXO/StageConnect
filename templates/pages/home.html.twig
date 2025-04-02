@@ -7,6 +7,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if flash %}
+        <script>
+            alert("{{ flash|e('js') }}"); {#<div id="popup" class="popup">{{ flash }}</div>#}
+        </script> 
+    {% endif %}
+
+    <p>{{flash}}</p>
+
     <section class="hero">
         <div class="hero-content">
             <h1>Trouve le stage qui lance ta carrière !</h1>
