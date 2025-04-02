@@ -29,6 +29,23 @@ class UserModel extends Model {
         return $this->connexion->insert($this->table, $data);
     }
 
+    public function updateUser(string $email, string $password, string $name, string $surname, $Id_Prom , $Id_Role, $Id_User){
+        $data = [
+            'name' => $name,
+            'surname' => $surname,
+            'mail' => $email,
+            'password' => $password,
+            'Id_Promotion' => $Id_Prom,
+            'Id_Role' => $Id_Role
+        ];
+        $condition = [
+            'Id_Users' => $Id_User
+        ];
+        return $this->connexion->update($this->table, $data, $condition);
+    }
+
+    
+
     public function getAllStudents(): array {
         $condition = ['Id_Role' => 1];
         $students = $this->connexion->select($this->table, $condition);

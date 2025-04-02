@@ -7,6 +7,7 @@ use App\Controllers\DirController;
 use App\Controllers\AuthentificationController;
 use App\Controllers\OfferController;
 use App\Controllers\CompanyController;
+use App\Controllers\UserController;
 
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
@@ -39,7 +40,7 @@ $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
-$controlleruser = new \App\Controllers\UserController($twig);
+$controlleruser = new UserController($twig);
 
 // echo $segments[0];
 // echo $segments[1];
@@ -164,6 +165,7 @@ switch ($segments[0]) {
         session_start();
         if (isset($_SESSION['user'])) {
             $controlleruser->listUsers();
+            $controlleruser->updateUser();
             exit;
         } else {
             $controller->loginPage();
@@ -184,17 +186,7 @@ switch ($segments[0]) {
             } else {
                 $controller->loginPage();
             }
-
-    case 'students-management':
-        session_start();
-        if (isset($_SESSION['user'])) {
-            $controlleruser = new \App\Controllers\UserController($twig);
-             // Appeler la méthode pour afficher les étudiants
-            exit;
-        } else {
-            $controller->loginPage();
-        }
-        break;
+            break;
 
     default:
         echo '404 Not Found';

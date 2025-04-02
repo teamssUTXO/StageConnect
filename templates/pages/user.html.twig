@@ -282,7 +282,7 @@
                                     <td>{{ student.mail }}</td>
                                     <td>{{ student.Id_Promotion }}</td>
                                     <td>
-                                        <button class="btn modify-promo" data-id="{{ student.id }}">Modifier étudiant</button>
+                                        <button class="btn modify-promo" data-id="{{ student.id }}">Modifier l'étudiant </button>
                                         <button class="btn block" data-id="{{ student.id }}">Bloquer</button>
                                         <button class="btn delete" data-id="{{ student.id }}">Supprimer</button>
                                     </td>
@@ -296,6 +296,7 @@
                     </table>
                 </div>
             </div>
+    
 
             <!-- Section gestion des entreprises -->
             <div id="companies-management" class="content-section">
@@ -339,5 +340,8 @@
         </div>
     </div>
     
-    <script src="../static/scripts/user-script.js"></script>
+
+<script src="../static/scripts/user-script.js"></script>
+    
+
 {% endblock %}
