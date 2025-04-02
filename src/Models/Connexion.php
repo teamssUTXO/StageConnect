@@ -182,7 +182,7 @@ class connexion {
         return $stmt->execute($conditions);
     }
 
-    public function insert($table, $data) {
+    public function insert($table, $data) {   //A appeler de la manière : $newUserId = $db->insert('Users', ['name' => 'Antoine','surname' => 'Dupont','mail' => 'user@example.com','password' => password_hash('mot_de_passe_secure', PASSWORD_DEFAULT),'Id_Promotion' => 1,'Id_Role' => 1]);
         // Préparation des colonnes et des valeurs pour la requête
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_map(fn($key) => ":$key", array_keys($data)));
