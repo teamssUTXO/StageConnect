@@ -164,6 +164,9 @@ switch ($segments[0]) {
         session_start();
         if (isset($_SESSION['user'])) {
             $controlleruser->listUsers();
+            $controllercompany->listCompany();
+            
+            
             exit;
         } else {
             $controller->loginPage();
@@ -176,25 +179,16 @@ switch ($segments[0]) {
         header('Location: /login'); 
         exit;
 
-        case 'candidacy':
-            session_start();
-            if (isset($_SESSION['user'])) {
-                $controlleroffer->candidate();
-                exit;
-            } else {
-                $controller->loginPage();
-            }
-
-    case 'students-management':
+    case 'candidacy':
         session_start();
         if (isset($_SESSION['user'])) {
-            $controlleruser = new \App\Controllers\UserController($twig);
-             // Appeler la méthode pour afficher les étudiants
+            $controlleroffer->candidate();
             exit;
         } else {
             $controller->loginPage();
         }
-        break;
+
+
 
     default:
         echo '404 Not Found';
