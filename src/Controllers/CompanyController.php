@@ -13,6 +13,21 @@ class CompanyController extends Controller {
     $this->corporationModel = new CorporationModel();
   }
 
+  public function company($id) {
+    $user = $_SESSION['user'] ?? null;
+
+    $company = $this->corporationModel->getByID($id);
+
+    // echo '<pre>';
+    // echo json_encode($company, JSON_PRETTY_PRINT);
+    // echo '</pre>';
+
+    echo $this->templateEngine->render("pages/company.html.twig", [
+      'user' => $user,
+      'company' => $company,
+    ]);
+  }
+
   public function search() {
     $user = $_SESSION['user'] ?? null;
 

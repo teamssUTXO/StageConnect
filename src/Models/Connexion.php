@@ -34,6 +34,17 @@ class connexion {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function selectById($table, $id) {
+        $sql = "SELECT * FROM $table WHERE id = :id";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT); //bindParam() lie la variable elle-même, pas juste sa valeur donc si tu modifies $id après le bindParam(), la nouvelle valeur sera utilisée au moment du execute().
+    
+        $stmt->execute();
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC); // retourne un seul résultat
+    }
+
     public function selectLike($table, $conditions = []) {
         $sql = "SELECT * FROM $table";
         $params = [];

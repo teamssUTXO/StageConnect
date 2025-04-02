@@ -16,6 +16,16 @@ class CorporationModel extends Model {
         return $result ?? null;
     }
 
+    public function getById(int $id) {
+        $result = $this->connexion->selectJoin(
+            $this->table,
+            'INNER JOIN Offer AS o2 ON o.Siret = o2.Siret', 
+            ['Siret' => $id]
+        );
+
+        return $result ?? null;
+    }
+
     public function searchcorporation($search) {
 
         $conditions = [
