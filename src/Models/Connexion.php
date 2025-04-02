@@ -181,35 +181,55 @@ class connexion {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($conditions);
     }
-    
-    public function deleteJoin($table, $join = "", $conditions = [], $alias = null) {
-        // Déterminer l'alias à utiliser (premier caractère du nom de la table ou alias spécifié)
-        $tableAlias = $alias ?: strtolower(substr($table, 0, 1));
+
+    public function insert($table, $data) {
+        // Préparation des colonnes et des valeurs pour la requête
+        $columns = implode(", ", array_keys($data));
+        $placeholders = implode(", ", array_map(fn($key) => ":$key", array_keys($data)));
         
-        // Construction de la requête DELETE avec une sous-requête pour gérer les jointures
-        $sql = "DELETE $tableAlias FROM $table AS $tableAlias";
+        // Construction de la requête SQL
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         
-        // Ajouter les jointures
-        if (is_object($join) && property_exists($join, 'value')) {
-            $sql .= " " . $join->value;
-        } elseif (is_string($join)) {
-            $sql .= " " . $join;
-        }
-        
-        // Préparer les conditions
-        $params = [];
-        if (!empty($conditions)) {
-            $where = [];
-            foreach ($conditions as $column => $value) {
-                $where[] = "$tableAlias.$column = :$column";
-                $params[$column] = $value;
-            }
-            $sql .= " WHERE " . implode(" AND ", $where);
-        }
-        
+        // Préparation et exécution de la requête
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($params);
+        $success = $stmt->execute($data);
+        
+        // Si l'insertion a réussi, on retourne l'ID de la nouvelle ligne
+        if ($success) {
+            return $this->pdo->lastInsertId();
+        }
+        
+        return false;
     }
+    
+    // public function deleteJoin($table, $join = "", $conditions = [], $alias = null) {
+    //     // Déterminer l'alias à utiliser (premier caractère du nom de la table ou alias spécifié)
+    //     $tableAlias = $alias ?: strtolower(substr($table, 0, 1));
+        
+    //     // Construction de la requête DELETE avec une sous-requête pour gérer les jointures
+    //     $sql = "DELETE $tableAlias FROM $table AS $tableAlias";
+        
+    //     // Ajouter les jointures
+    //     if (is_object($join) && property_exists($join, 'value')) {
+    //         $sql .= " " . $join->value;
+    //     } elseif (is_string($join)) {
+    //         $sql .= " " . $join;
+    //     }
+        
+    //     // Préparer les conditions
+    //     $params = [];
+    //     if (!empty($conditions)) {
+    //         $where = [];
+    //         foreach ($conditions as $column => $value) {
+    //             $where[] = "$tableAlias.$column = :$column";
+    //             $params[$column] = $value;
+    //         }
+    //         $sql .= " WHERE " . implode(" AND ", $where);
+    //     }
+        
+    //     $stmt = $this->pdo->prepare($sql);
+    //     return $stmt->execute($params);
+    // }
     
     /**
      * Méthode pour tester le bon fonctionnement de la connexion et des méthodes CRUD
@@ -339,6 +359,7 @@ class connexion {
             ];
         }
         
+        
         return $results;
     }
     
@@ -380,3 +401,19 @@ class connexion {
 // echo "<pre>";
 // print_r($testResults);
 // echo "</pre>";
+
+// Exemple d'utilisation
+// $newUserId = $db->insert('Users', [
+//     'name' => 'Antoine',
+//     'surname' => 'Dupont',
+//     'mail' => 'user@example.com',
+//     'password' => password_hash('mot_de_passe_secure', PASSWORD_DEFAULT),
+//     'Id_Promotion' => 1,
+//     'Id_Role' => 1
+// ]);
+
+// if ($newUserId) {
+//     echo "Nouvel utilisateur créé avec l'ID: " . $newUserId;
+// } else {
+//     echo "Erreur lors de la création de l'utilisateur";
+// }
