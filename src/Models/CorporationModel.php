@@ -16,10 +16,10 @@ class CorporationModel extends Model {
         return $result ?? null;
     }
 
-    public function getById(int $id) {
+    public function getById(int $id): array|null {
         $result = $this->connexion->selectJoin(
             $this->table,
-            'INNER JOIN Offer AS o2 ON o.Siret = o2.Siret', 
+            'INNER JOIN Offer AS o ON c.Siret = o.Siret', 
             ['Siret' => $id]
         );
 
@@ -48,9 +48,7 @@ class CorporationModel extends Model {
 
 
     public function ajouterEntreprise(array $entrepriseData): bool|int{
-        return $this->connexion->insert($this->table, $entrepriseData, [
-            'Siret' => $siret 
-        ]);
+        return $this->connexion->insert($this->table, $entrepriseData);
     }
     
     public function supprimerEntreprise(string $siret): bool{
@@ -66,7 +64,7 @@ class CorporationModel extends Model {
     }
     
     
-    // public function evaluerEntreprise()
+//     public function evaluerEntreprise()
 
 }
 

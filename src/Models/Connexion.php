@@ -193,7 +193,7 @@ class connexion {
         return $stmt->execute($conditions);
     }
 
-    public function insert($table, $data) {   //A appeler de la manière : $newUserId = $db->insert('Users', ['name' => 'Antoine','surname' => 'Dupont','mail' => 'user@example.com','password' => password_hash('mot_de_passe_secure', PASSWORD_DEFAULT),'Id_Promotion' => 1,'Id_Role' => 1]);
+    public function insert($table, $data = []) {   //A appeler de la manière : $newUserId = $db->insert('Users', ['name' => 'Antoine','surname' => 'Dupont','mail' => 'user@example.com','password' => password_hash('mot_de_passe_secure', PASSWORD_DEFAULT),'Id_Promotion' => 1,'Id_Role' => 1]);
         // Préparation des colonnes et des valeurs pour la requête
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_map(fn($key) => ":$key", array_keys($data)));
@@ -301,7 +301,7 @@ class connexion {
         
         // Test 3: Test de la méthode select
         try {
-            $data = $this->select($tableName, [], 1);
+            $data = $this->select($tableName, []);
             $results['select_method'] = [
                 'status' => 'success',
                 'message' => "La méthode select() fonctionne correctement",
@@ -363,7 +363,7 @@ class connexion {
                 'message' => "Les requêtes sont correctement préparées contre l'injection SQL",
                 'prepared_query' => $safeSql
             ];
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             $results['sql_injection'] = [
                 'status' => 'error',
                 'message' => "Erreur lors du test de protection contre l'injection SQL: " . $e->getMessage()

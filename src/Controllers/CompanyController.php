@@ -16,15 +16,21 @@ class CompanyController extends Controller {
   public function company($id) {
     $user = $_SESSION['user'] ?? null;
 
-    $company = $this->corporationModel->getByID($id);
+    $currentPage = $_GET['page'] ?? 1;
+    $offersPerPage = 5;
+    $offset = ($currentPage - 1) * $offersPerPage;
 
-    // echo '<pre>';
-    // echo json_encode($company, JSON_PRETTY_PRINT);
-    // echo '</pre>';
+    $company = $this->corporationModel->getById($id);
+
+    $totalOffers = count($company);
+    $totalPages = ceil($totalOffers / $offersPerPage);
+    $offersOnPage = array_slice($company, $offset, $offersPerPage);
 
     echo $this->templateEngine->render("pages/company.html.twig", [
       'user' => $user,
       'company' => $company,
+      'currentPage' => $currentPage,
+      'totalPages' => $totalPages,
     ]);
   }
 
