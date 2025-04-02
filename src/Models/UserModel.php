@@ -16,7 +16,16 @@ class UserModel extends Model {
         return $result[0] ?? null;
     }
 
- 
+
+    public function updatePassword(int $userId, string $newPassword): bool {
+        return $this->connexion->update(
+            $this->table,
+            ['password' => password_hash($newPassword, PASSWORD_DEFAULT)],
+            ['id' => $userId]
+        );
+    }
+    
+    
     // public function verifyCredentials(string $email, string $password): bool {
     //     $user = $this->getUserByEmail($email);
         
@@ -37,13 +46,4 @@ class UserModel extends Model {
 
     //     return $this->connexion->create($this->table, $data);
     // }
-
-
-    public function updatePassword(int $userId, string $newPassword): bool {
-        return $this->connexion->update(
-            $this->table,
-            ['password' => password_hash($newPassword, PASSWORD_DEFAULT)],
-            ['id' => $userId]
-        );
-    }
 }

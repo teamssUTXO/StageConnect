@@ -17,7 +17,6 @@ class UserController extends Controller {
 
         $user = $_SESSION['user'] ?? null;
         $id = $_GET['id'] ?? null;
-        $role = $_GET['role'] ?? null;
         $newPassword = $_POST['password'] ?? null;
 
         if ($user) {

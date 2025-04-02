@@ -74,6 +74,8 @@ switch ($uri) {
         }
         break;
 
+    
+
     case '/cgu':
         session_start();
         if (isset($_SESSION['user'])) {
