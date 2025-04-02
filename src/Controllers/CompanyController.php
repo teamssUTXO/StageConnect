@@ -58,9 +58,10 @@ class CompanyController extends Controller {
 
     $companiesOnPage = array_slice($company, $offset, $companiesPerPage);
 
+    print_r($search);
+
     echo $this->templateEngine->render('pages/search-company.html.twig', [
       'user' => $user,
-      'name' => $search,
       'search' => $search ?? [],
       'count' => $company ? count($company) : 0,
       'companies' => $companiesOnPage,  // on passe les entreprises qui doivent être affichées sur la page

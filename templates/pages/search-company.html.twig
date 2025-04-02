@@ -33,31 +33,31 @@
                     <label for="rating-filter">Évaluation</label>
                     <select name="e" id="rating-filter">
                         <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir une évaluation</option>
-                        <option value="5" {% if search[3] == '5' %}selected{% endif %}>5⭐</option>
-                        <option value="4" {% if search[3] == '4' %}selected{% endif %}>4⭐</option>
-                        <option value="3" {% if search[3] == '3' %}selected{% endif %}>3⭐</option>
-                        <option value="2" {% if search[3] == 2 %}selected{% endif %}>2⭐</option>
-                        <option value="1" {% if search[3] == '1' %}selected{% endif %}>1⭐</option>
+                        <option value="5" {% if search[2] == '5' %}selected{% endif %}>5⭐</option>
+                        <option value="4" {% if search[2] == '4' %}selected{% endif %}>4⭐</option>
+                        <option value="3" {% if search[2] == '3' %}selected{% endif %}>3⭐</option>
+                        <option value="2" {% if search[2] == '2' %}selected{% endif %}>2⭐</option>
+                        <option value="1" {% if search[2] == '1' %}selected{% endif %}>1⭐</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="sector-filter">Secteur d'activité</label>
                     <select name="s" id="sector-filter">
-                        <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>
-                        <option value="IT" {% if search[2] == 'IT' %}selected{% endif %}>Technologie</option>
-                        <option value="Finance" {% if search[2] == 'Finance' %}selected{% endif %}>Finance</option>
-                        <option value="Commerce" {% if search[2] == 'Commerce' %}selected{% endif %}>Commerce</option>
-                        <option value="Droit" {% if search[2] == 'Droit' %}selected{% endif %}>Droit</option>
-                        <option value="Santé" {% if search[2] == 'Santé' %}selected{% endif %}>Santé</option>
+                        <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un secteur</option>
+                        <option value="IT" {% if search[3] == 'IT' %}selected{% endif %}>Technologie</option>
+                        <option value="Finance" {% if search[3] == 'Finance' %}selected{% endif %}>Finance</option>
+                        <option value="Commerce" {% if search[3] == 'Commerce' %}selected{% endif %}>Commerce</option>
+                        <option value="Droit" {% if search[3] == 'Droit' %}selected{% endif %}>Droit</option>
+                        <option value="Santé" {% if search[3] == 'Santé' %}selected{% endif %}>Santé</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="type-filter">Type d'entreprise</label>
                     <select name="t" id="type-filter">
-                        <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un type</option>
-                        <option value="startup" {% if search[3] == 'startup' %}selected{% endif %}>Start-up</option>
-                        <option value="pme" {% if search[3] == 'pme' %}selected{% endif %}>PME</option>
-                        <option value="large-corp" {% if search[3] == 'large-corp' %}selected{% endif %}>Grand groupe</option>
+                        <option value="" hidden {% if search[4] is empty %}selected{% endif %}>Choisir un type</option>
+                        <option value="startup" {% if search[4] == 'startup' %}selected{% endif %}>Start-up</option>
+                        <option value="pme" {% if search[4] == 'pme' %}selected{% endif %}>PME</option>
+                        <option value="large-corp" {% if search[4] == 'large-corp' %}selected{% endif %}>Grand groupe</option>
                     </select>
                 </div>
             </div>
