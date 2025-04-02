@@ -40,7 +40,6 @@ $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
 
-
 switch ($segments[0]) {
     case '':
         session_start();
@@ -130,6 +129,7 @@ switch ($segments[0]) {
         session_start();
         if (isset($_SESSION['user'])) {
             $controlleroffer->search(); 
+            exit;
         } else {
             $controller->loginPage();
         }
@@ -139,6 +139,7 @@ switch ($segments[0]) {
         session_start();
         if (isset($_SESSION['user'])) {
             $controllercompany->search(); 
+            exit;
         } else {
             $controller->loginPage();
         }
@@ -152,10 +153,12 @@ switch ($segments[0]) {
                 exit;
             } else {
                 echo '404 Not Found';
+                exit;
             }
         } else {
             $controller->loginPage();
         }
+        break;
 
     case 'account':
         session_start();

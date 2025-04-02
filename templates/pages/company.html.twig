@@ -17,69 +17,110 @@
                 <h1>{{ company[0].name }}</h1>
                 <p class="company-slogan">{{company[0].compdescription}}</p>
                 <div class="company-rating">
+                    {% set rating = company[0].rating ?? 0 %}
+                    {% set fullStars = rating|round(0, 'floor') %}
+                    {% set halfStar = (rating - fullStars >= 0.25 and rating - fullStars <= 0.75) ? 1 : 0 %}
+                    {% set emptyStars = 5 - fullStars - halfStar %}
+
                     <span class="rating-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
+                        {# Étoiles pleines #}
+                        {% for i in 1..fullStars %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+
+                        {# Étoile à moitié #}
+                        {% if halfStar %}
+                            <i class="fas fa-star-half-alt"></i>
+                        {% endif %}
+
+                        {# Étoiles vides #}
+                        {% for i in 1..emptyStars %}
+                            <i class="far fa-star"></i>
+                        {% endfor %}
                     </span>
-                    <span class="rating-value">4.0/5.0</span>
-                    <span class="rating-count">(128 avis)</span>
-                </div>
-                <div class="company-links">
-                    <a href="#" class="website-link"><i class="fas fa-globe"></i> Site web</a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <span class="rating-value">{{ rating }}/5.0</span>
+                    <span class="rating-count">({{ company[0].nb_rating ?? "non défini" }} avis)</span>
                 </div>
             </div>
-        </section>
-
-        <!-- Section Détails de l'entreprise -->
-        <section class="company-details">
-            <h2>À propos de CESI</h2>
-            <p>
-                CESI est un acteur majeur dans le domaine de l'éducation et de la formation professionnelle en France.
-                Avec plus de 25 campus à travers le pays, CESI propose des formations en ingénierie, informatique,
-                management, et bien d'autres domaines. Notre mission est de préparer les étudiants et les professionnels
-                aux défis de demain.
-            </p>
             <div class="details-grid">
                 <div class="detail-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <div class="detail-content">
-                        <span class="detail-label">Siège social</span>
-                        <span class="detail-value">Rouen, France</span>
+                        <span class="detail-label">Localisation</span>
+                        <span class="detail-value">{{company[0].localisation ?? "non définit"}}</span> {# n'existe pas encore nn plus #}
                     </div>
                 </div>
                 <div class="detail-item">
                     <i class="fas fa-users"></i>
                     <div class="detail-content">
-                        <span class="detail-label">Nombre d'employés</span>
-                        <span class="detail-value">500+</span>
+                        <span class="detail-label">Secteur d'activité</span>
+                        <span class="detail-value">{{ company[0].sector ?? "non définit"}}</span> {# n'existe pas encore nn plus #}
                     </div>
                 </div>
                 <div class="detail-item">
                     <i class="fas fa-calendar-alt"></i>
                     <div class="detail-content">
-                        <span class="detail-label">Année de création</span>
-                        <span class="detail-value">1958</span>
-                    </div>
-                </div>
-                <div class="detail-item">
-                    <i class="fas fa-industry"></i>
-                    <div class="detail-content">
-                        <span class="detail-label">Secteur d'activité</span>
-                        <span class="detail-value">Éducation et Formation</span>
+                        <span class="detail-label">Type de l'entreprise</span>
+                        <span class="detail-value">{{ company[0].type ?? "non définit"}}</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section Avis des utilisateurs -->
+        <!-- Section offres de l'entreprise -->
         <section class="company-reviews">
-            <h2>Avis des utilisateurs</h2>
-            <div class="reviews-list">
-                <!-- Exemple d'avis -->
+            <h2>Offres proposées par l'entreprise</h2>
+            {# <div class="reviews-list"> #}
+                <div class="job-list" id="job-list">
+                    {% if company is not empty %}
+                        {% for offer in company %}
+                            <div class="job-item">
+                                <img src="{{ offer.image }}" alt="Logo de l'entreprise">
+                                <div class="job-content">
+                                    <h3 class="job-title">{{ offer.title }}</h3>
+                                    <div class="job-details">
+                                        <p><i class="fas fa-map-marker-alt"></i> {{ offer.localisation }}</p>
+                                        <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
+                                        <p><i class="fas fa-clock"></i> Posté il y a 
+                                            {% set diff = date().diff(date(offer.publication_date)) %}
+                                            {% if diff.years > 0 %}
+                                                {{ diff.years }} an{{ diff.years > 1 ? 's' : '' }}
+                                            {% elseif diff.months > 0 %}
+                                                {{ diff.months }} mois
+                                            {% else %}
+                                                moins d'un mois
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="job-actions">
+                                    <button class="apply-btn" onclick="window.location.href='/candidacy/{{offer.Id_Offer}}'">Postuler</button>
+                                    <button class="details-btn" onclick="window.location.href='/search?q={{offer.title ?? ''}}&l={{offer.localisation ?? ''}}&s={{offer.sector ?? ''}}&d={{offer.duration ?? ''}}&t={{offer.type ?? ''}}&n={{offer.studieslevel ?? ''}}'">
+                                        Voir plus de détails
+                                    </button>
+                    
+                                    <i class="far fa-heart favorite-icon"></i>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if totalPages > 1 %}
+                        <div class="pagination">
+                            {% if currentPage > 1 %}
+                                <a href="/company/{{ company[0].id }}?page={{ currentPage - 1 }}" class="pagination-button">Précédent</a>
+                            {% endif %}
+
+                            <span class="pagination-page">Page {{ currentPage }} sur {{ totalPages }}</span>
+
+                            {% if currentPage < totalPages %}
+                                <a href="/company/{{ company[0].id }}?page={{ currentPage + 1 }}" class="pagination-button">Suivant</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                {# <!-- Exemple d'avis -->
                 <div class="review-item">
                     <div class="review-header">
                         <span class="review-author">Jean Dupont</span>
@@ -118,14 +159,14 @@
                         </p>
                     </div>
                     <div class="review-date">Publié le 05/10/2023</div>
-                </div>
-            </div>
+                </div> #}
+            {# </div> #}
         </section>
 
         <!-- Section Évaluation -->
         <section class="company-rating-form">
             <h2>Donnez votre avis</h2>
-            <form id="rating-form">
+            <form id="rating-form" method="POST" action="/rating/{{company.Siret}}">
                 <div class="rating-stars-input">
                     <span class="star" data-value="1"><i class="far fa-star"></i></span>
                     <span class="star" data-value="2"><i class="far fa-star"></i></span>
@@ -133,11 +174,12 @@
                     <span class="star" data-value="4"><i class="far fa-star"></i></span>
                     <span class="star" data-value="5"><i class="far fa-star"></i></span>
                 </div>
-                <textarea id="review-text" placeholder="Écrivez votre avis..." required></textarea>
+                <p id="rating-stars-value"></p>
                 <button type="submit" class="submit-button">Soumettre</button>
             </form>
         </section>
     </main>
 
-    <script src="../static/scripts/company-script.js"></script>
+    <script src="../../static/scripts/company-script.js"></script>
+    {# <script src="../../static/scripts/modal-script.js"></script> #}
 {% endblock %}
