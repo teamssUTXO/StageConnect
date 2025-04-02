@@ -61,9 +61,9 @@ class OfferModel extends Model {
         return $result ?? null;
     }
     
-    public function offerCorporation($Id_offer){
+    public function offerCorporation($id){
         $result = $this->connexion->selectJoin($this->table, Joins::CORP->value, [
-            'Id_Offer' => $Id_offer
+            'Id_Offer' => $id
         ]);
         return $result ?? null;
     }
@@ -75,8 +75,9 @@ class OfferModel extends Model {
         return $result ?? null;
     }
 
-    public function insertOffer ($Id_offer, $data) {
-        return $this->connexion->insert(this->table, $data);
+    public function insertOffer ($id, $data) {
+        $result =  $this->connexion->insert($this->table, $data);
+        return $result ?? null;
     }
 }
 

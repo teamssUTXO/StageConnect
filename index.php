@@ -7,6 +7,7 @@ use App\Controllers\DirController;
 use App\Controllers\AuthentificationController;
 use App\Controllers\OfferController;
 use App\Controllers\CompanyController;
+use App\Controllers\CandidateController;
 
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
@@ -39,6 +40,7 @@ $controller = new DirController($twig);
 $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
+$controllercandidate = new CandidateController($twig);
 
 switch ($segments[0]) {
     case '':
@@ -177,13 +179,23 @@ switch ($segments[0]) {
         exit;
 
     case 'candidacy':
-        session_start();
-        if (isset($_SESSION['user'])) {
-            $controlleroffer->candidate();
-            exit;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controllercandidate->candidacy($segments[1]); 
         } else {
-            $controller->loginPage();
+            session_start();
+            if (isset($_SESSION['user'])) {
+                if (isset($segments[1])) {
+                    $controlleroffer->candidate($segments[1]);
+                    exit;
+                } else {
+                    echo '404 Not Found';
+                    exit;
+                }
+            } else {
+                $controller->loginPage();
+            }
         }
+        break;
 
     default:
         echo '404 Not Found';

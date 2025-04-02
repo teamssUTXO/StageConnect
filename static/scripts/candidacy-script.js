@@ -19,23 +19,19 @@ textarea.addEventListener('input', () => {
 });
 
 /* AFFICHAGE DE LA POP UP APRES POSTULATION */
+// const applyButton = document.getElementById('applyButton');
+// const popup = document.getElementById('popup');
 
-const applyButton = document.getElementById('applyButton');
-const popup = document.getElementById('popup');
+// applyButton.addEventListener('click', () => {
+//     // Afficher la popup
+//     popup.classList.add('show');
 
-applyButton.addEventListener('click', () => {
-    // Afficher la popup
-    popup.classList.add('show');
-
-    // Masquer la popup après 2 secondes
-    setTimeout(() => {
-        popup.classList.remove('show');
-    }, 2000); // 2 secondes
+//     // Masquer la popup après 2 secondes
+//     setTimeout(() => {
+//         popup.classList.remove('show');
+//     }, 2000); // 2 secondes
     
-    setTimeout(() => {
-        window.location.href="home.html";
-    }, 2000); // 2 secondes
-
-    
-    
-});
+//     setTimeout(() => {
+//         window.location.href="home.html";
+//     }, 2000); // 2 secondes
+// });

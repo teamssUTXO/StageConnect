@@ -49,9 +49,14 @@ class OfferController extends Controller {
     ]);
   }
 
-  public function candidate(){
+  public function candidate($id){
     $user = $_SESSION['user'] ?? null;
-    echo $this->templateEngine->render('pages/candidacy.html.twig');
 
+    $offer = $this->offerModel->offerCorporation($id);
+
+    echo $this->templateEngine->render('pages/candidacy.html.twig', [
+      'user'=> $user,
+      'offer'=> $offer,
+    ]);
   }
 }

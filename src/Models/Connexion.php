@@ -115,7 +115,7 @@ class connexion {
         $params = [];
         if (!empty($conditions)) {
             $where = [];
-            print_r($conditions);
+            // print_r($conditions);
             foreach ($conditions as $column => $value) {
                 $where[] = "$tableAlias.$column = :$column";
                 $params[$column] = $value;

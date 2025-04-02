@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postuler</title>
+{% extends 'base.twig' %}
+
+{% block title %}Postuler - StageConnect{% endblock %}
+
+{% block style %}
     <link rel="stylesheet" href="../static/styles/candidacy-style.css">
-    <link rel="stylesheet" href="../static/styles/global-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-</head>
-<body>
-    <h1>Postuler à l'offre de stage : Développeur Web</h1>
+{% endblock %}
+
+{% block content %}
+    <h1>Postuler à l'offre de stage : {{offer.title}}</h1>
 
     <div class="summary-section">
         <div class="summary-grid">
@@ -17,64 +15,59 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <div class="summary-content">
                     <span class="summary-label">Localisation</span>
-                    <span class="summary-value">Rouen</span>
+                    <span class="summary-value">{{offer[0].localisation ?? "pas dans bdd"}}</span>
                 </div>
             </div>
             <div class="summary-item">
                 <i class="fa-solid fa-building"></i>
                 <div class="summary-content">
                     <span class="summary-label">Entreprise</span>
-                    <span class="summary-value">CESI</span>
-                </div>
-            </div>
-            <div class="summary-item">
-                <i class="fa-solid fa-file-lines"></i>
-                <div class="summary-content">
-                    <span class="summary-label">Type</span>
-                    <span class="summary-value">Stage</span>
+                    <span class="summary-value">{{offer[0].name}}</span>
                 </div>
             </div>
             <div class="summary-item">
                 <i class="fas fa-clock"></i>
                 <div class="summary-content">
                     <span class="summary-label">Posté il y a</span>
-                    <span class="summary-value">16 jours</span>
+                    <span class="summary-value">{{offer[0].publication_date}}</span>
                 </div>
             </div>
             <div class="summary-item">
                 <i class="fa-solid fa-euro-sign"></i>
                 <div class="summary-content">
                     <span class="summary-label">Rémunération</span>
-                    <span class="summary-value">800€/mois</span>
+                    <span class="summary-value">{{offer[0].remuneration}}€/mois</span>
                 </div>
             </div>
             <div class="summary-item">
                 <i class="fa-solid fa-calendar-days"></i>
                 <div class="summary-content">
                     <span class="summary-label">Durée</span>
-                    <span class="summary-value">6 mois</span>
+                    <span class="summary-value">{{offer[0].duration ?? "pas dans bdd"}}</span>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <form action="">
+    <form action="/candidacy/{{offer[0].Id_Offer}}" method="POST" enctype="multipart/form-data">
         <div class="cv-section">
             <h2>Votre CV</h2>
-            <iframe src="images/CV.pdf"></iframe>
+            <object data="../../data/cv/cv{{user.Id_Users}}.pdf" type="application/pdf" width="100%" height="600px">
+                <p>Votre navigateur ne supporte pas les PDF. <a href="../../static/images/CV.pdf">Télécharger le CV</a>.</p>
+            </object>
             <div class="cv-upload-container">
                 <label for="cv-upload" class="cv-upload-label">
                     <i class="fas fa-upload"></i> Modifier son CV
                 </label>
-                <input type="file" id="cv-upload" class="cv-upload-input" accept=".pdf,.doc,.docx">
+                <input type="file" name="cv-upload" id="cv-upload" class="cv-upload-input" accept=".pdf,.doc,.docx">
             </div>
         </div>
     
         <div class="message-section">
             <details>
                 <summary>Laissez un message au recruteur</summary>
-                <textarea id="messageTextarea" maxlength="200" placeholder="Écrivez votre message ici... (200 caractères max)"></textarea>
+                <textarea id="messageTextarea" name="message" maxlength="200" placeholder="Écrivez votre message ici... (200 caractères max)"></textarea>
                 <p id="charCount">200 caractères restants</p>
             </details>
         </div>
@@ -86,7 +79,7 @@
             </label>
         </div>
     
-        <button class="btn-apply" id="applyButton">
+        <button type="submit" class="btn-apply" id="applyButton">
             Postuler
             <div class="loader"></div>
         </button>
@@ -97,5 +90,4 @@
     </div>
     
     <script src="../static/scripts/candidacy-script.js"></script>
-</body>
-</html>
+{% endblock %}
