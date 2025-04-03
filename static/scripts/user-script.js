@@ -37,3 +37,68 @@ sidebarItems.forEach(item => {
 document.addEventListener('DOMContentLoaded', () => {
     showSection('settings'); // Remplacez 'settings' par l'ID de la section par défaut
 });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sélectionnez tous les boutons "Modifier étudiant"
+        const modifyButtons = document.querySelectorAll(".btn.modify-promo");
+    
+        // Ajoutez un gestionnaire d'événements à chaque bouton
+        modifyButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                // Récupérez l'ID de l'étudiant à partir de l'attribut data-id
+                const studentId = this.getAttribute("data-id");
+    
+                // Récupérez les données de l'étudiant dans la ligne correspondante
+                const row = this.closest("tr");
+                const email = row.querySelector("td:nth-child(3)").textContent.trim();
+                const nameSurname = row.querySelector("td:nth-child(2)").textContent.trim();
+                const promotion = row.querySelector("td:nth-child(4)").textContent.trim();
+    
+                // Séparez le prénom et le nom
+                const [name, ...surnameParts] = nameSurname.split(" ");
+                const surname = surnameParts.join(" "); // Recombine les parties restantes pour le nom
+    
+                // Remplissez les champs du formulaire
+                document.getElementById("formIdUser").value = studentId;
+                document.getElementById("formEmail").value = email;
+                document.getElementById("formName").value = name || ""; // Si le prénom est absent
+                document.getElementById("formSurname").value = surname || ""; // Si le nom est absent
+                document.getElementById("formIdProm").value = promotion;
+    
+                // Laissez le champ "password" vide pour permettre la saisie d'un nouveau mot de passe
+                document.getElementById("formPassword").value = "";
+    
+                // Affichez le formulaire
+                const form = document.getElementById("updateUserForm");
+                form.style.display = "block";
+    
+                // Faites défiler jusqu'au formulaire
+                form.scrollIntoView({ behavior: "smooth" });
+            });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sélectionnez le bouton "Ajouter un étudiant"
+        const addButton = document.getElementById("addStudentButton");
+    
+        // Ajoutez un gestionnaire d'événements au bouton
+        addButton.addEventListener("click", function () {
+            // Réinitialisez les champs du formulaire de création
+            document.getElementById("createFormEmail").value = "";
+            document.getElementById("createFormName").value = "";
+            document.getElementById("createFormSurname").value = "";
+            document.getElementById("createFormPassword").value = "";
+            document.getElementById("createFormIdProm").value = "";
+            document.getElementById("createFormIdRole").value = "1"; // Par défaut, rôle "Étudiant"
+    
+            // Affichez le formulaire de création
+            const form = document.getElementById("createUserForm");
+            form.style.display = "block";
+    
+            // Faites défiler jusqu'au formulaire
+            form.scrollIntoView({ behavior: "smooth" });
+        });
+    });
+
+    

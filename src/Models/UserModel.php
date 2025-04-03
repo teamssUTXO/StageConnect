@@ -39,18 +39,27 @@ class UserModel extends Model {
         return $this->connexion->insert($this->table, $data);
     }
 
-    public function updateUser(string $email, string $password, string $name, string $surname, $Id_Prom , $Id_Role, $Id_User){
+    public function updateUser(string $email, ?string $password, string $name, string $surname, $Id_Prom, $Id_Role, $Id_User) {
+        // Préparez les données à mettre à jour
         $data = [
             'name' => $name,
             'surname' => $surname,
             'mail' => $email,
-            'password' => $password,
             'Id_Promotion' => $Id_Prom,
             'Id_Role' => $Id_Role
         ];
+    
+        // Si un nouveau mot de passe est fourni, ajoutez-le aux données
+        if (!empty($password)) {
+            $data['password'] = password_hash($password, PASSWORD_BCRYPT); // Hachez le mot de passe
+        }
+    
+        // Condition pour identifier l'utilisateur
         $condition = [
             'Id_Users' => $Id_User
         ];
+    
+        // Exécutez la mise à jour
         return $this->connexion->update($this->table, $data, $condition);
     }
 
