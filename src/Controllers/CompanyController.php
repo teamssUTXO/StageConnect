@@ -104,5 +104,56 @@ class CompanyController extends Controller {
     header("Location: /company/{$siret}");
     exit();
   }
+
+public function updateCompany() {
+  $Siret = $_POST['Siret'] ?? null;
+  $name = $_POST['name'] ?? null;
+  $mail = $_POST['mail'] ?? null;
+  $phone = $_POST['phone'] ?? null;
+  $description = $_POST['description'] ?? null; 
+  $intern = $_POST['intern'] ?? null;
+  
+
+  if (!$Siret || !$name || !$mail || !$phone || !$description) {
+      echo "Données manquantes.";
+      return;
+  }
+
+  // Appelez la méthode du modèle pour mettre à jour l'utilisateur
+  $user = $this->corporationModel->updateCompany($Siret, $name, $mail, $phone, $description, $intern);
+
+  if ($user) {
+      // Redirigez immédiatement après la mise à jour
+      header("Location: /account");
+      exit; // Assurez-vous que le script s'arrête après la redirection
+  } else {
+      echo "Échec de la modification de l'utilisateur.";
+  }
+}
+
+
+public function createCompany() {
+  $Siret = $_POST['Siret'] ?? null;
+  $name = $_POST['name'] ?? null;
+  $mail = $_POST['mail'] ?? null;
+  $phone = $_POST['phone'] ?? null;
+  $description = $_POST['description'] ?? null; 
+  $grade = $_POST['grade'] ?? null;
+
+
+  if (!$Siret || !$name || !$mail || !$phone || !$description || !$grade) {
+    echo "Données manquantes.";
+    return;
+  }
+
+  $user = $this->corporationModel->createCompany($Siret, $name, $mail, $phone, $description, $grade);
+  if ($user) {
+      // Redirigez immédiatement après la mise à jour
+      header("Location: /account");
+      exit; // Assurez-vous que le script s'arrête après la redirection
+  } else {
+      echo "Échec de la modification de l'entreprise.";
+  }
+}
 }
 

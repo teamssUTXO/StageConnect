@@ -47,8 +47,19 @@ class CorporationModel extends Model {
     }
 
 
-    public function ajouterEntreprise(array $entrepriseData): bool|int{
-        return $this->connexion->insert($this->table, $entrepriseData);
+    public function createCompany($Siret, $name, $mail, $phone, $description, $grade): bool {
+        $data = [
+            'Siret'=>$Siret,
+            'name'=> $name,
+            'description' => $description,
+            'mail'=> $mail,
+            'phone'=> $phone,
+            'grade'=> $grade
+        ];
+    
+
+
+        return $this->connexion->insert($this->table, $data);
     }
     
     public function supprimerEntreprise(string $siret): bool{
@@ -57,10 +68,20 @@ class CorporationModel extends Model {
         ]);
     }
     
-    public function modifierEntreprise(string $siret, array $entrepriseData): bool {
-        return $this->connexion->update($this->table, $entrepriseData, [
-            'Siret' => $siret
-        ]);
+    public function updateCompany($Siret, $name, $mail, $phone, $description, $grade): bool {
+        $data = [
+            'name'=> $name,
+            'description' => $description,
+            'mail'=> $mail,
+            'phone'=> $phone,
+            'grade' => $grade
+        ];
+
+        $condition = [
+            'Siret' => $Siret,
+        ];
+
+        return $this->connexion->update($this->table, $data, $condition);
     }
     public function updateRating($siret, $newRating) {
         $result = $this->connexion->select($this->table, ['Siret' => $siret]);

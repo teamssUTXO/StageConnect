@@ -292,6 +292,26 @@ switch ($segments[0]) {
         
 >>>>>>> Stashed changes
 
+        case 'updateCompany':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controllercompany->updateCompany();
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+
+
+        case 'createCompany':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controllercompany->createCompany(); // Appelle la méthode createCompany du contrôleur
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+
+
     default:
         echo '404 Not Found';
         break;
