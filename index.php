@@ -28,6 +28,8 @@ $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
 $twig = new \Twig\Environment($loader, [
     'debug' => true
 ]);
+session_start();
+$twig->addGlobal('session', $_SESSION); // ajoute la session comme variable global dans tous les templates twig
 
 $uri = $_SERVER['REQUEST_URI'];
 $uri = explode('?', $uri)[0];
@@ -48,7 +50,9 @@ $controllerwishlist = new WishlistController($twig);
 
 switch ($segments[0]) {
     case '':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->homePage();
             if (isset($_SESSION['flash'])) {
@@ -75,7 +79,9 @@ switch ($segments[0]) {
         break;
         
     case 'about':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->aboutPage();
             exit;
@@ -85,7 +91,9 @@ switch ($segments[0]) {
         break;
 
     case 'cgu':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->cguPage();
             exit;
@@ -95,7 +103,9 @@ switch ($segments[0]) {
         break;
 
     case 'contact':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->contactPage();
             exit;
@@ -105,7 +115,9 @@ switch ($segments[0]) {
         break;
 
     case 'cookies-policy':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->cookiesPolicyPage();
             exit;
@@ -115,7 +127,9 @@ switch ($segments[0]) {
         break;
 
     case 'legal-notices':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->legalNoticesPage();
             exit;
@@ -125,7 +139,9 @@ switch ($segments[0]) {
         break;
 
     case 'privacy-policy':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->privacyPolicyPage();
             exit;
@@ -164,7 +180,9 @@ switch ($segments[0]) {
         break;
         
     case 'search-company':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controllercompany->search(); 
             exit;
@@ -174,7 +192,9 @@ switch ($segments[0]) {
         break;
     
     case 'company':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             if (isset($segments[1])) {
                 $controllercompany->company($segments[1]);
@@ -190,7 +210,9 @@ switch ($segments[0]) {
         break;
 
     case 'account':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controller->renderPagesAccount();
             exit;
@@ -200,36 +222,40 @@ switch ($segments[0]) {
         break;
 
     case 'logout': 
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         session_destroy(); 
         header('Location: /login'); 
         exit;
 
     case 'candidacy':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controllercandidate->candidacy($segments[1]); 
-            if (isset($_SESSION['flash'])) {
-                unset($_SESSION['flash']);
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['user'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controllercandidate->candidacy($segments[1]); 
+                if (isset($_SESSION['flash'])) {
+                    unset($_SESSION['flash']);
+                }
+                exit;
+            } elseif (isset($segments[1])) {
+                $controlleroffer->candidate($segments[1]);
+                if (isset($_SESSION['flash'])) {
+                    unset($_SESSION['flash']);
+                }
+                exit;
+            } else {
+                echo '404 Not Found';
+                exit;
             }
         } else {
-            session_start();
-            if (isset($_SESSION['user'])) {
-                if (isset($segments[1])) {
-                    $controlleroffer->candidate($segments[1]);
-                    if (isset($_SESSION['flash'])) {
-                        unset($_SESSION['flash']);
-                    }
-                    exit;
-                } else {
-                    echo '404 Not Found';
-                    exit;
-                }
-            } else {
-                $controller->loginPage();
-            }
+            $controller->loginPage();
         }
         break;
 
+<<<<<<< Updated upstream
         case 'updateUser':
             session_start();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -247,6 +273,46 @@ switch ($segments[0]) {
                 echo 'Méthode non autorisée.';
             }
             break;
+=======
+    case 'rating':
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['user'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($segments[1])) {
+                $siret = $segments[1];
+            
+                $controllercompany->rating($siret);
+                exit();
+            } else {
+                echo '404 Not Found';
+            }
+        } else {
+            $controller->loginPage();
+        }
+        break;
+        
+>>>>>>> Stashed changes
+
+        case 'updateCompany':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controllercompany->updateCompany();
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+
+
+        case 'createCompany':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controllercompany->createCompany(); // Appelle la méthode createCompany du contrôleur
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+
 
     default:
         echo '404 Not Found';

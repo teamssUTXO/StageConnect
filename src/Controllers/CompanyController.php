@@ -2,15 +2,18 @@
 namespace App\Controllers;
 
 use App\Models\CorporationModel;
+use App\Models\WishlistModel;
 
 class CompanyController extends Controller {
 
   protected $templateEngine;
   protected $corporationModel;
+  protected $wishlistModel;
 
   public function __construct($templateEngine) {
     $this->templateEngine = $templateEngine;
     $this->corporationModel = new CorporationModel();
+    $this->wishlistModel = new WishlistModel();
   }
 
   public function company($id) {
@@ -26,9 +29,12 @@ class CompanyController extends Controller {
     $totalPages = ceil($totalOffers / $offersPerPage);
     $offersOnPage = array_slice($company, $offset, $offersPerPage);
 
+    $wishlistOffers = $this->wishlistModel->getWishlistForUser($user->Id_Users);
+
     echo $this->templateEngine->render("pages/company.html.twig", [
       'user' => $user,
       'company' => $company,
+      'wishlist' => $wishlistOffers,
       'currentPage' => $currentPage,
       'totalPages' => $totalPages,
     ]);
@@ -70,7 +76,84 @@ class CompanyController extends Controller {
 
   public function listCompany() {
     return $this->corporationModel->getAll();
+  }
+
+  public function rating($siret) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    $user = $_SESSION['user'] ?? null;
+
+    $newRating = isset($_POST['rating']) ? floatval($_POST['rating']) : 0;
+    $newRating = round($newRating, 1);
+    if ($newRating < 0.5 || $newRating > 5.5) {
+        $_SESSION['flash'] = "La note doit être comprise entre 1 et 5.";
+        header("Location: /company/{$siret}");
+        exit();
+    }
+
+    $success = $this->corporationModel->updateRating($siret, $newRating);
+
+    if ($success) {
+        $_SESSION['flash'] = "Votre note a été enregistrée.";
+    } else {
+        $_SESSION['flash'] = "Erreur lors de l'enregistrement de votre note.";
+    }
+
+    header("Location: /company/{$siret}");
+    exit();
+  }
+
+public function updateCompany() {
+  $Siret = $_POST['Siret'] ?? null;
+  $name = $_POST['name'] ?? null;
+  $mail = $_POST['mail'] ?? null;
+  $phone = $_POST['phone'] ?? null;
+  $description = $_POST['description'] ?? null; 
+  $intern = $_POST['intern'] ?? null;
+  
+
+  if (!$Siret || !$name || !$mail || !$phone || !$description) {
+      echo "Données manquantes.";
+      return;
+  }
+
+  // Appelez la méthode du modèle pour mettre à jour l'utilisateur
+  $user = $this->corporationModel->updateCompany($Siret, $name, $mail, $phone, $description, $intern);
+
+  if ($user) {
+      // Redirigez immédiatement après la mise à jour
+      header("Location: /account");
+      exit; // Assurez-vous que le script s'arrête après la redirection
+  } else {
+      echo "Échec de la modification de l'utilisateur.";
+  }
 }
 
+
+public function createCompany() {
+  $Siret = $_POST['Siret'] ?? null;
+  $name = $_POST['name'] ?? null;
+  $mail = $_POST['mail'] ?? null;
+  $phone = $_POST['phone'] ?? null;
+  $description = $_POST['description'] ?? null; 
+  $grade = $_POST['grade'] ?? null;
+
+
+  if (!$Siret || !$name || !$mail || !$phone || !$description || !$grade) {
+    echo "Données manquantes.";
+    return;
+  }
+
+  $user = $this->corporationModel->createCompany($Siret, $name, $mail, $phone, $description, $grade);
+  if ($user) {
+      // Redirigez immédiatement après la mise à jour
+      header("Location: /account");
+      exit; // Assurez-vous que le script s'arrête après la redirection
+  } else {
+      echo "Échec de la modification de l'entreprise.";
+  }
+}
 }
 

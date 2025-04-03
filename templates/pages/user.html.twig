@@ -241,7 +241,7 @@
                                 <td>{{ tut.name }} {{ tut.surname }}</td>
                                 <td>{{ tut.mail }}</td>
                                 <td>
-                                    <button class="btn modify-promo" data-id="{{ tut.Id_Users }}">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
+                                    <button class="btn modify-promo" data-id="{{ tut.Id_Users }}" data-prom="{{ tut.Id_Promotion }}">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
                                     <button class="btn delete">Supprimer</button>
                                 </td>
                             </tr>
@@ -315,8 +315,7 @@
                                     <td>{{ student.mail }}</td>
                                     <td>{{ student.Id_Promotion }}</td>
                                     <td>
-                                        <button class="btn modify-promo" data-id="{{ student.Id_Users }}">Modifier</button>
-                                        <button class="btn block" data-id="{{ student.id }}">Bloquer</button>
+                                        <button class="btn modify-promo" data-id="{{ student.Id_Users }}" data-prom={{ student.Id_Promotion}}>Modifier</button>
                                         <button class="btn delete" data-id="{{ student.id }}">Supprimer</button>
                                     </td>
                                 </tr>
@@ -352,7 +351,7 @@
                                 <td>{{ corporations.name }}</td>
                                 <td>{{ corporations.mail }}</td>
                                 <td>
-                                    <button class="btn block">Bloquer</button>
+                                    <button class="btn modify-company" data-id="{{ corporations.Siret }}" data-phone="{{ corporations.phone }}" data-des = "{{ corporations.description}}" data-grade = "{{corporations.grade}}">Modifier</button>
                                     <button class="btn delete">Supprimer</button>
                                 </td>
                             </tr>
@@ -367,6 +366,41 @@
                     <button class="btn add">Ajouter une entreprise</button>
                 </div>
             </div>
+
+            <form method="POST" action="/updateCompany" id="updateCompanyForm" style="display: none;">
+                <input type="text" name="Siret" id="formSiret" placeholder="Siret">
+                <input type="text" name="name" id="formCompanyName" placeholder="Nom de l'entreprise">
+                <input type="text" name="mail" id="formCompanyEmail" placeholder="Email">
+                <input type="text" name="phone" id="formCompanyPhone" placeholder="Téléphone">
+                <textarea name="description" id="formCompanyDescription" placeholder="Description"></textarea>
+                <input type="text" name="grade" id="formCompanyGrade" placeholder="Note">
+                <button type="submit">Mettre à jour</button>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             <!-- Formulaires de modification et création (un seul exemplaire de chaque) -->
             <form method="POST" action="/updateUser" id="updateUserForm" style="display: none;">
