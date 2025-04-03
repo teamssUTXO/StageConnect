@@ -64,8 +64,28 @@ class UserModel extends Model {
     }
 
     public function deleteUser($Id_User): bool {
-        $condition = ['Id_Users' => $Id_User];
-        return $this->connexion->delete($this->table, $condition);
+        if (empty($Id_User)) {
+            error_log("L'ID utilisateur est manquant pour la suppression.");
+            return false;
+        }
+    
+        try {
+            // Supprimez les enregistrements associés dans la table Candidate
+            $this->connexion->delete('Candidate', ['Id_Users' => $Id_User]);
+    
+            // Supprimez les enregistrements associés dans la table Wishlist
+            $this->connexion->delete('Wishlist', ['Id_Users' => $Id_User]);
+    
+            // Supprimez l'utilisateur dans la table Users
+            $condition = ['Id_Users' => $Id_User];
+            $result = $this->connexion->delete($this->table, $condition);
+    
+            error_log("Résultat de la suppression de l'utilisateur : " . ($result ? "succès" : "échec"));
+            return $result;
+        } catch (\Exception $e) {
+            error_log("Erreur lors de la suppression de l'utilisateur : " . $e->getMessage());
+            return false;
+        }
     }
 
     public function getAllStudents(): array {
