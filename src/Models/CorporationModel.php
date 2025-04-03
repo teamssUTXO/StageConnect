@@ -68,13 +68,13 @@ class CorporationModel extends Model {
         ]);
     }
     
-    public function updateCompany($Siret, $name, $mail, $phone, $description, $intern): bool {
+    public function updateCompany($Siret, $name, $mail, $phone, $description, $grade): bool {
         $data = [
             'name'=> $name,
             'description' => $description,
             'mail'=> $mail,
             'phone'=> $phone,
-            'intern' => $intern
+            'grade' => $grade
         ];
 
         $condition = [
