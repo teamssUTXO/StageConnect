@@ -15,7 +15,9 @@ class CandidateController extends Controller {
 
 
     public function candidacy($id_offre) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $user = $_SESSION['user'] ?? null;
 
         $id_user = $user->Id_Users;
@@ -63,7 +65,7 @@ class CandidateController extends Controller {
         // enregistrement dans bdd
         $model->enregistrerCandidature($id_user, $id_offre, $message, $cv_path);
 
-        $_SESSION['flash'] = "Vous avez déjà postulé à cette offre !";
+        $_SESSION['flash'] = "La candidature a bien été envoyé !";
 
         header("Location: /");
         exit();

@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
         list.slice(0, 6).forEach(company => {
             const card = `
                 <div class="company-card">
-                    <img src="${company.image}" alt="${company.name}">
+                    <img src="../../static/images/companie.jpg" alt="${company.name}">
                     <h3>${company.name}</h3>
-                    <p>${company.description}</p>
-                    <span class="category">${company.category}</span>
+                    <p>${company.compdescription}</p>
+                    <span class="category">${company.sector}</span>
                 </div>
             `;
             menuItems.insertAdjacentHTML("beforeend", card);

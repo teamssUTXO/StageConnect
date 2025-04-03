@@ -220,14 +220,20 @@
 
 .popup {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #28a745;
-    color: white;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d7f8dc; /* Couleur de fond (rouge clair pour les alertes) */
+    color: green; /* Couleur du texte (rouge foncé pour contraster) */
+    border: 1px solid #cff5c6; /* Bordure de couleur similaire au fond */
     padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
     font-size: 16px;
-    display: none;
-    z-index: 9999;
+    font-family: Arial, sans-serif;
+    z-index: 9999; /* Pour s'assurer que la popup soit au-dessus des autres éléments */
+    max-width: 90%;
+    width: 350px; /* Largeur maximale */
+    text-align: center;
+    display: none; /* Cachée par défaut, peut être affichée via JS */
 }

@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block content %}
+    {% if session.flash %}
+        <script>
+            alert("{{ session.flash }}");
+        </script>
+    {% endif %}
+
     <div class="search">
         <h1>Rechercher des entreprises</h1>
         <p class="search-description">Trouvez des entreprises qui correspondent à vos aspirations professionnelles.</p>
@@ -44,11 +50,12 @@
                     <label for="sector-filter">Secteur d'activité</label>
                     <select name="s" id="sector-filter">
                         <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un secteur</option>
-                        <option value="IT" {% if search[3] == 'IT' %}selected{% endif %}>Technologie</option>
-                        <option value="Finance" {% if search[3] == 'Finance' %}selected{% endif %}>Finance</option>
-                        <option value="Commerce" {% if search[3] == 'Commerce' %}selected{% endif %}>Commerce</option>
-                        <option value="Droit" {% if search[3] == 'Droit' %}selected{% endif %}>Droit</option>
-                        <option value="Santé" {% if search[3] == 'Santé' %}selected{% endif %}>Santé</option>
+                        <option value="Informatique" {% if search[3] == 'Informatique' %}selected{% endif %}>Informatique</option>
+                        <option value="Défense" {% if search[3] == 'Défense' %}selected{% endif %}>Défense</option>
+                        <option value="Énergie" {% if search[3] == 'Énergie' %}selected{% endif %}>Énergie</option>
+                        <option value="Transport" {% if search[3] == 'Transport' %}selected{% endif %}>Transport</option>
+                        <option value="Télécommunications" {% if search[3] == 'Télécommunications' %}selected{% endif %}>Télécommunications</option>
+                        <option value="Mode" {% if search[3] == 'Mode' %}selected{% endif %}>Mode</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -58,6 +65,7 @@
                         <option value="startup" {% if search[4] == 'startup' %}selected{% endif %}>Start-up</option>
                         <option value="pme" {% if search[4] == 'pme' %}selected{% endif %}>PME</option>
                         <option value="large-corp" {% if search[4] == 'large-corp' %}selected{% endif %}>Grand groupe</option>
+                        <option value="ESN" {% if search[4] == 'ESN' %}selected{% endif %}>ESN</option>
                     </select>
                 </div>
             </div>
@@ -76,15 +84,6 @@
                     <option value="offer">Des offres de stage</option>
                 </select>
             </div>
-
-            <div class="sort-items">
-                <label for="sort-by2">Trier par :</label>
-                <select id="sort-by2">
-                    <option value="name">Nom de l'entreprise</option>
-                    <option value="location">Date d'ancienneté</option>
-                    <option value="size">Taille</option>
-                </select>
-            </div>
         </div>
 
       <div class="search-results-info">
@@ -99,13 +98,21 @@
             {% if companies is not empty %}
                 {% for company in companies %}
                     <div class="company-item">
-                        <img src="{{ company.image }}" alt="Logo de l'entreprise">
+                        <img src="../../static/images/companie.jpg" alt="Logo de l'entreprise">
                         <div class="company-content">
                             <h3 class="company-name">{{ company.name }}</h3>
                             <div class="company-details">
-                                <p><i class="fas fa-map-marker-alt"></i> {{ company.location }}</p>
+                                <p><i class="fas fa-map-marker-alt"></i> {{ company.localisation }}</p>
                                 <p><i class="fa-solid fa-crosshairs"></i> {{ company.sector }}</p>
-                                <p><i class="fa-solid fa-building"></i> {{ company.type }}</p>
+                                {% if company.type == "large-corp" %}
+                                    <p><i class="fa-solid fa-building"></i> Grande Entreprise</p>
+                                {% elseif company.type == "startup" %}
+                                    <p><i class="fa-solid fa-building"></i> Startup</p>
+                                {% elseif company.type == "pme" %}
+                                    <p><i class="fa-solid fa-building"></i> PME</p>
+                                {% else %}
+                                    <p><i class="fa-solid fa-building"></i> ESN</p>
+                                {% endif %}
                                 <p><i class="fas fa-clock"></i> Membre depuis 
                                     {% set diff = date().diff(date(company.creation_date)) %} {# date de création du compte sur stage connect #}
                                     {% if diff.years > 0 %}
@@ -114,12 +121,12 @@
                                         {{ diff.months }} mois
                                     {% else %}
                                         moins d'un mois
-                                    {% endif %}</p>
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                         <div class="company-actions">
                             <a class="details-btn" href="/company/{{ company.Siret }}">Voir l'entreprise</a>
-                            <i class="far fa-heart favorite-icon"></i>
                         </div>
                     </div>
                 {% endfor %}

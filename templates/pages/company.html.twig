@@ -7,39 +7,56 @@
 {% endblock %}
 
 {% block content %}
+    {% if session.flash %}
+        <script>
+            alert("{{ session.flash }}");
+        </script>
+    {% endif %}
+
     <main class="company-page">
         <!-- Section Présentation de l'entreprise -->
         <section class="company-header">
             <div class="company-logo">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
+                <img src="../../static/images/companie.jpg" alt="Logo de l'entreprise">
             </div>
             <div class="company-info">
                 <h1>{{ company[0].name }}</h1>
                 <p class="company-slogan">{{company[0].compdescription}}</p>
                 <div class="company-rating">
                     {% set rating = company[0].rating ?? 0 %}
-                    {% set fullStars = rating|round(0, 'floor') %}
-                    {% set halfStar = (rating - fullStars >= 0.25 and rating - fullStars <= 0.75) ? 1 : 0 %}
-                    {% set emptyStars = 5 - fullStars - halfStar %}
-
                     <span class="rating-stars">
-                        {# Étoiles pleines #}
-                        {% for i in 1..fullStars %}
+                        {% if rating >= 1 %}
                             <i class="fas fa-star"></i>
-                        {% endfor %}
-
-                        {# Étoile à moitié #}
-                        {% if halfStar %}
-                            <i class="fas fa-star-half-alt"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
                         {% endif %}
 
-                        {# Étoiles vides #}
-                        {% for i in 1..emptyStars %}
+                        {% if rating >= 2 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
                             <i class="far fa-star"></i>
-                        {% endfor %}
+                        {% endif %}
+
+                        {% if rating >= 3 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+
+                        {% if rating >= 4 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+
+                        {% if rating >= 5 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
                     </span>
-                    <span class="rating-value">{{ rating }}/5.0</span>
-                    <span class="rating-count">({{ company[0].nb_rating ?? "non défini" }} avis)</span>
+                    <span class="rating-value">{{ "%.1f"|format(company[0].rating ?? 0) }}/5.0</span>
+                    <span class="rating-count">({{ company[0].nbrating ?? "0" }} avis)</span>
                 </div>
             </div>
             <div class="details-grid">
@@ -61,7 +78,16 @@
                     <i class="fas fa-calendar-alt"></i>
                     <div class="detail-content">
                         <span class="detail-label">Type de l'entreprise</span>
-                        <span class="detail-value">{{ company[0].type ?? "non définit"}}</span>
+                        {% if company[0].type == "large-corp" %}
+                            <span class="detail-value">Grande Entreprise</span>
+                        {% elseif company[0].type == "startup" %}
+                            <span class="detail-value">Startup</span>
+                        {% elseif company[0].type == "pme" %}
+                           <span class="detail-value">PME</span>
+                        {% else %}
+                            <span class="detail-value">ESN</span>
+                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
@@ -70,103 +96,60 @@
         <!-- Section offres de l'entreprise -->
         <section class="company-reviews">
             <h2>Offres proposées par l'entreprise</h2>
-            {# <div class="reviews-list"> #}
-                <div class="job-list" id="job-list">
-                    {% if company is not empty %}
-                        {% for offer in company %}
-                            <div class="job-item">
-                                <img src="{{ offer.image }}" alt="Logo de l'entreprise">
-                                <div class="job-content">
-                                    <h3 class="job-title">{{ offer.title }}</h3>
-                                    <div class="job-details">
-                                        <p><i class="fas fa-map-marker-alt"></i> {{ offer.localisation }}</p>
-                                        <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
-                                        <p><i class="fas fa-clock"></i> Posté il y a 
-                                            {% set diff = date().diff(date(offer.publication_date)) %}
-                                            {% if diff.years > 0 %}
-                                                {{ diff.years }} an{{ diff.years > 1 ? 's' : '' }}
-                                            {% elseif diff.months > 0 %}
-                                                {{ diff.months }} mois
-                                            {% else %}
-                                                moins d'un mois
-                                            {% endif %}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="job-actions">
-                                    <button class="apply-btn" onclick="window.location.href='/candidacy/{{offer.Id_Offer}}'">Postuler</button>
-                                    <button class="details-btn" onclick="window.location.href='/search?q={{offer.title ?? ''}}&l={{offer.localisation ?? ''}}&s={{offer.sector ?? ''}}&d={{offer.duration ?? ''}}&t={{offer.type ?? ''}}&n={{offer.studieslevel ?? ''}}'">
-                                        Voir plus de détails
-                                    </button>
-                    
-                                    <i class="far fa-heart favorite-icon"></i>
+            <div class="job-list" id="job-list">
+                {% if company is not empty %}
+                    {% for offer in company %}
+                        <div class="job-item">
+                            <img src="../../static/images/offer.jpg" alt="Logo de l'entreprise">
+                            <div class="job-content">
+                                <h3 class="job-title">{{ offer.title }}</h3>
+                                <div class="job-details">
+                                    <p><i class="fas fa-map-marker-alt"></i> {{ offer.localisation }}</p>
+                                    <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
+                                    <p><i class="fas fa-clock"></i> Posté il y a 
+                                        {% set diff = date().diff(date(offer.publication_date)) %}
+                                        {% if diff.years > 0 %}
+                                            {{ diff.years }} an{{ diff.years > 1 ? 's' : '' }}
+                                        {% elseif diff.months > 0 %}
+                                            {{ diff.months }} mois
+                                        {% else %}
+                                            moins d'un mois
+                                        {% endif %}
+                                    </p>
                                 </div>
                             </div>
-                        {% endfor %}
-                    {% endif %}
-
-                    {% if totalPages > 1 %}
-                        <div class="pagination">
-                            {% if currentPage > 1 %}
-                                <a href="/company/{{ company[0].id }}?page={{ currentPage - 1 }}" class="pagination-button">Précédent</a>
-                            {% endif %}
-
-                            <span class="pagination-page">Page {{ currentPage }} sur {{ totalPages }}</span>
-
-                            {% if currentPage < totalPages %}
-                                <a href="/company/{{ company[0].id }}?page={{ currentPage + 1 }}" class="pagination-button">Suivant</a>
-                            {% endif %}
+                            <div class="job-actions">
+                                <button class="apply-btn" onclick="window.location.href='/candidacy/{{offer.Id_Offer}}'">Postuler</button>
+                                <button class="details-btn" onclick="window.location.href='/search?q={{offer.title ?? ''}}&l={{offer.localisation ?? ''}}&s={{offer.sector ?? ''}}&t={{offer.typeoffer ?? ''}}&n='">
+                                    Voir plus de détails
+                                </button>
+                            </div>
                         </div>
-                    {% endif %}
-                </div>
+                    {% endfor %}
+                {% else %}
+                <p>Cette entreprise ne propose pas d'offre</p>
+                {% endif %}
 
-                {# <!-- Exemple d'avis -->
-                <div class="review-item">
-                    <div class="review-header">
-                        <span class="review-author">Jean Dupont</span>
-                        <span class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                    </div>
-                    <div class="review-content">
-                        <p>
-                            Excellente entreprise avec des formations de qualité. Les formateurs sont très compétents
-                            et à l'écoute des étudiants.
-                        </p>
-                    </div>
-                    <div class="review-date">Publié le 12/10/2023</div>
-                </div>
+                {% if totalPages > 1 %}
+                    <div class="pagination">
+                        {% if currentPage > 1 %}
+                            <a href="/company/{{ company[0].id }}?page={{ currentPage - 1 }}" class="pagination-button">Précédent</a>
+                        {% endif %}
 
-                <div class="review-item">
-                    <div class="review-header">
-                        <span class="review-author">Marie Martin</span>
-                        <span class="review-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </span>
+                        <span class="pagination-page">Page {{ currentPage }} sur {{ totalPages }}</span>
+
+                        {% if currentPage < totalPages %}
+                            <a href="/company/{{ company[0].id }}?page={{ currentPage + 1 }}" class="pagination-button">Suivant</a>
+                        {% endif %}
                     </div>
-                    <div class="review-content">
-                        <p>
-                            Très satisfaite de mon expérience avec CESI. Les programmes sont bien structurés et
-                            les débouchés professionnels sont nombreux.
-                        </p>
-                    </div>
-                    <div class="review-date">Publié le 05/10/2023</div>
-                </div> #}
-            {# </div> #}
+                {% endif %}
+            </div>
         </section>
 
         <!-- Section Évaluation -->
         <section class="company-rating-form">
             <h2>Donnez votre avis</h2>
-            <form id="rating-form" method="POST" action="/rating/{{company.Siret}}">
+            <form id="rating-form" method="POST" action="/rating/{{company[0].Siret}}">
                 <div class="rating-stars-input">
                     <span class="star" data-value="1"><i class="far fa-star"></i></span>
                     <span class="star" data-value="2"><i class="far fa-star"></i></span>
@@ -175,11 +158,11 @@
                     <span class="star" data-value="5"><i class="far fa-star"></i></span>
                 </div>
                 <p id="rating-stars-value"></p>
+                <input type="hidden" id="rating-input" name="rating" value="0">
                 <button type="submit" class="submit-button">Soumettre</button>
             </form>
         </section>
     </main>
 
     <script src="../../static/scripts/company-script.js"></script>
-    {# <script src="../../static/scripts/modal-script.js"></script> #}
 {% endblock %}

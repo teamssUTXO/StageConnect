@@ -29,27 +29,12 @@ class DirController extends Controller {
     }
 
     public function homePage() {
-        // $entreprises = $this->model->getEntreprises();
-        
-        // $selectedCategory = isset($_GET['category']) ? $_GET['category'] : 'all';
-
-        // $filteredCompanies = $selectedCategory === 'all' ? $entreprises : array_filter($entreprises, function($entreprise) use ($selectedCategory) {
-        //     return $entreprise['secteur'] === $selectedCategory;
-        // });
-
-        // $filteredCompanies = array_slice($filteredCompanies, 0, 12);
-
-        // Passer les données à Twig
-        // echo $this->templateEngine->render('home.html.twig', [
-        //     'entreprises' => $filteredCompanies,
-        //     'selectedCategory' => $selectedCategory
-        // ]);
 
         $user = $_SESSION['user'] ?? null;
         $popup = $_SESSION['flash'] ?? null;
-        echo $popup;
 
         $companies = $this->modelcorporation->getAll();
+
         $offers = $this->modeloffer->getAll();
         
         echo $this->templateEngine->render("pages/home.html.twig", [

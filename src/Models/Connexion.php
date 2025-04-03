@@ -157,8 +157,14 @@ class connexion {
         // Filtres 
         if (!empty($filtres)) {
             foreach ($filtres as $column => $value) {
-                $paramKey = 'filter_' . $column;
-                $clauses[] = "$tableAlias.$column = :$paramKey";
+                // On remplace les points dans le nom du paramètre par un underscore
+                $paramKey = 'filter_' . str_replace('.', '_', $column);
+                // Si la colonne contient un point, on l'utilise directement, sinon on préfixe avec l'alias de la table principale
+                if (strpos($column, '.') !== false) {
+                    $clauses[] = "$column = :$paramKey";
+                } else {
+                    $clauses[] = "$tableAlias.$column = :$paramKey";
+                }
                 $params[$paramKey] = $value;
             }
         }
@@ -197,17 +203,16 @@ class connexion {
         // Préparation des colonnes et des valeurs pour la requête
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_map(fn($key) => ":$key", array_keys($data)));
-        
         // Construction de la requête SQL
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        
+   
         // Préparation et exécution de la requête
         $stmt = $this->pdo->prepare($sql);
         $success = $stmt->execute($data);
         
         // Si l'insertion a réussi, on retourne l'ID de la nouvelle ligne
         if ($success) {
-            return $this->pdo->lastInsertId();
+            return true;
         }
         
         return false;
