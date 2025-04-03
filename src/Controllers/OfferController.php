@@ -88,7 +88,7 @@ class OfferController extends Controller {
             $_SESSION['flash'] = ['type' => 'error', 'message' => 'Erreur lors de la mise à jour de l\'offre.'];
         }
         
-        header('Location: /user');
+        header('Location: /account');
         exit;
     }
     
@@ -125,7 +125,7 @@ public function createOffer() {
         exit;
     }
     
-    header('Location: /user');
+    header('Location: /account');
     exit;
 }
 
