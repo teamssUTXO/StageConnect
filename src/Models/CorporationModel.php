@@ -83,10 +83,31 @@ class CorporationModel extends Model {
 
         return $this->connexion->update($this->table, $data, $condition);
     }
-    
-    
-//     public function evaluerEntreprise()
+    public function updateRating($siret, $newRating) {
+        $result = $this->connexion->select($this->table, ['Siret' => $siret]);
+        if (empty($result)) {
+            return false; 
+        }
+        $company = $result[0];
+        $currentRating = $company->rating;
+        $currentNb = $company->nbrating;
+        
+        // calcule moyenne
+        $newNb = $currentNb + 1;
+        $newAvg = (($currentRating * $currentNb) + $newRating) / $newNb;
+        
+        $data = [
+            'rating'   => $newAvg,
+            'nbrating' => $newNb,
+        ];
+        $condition = [
+            'Siret' => $siret,
+        ];
+        
+        $result =  $this->connexion->update($this->table, $data, $condition);
 
+        return $result;
+    }
 }
 
 
