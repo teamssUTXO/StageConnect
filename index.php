@@ -261,7 +261,9 @@ switch ($segments[0]) {
         break;
 
         case 'updateUser':
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $controlleruser->updateUser();
             } else {
@@ -270,7 +272,9 @@ switch ($segments[0]) {
             break;
 
         case 'createUser':
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $controlleruser->createUser(); // Appelle la méthode createUser du contrôleur
             } else {
@@ -279,7 +283,9 @@ switch ($segments[0]) {
             break;
 
         case 'deleteUser':
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
                 $controlleruser->deleteUser(); // Appelle la méthode deleteUser du contrôleur
             } else {
@@ -307,7 +313,9 @@ switch ($segments[0]) {
             break;
 
         case 'updateCompany':
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $controllercompany->updateCompany();
             } else {
@@ -317,7 +325,9 @@ switch ($segments[0]) {
 
 
         case 'createCompany':
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $controllercompany->createCompany(); // Appelle la méthode createCompany du contrôleur
             } else {

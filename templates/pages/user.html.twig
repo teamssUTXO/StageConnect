@@ -54,7 +54,7 @@
                     </div>
                 {% else %}
                     <div class="div-pdp">
-                        <img class="pdp-user" src="images/Shadow-steam.webp" alt="Photo de profil">
+                        <img class="pdp-user" src="../../static/images/user.jpg" alt="Photo de profil">
                         <div class="cv-input-container">
                             <label for="cv-upload" class="cv-input-label">
                                 <i class="fas fa-upload"></i> Ajouter un CV
@@ -76,6 +76,11 @@
                     <div contenteditable="true">{{user.surname}}</div>
                 </div>
 
+                <div class="div-info">
+                    <div class="info-title">Mail</div>
+                    <div contenteditable="true">{{user.mail}}</div>
+                </div>
+
                 <div class="separator"></div>
                 
                 <div class="div-para">Promotion : <span>nom de la promotion</span></div>
@@ -92,21 +97,6 @@
                         </div>
                         <div class="textLogout">Se déconnecter</div>
                     </button>
-                </div>
-            </div>
-
-            <!--Section sécurity-->
-            <div id="security" class="content-section">
-                <h2>Ma sécurité</h2>
-
-                <div class="div-info">
-                    <div class="info-title">Numéro de téléphone</div>
-                    <div contenteditable="true">{{user.phone}}</div>
-                </div>
-                
-                <div class="div-info">
-                    <div class="info-title">Email</div>
-                    <div contenteditable="true">{{user.mail}}</div>
                 </div>
             </div>
 
