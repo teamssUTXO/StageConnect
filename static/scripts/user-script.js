@@ -47,11 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", function () {
             // Récupérez l'ID de l'utilisateur à partir de l'attribut data-id
             const userId = this.getAttribute("data-id");
+            
 
             // Récupérez les données de l'utilisateur dans la ligne correspondante
             const row = this.closest("tr");
             const email = row.querySelector("td:nth-child(3)").textContent.trim();
             const nameSurname = row.querySelector("td:nth-child(2)").textContent.trim();
+
             
             // Séparez le prénom et le nom
             const [name, ...surnameParts] = nameSurname.split(" ");
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             // Vérifier si on est dans la section pilotes ou étudiants
             const isStudent = this.closest("#students-management") !== null;
-            const promotion = isStudent ? row.querySelector("td:nth-child(4)").textContent.trim() : "";
+            const promotion = this.getAttribute("data-prom");
             
             // Remplissez les champs du formulaire
             document.getElementById("formIdUser").value = userId;
@@ -128,6 +130,8 @@ modifyCompanyButtons.forEach(button => {
         // Récupérez le Siret de l'entreprise à partir de l'attribut data-id
         const siret = this.getAttribute("data-id");
         const phone = this.getAttribute("data-phone");
+        const description = this.getAttribute("data-des");
+        const grade = this.getAttribute("data-grade");
 
         // Récupérez les données de l'entreprise dans la ligne correspondante
         const row = this.closest("tr");
@@ -144,6 +148,8 @@ modifyCompanyButtons.forEach(button => {
         document.getElementById("formCompanyName").value = name;
         document.getElementById("formCompanyEmail").value = email;
         document.getElementById("formCompanyPhone").value = phone;
+        document.getElementById("formCompanyDescription").value = description;
+        document.getElementById("formCompanyGrade").value = grade;
 
 
         
