@@ -6,15 +6,16 @@ use App\Controllers\UserController;
 
 use App\Models\CorporationModel;
 use App\Models\OfferModel;
+use App\Models\CandidateModel;
 
 
 class DirController extends Controller {
 
     protected $controllercompany = null;
     protected $controlleruser = null;
-
     protected $modelcorporation = null;
     protected $modeloffer = null;
+    protected $modelcandidate = null;
 
     public function __construct($templateEngine) { 
         $this->controllercompany = new CompanyController($templateEngine);
@@ -22,6 +23,7 @@ class DirController extends Controller {
 
         $this->modelcorporation = new CorporationModel();
         $this->modeloffer = new OfferModel();
+        $this->modelcandidate = new CandidateModel();
 
         $this->templateEngine = $templateEngine;
     }
@@ -131,6 +133,8 @@ class DirController extends Controller {
     public function renderPagesAccount(){
         $user = $_SESSION['user'] ?? null;
 
+        $candidateCount = $this->modelcandidate->getCandidateCount($user->Id_Users);
+        $lastCandidate = $this->modelcandidate->getLastCandidateOffer($user->Id_Users);
         $corporation = $this->controllercompany->listCompany();
         $students = $this->controlleruser->listUsers();
         $tutor = $this->controlleruser->listTutor();
@@ -140,8 +144,9 @@ class DirController extends Controller {
             'tutor' => $tutor,
             'students' => $students, 
             'corporation' => $corporation, 
-            'user' => $user 
-        
+            'user' => $user ,
+            'candidateCount' => $candidateCount,
+            'lastCandidate'  => $lastCandidate,
         ]);
     }
 

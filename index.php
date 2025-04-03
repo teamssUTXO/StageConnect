@@ -191,9 +191,6 @@ switch ($segments[0]) {
             // $controllercompany->listCompany();
             // $controlleruser->listUsers();
             $controller->renderPagesAccount();
-            
-            
-            
             exit;
         } else {
             $controller->loginPage();
