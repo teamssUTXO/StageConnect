@@ -39,7 +39,6 @@ class UserController extends Controller {
     }
 
     public function updateUser() {
-        var_dump($_POST);
         $Id_User = $_POST['Id_User'] ?? null;
         $email = $_POST['email'] ?? null;
         $name = $_POST['name'] ?? null;
@@ -57,7 +56,9 @@ class UserController extends Controller {
         $user = $this->userModel->updateUser($email, $password, $name, $surname, $Id_Prom, $Id_Role, $Id_User);
     
         if ($user) {
-            echo "Utilisateur modifié avec succès.";
+            // Redirigez immédiatement après la mise à jour
+            header("Location: /account");
+            exit; // Assurez-vous que le script s'arrête après la redirection
         } else {
             echo "Échec de la modification de l'utilisateur.";
         }
