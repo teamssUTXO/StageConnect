@@ -14,53 +14,53 @@ class UserController extends Controller {
     }
 
     public function createUser() {
-        $email = $_POST['email'];
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $password = $_POST['password'];
-        $Id_Prom = $_POST['Id_Prom'];
-        $Id_Role = $_POST['Id_Role'];
-
-        if ($Id_Role == 1) {
-            $role = "étudiant";
-        } elseif ($Id_Role == 2) {
-            $role = "pilote";
-        } else {
-            echo "Rôle non valide.";
+        $email = $_POST['email'] ?? null;
+        $name = $_POST['name'] ?? null;
+        $surname = $_POST['surname'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $Id_Prom = $_POST['Id_Prom'] ?? null;
+        $Id_Role = $_POST['Id_Role'] ?? null;
+    
+        if (!$email || !$name || !$surname || !$password || !$Id_Prom || !$Id_Role) {
+            echo "Données manquantes.";
             return;
         }
-
-        $user = $this->userModel->createUser($email, $name, $surname, $password, $Id_Prom, $Id_Role);
+    
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT); // Hachez le mot de passe
+        $user = $this->userModel->createUser($email, $passwordHash, $name, $surname, $Id_Prom, $Id_Role);
+    
         if ($user) {
-            echo "$role créé avec succès.";
+            // Redirigez immédiatement après la création
+            header("Location: /account");
+            exit; // Assurez-vous que le script s'arrête après la redirection
         } else {
-            echo "$role non créé.";
+            echo "Échec de la création de l'utilisateur.";
         }
     }
 
     public function updateUser() {
-        $email = $_POST['email'];
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $password = $_POST['password'];
-        $Id_Prom = $_POST['Id_Prom'];
-        $Id_Role = $_POST['Id_Role'];
-        $Id_User = $_POST['Id_User'];
-
-        if ($Id_Role == 1) {
-            $role = "étudiant";
-        } elseif ($Id_Role == 2) {
-            $role = "pilote";
-        } else {
-            echo "Rôle non valide.";
+        $Id_User = $_POST['Id_User'] ?? null;
+        $email = $_POST['email'] ?? null;
+        $name = $_POST['name'] ?? null;
+        $surname = $_POST['surname'] ?? null;
+        $password = $_POST['password'] ?? null; // Nouveau mot de passe (peut être vide)
+        $Id_Prom = $_POST['Id_Prom'] ?? null;
+        $Id_Role = $_POST['Id_Role'] ?? null;
+    
+        if (!$Id_User || !$email || !$name || !$surname || !$Id_Prom || !$Id_Role) {
+            echo "Données manquantes.";
             return;
         }
-
-        $user = $this->userModel->updateUser($email, $name, $surname, $password, $Id_Prom, $Id_Role, $Id_User);
+    
+        // Appelez la méthode du modèle pour mettre à jour l'utilisateur
+        $user = $this->userModel->updateUser($email, $password, $name, $surname, $Id_Prom, $Id_Role, $Id_User);
+    
         if ($user) {
-            echo "$role modifié avec succès.";
+            // Redirigez immédiatement après la mise à jour
+            header("Location: /account");
+            exit; // Assurez-vous que le script s'arrête après la redirection
         } else {
-            echo "$role non modifié.";
+            echo "Échec de la modification de l'utilisateur.";
         }
     }
 

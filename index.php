@@ -228,6 +228,24 @@ switch ($segments[0]) {
         }
         break;
 
+        case 'updateUser':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controlleruser->updateUser();
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+
+        case 'createUser':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controlleruser->createUser(); // Appelle la méthode createUser du contrôleur
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+
     default:
         echo '404 Not Found';
         break;
