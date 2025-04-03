@@ -21,7 +21,9 @@ class AuthentificationController extends Controller {
           $user = $this->userModel->getUserByEmail($mail);
           
           if ($user && $password=== $user->password) { // if ($user && password_verify($password, $user->password)) {
-              session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
               $_SESSION['user'] = $user;
 
               header('Location: /');

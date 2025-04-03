@@ -15,7 +15,9 @@ class CandidateController extends Controller {
 
 
     public function candidacy($id_offre) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $user = $_SESSION['user'] ?? null;
 
         $id_user = $user->Id_Users;
