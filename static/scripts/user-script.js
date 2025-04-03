@@ -9,6 +9,10 @@ function showSection(sectionId) {
         section.classList.remove('active');
     });
 
+    // Masquer les formulaires lorsqu'on change de section
+    document.getElementById("updateUserForm").style.display = "none";
+    document.getElementById("createUserForm").style.display = "none";
+
     // Afficher la section correspondante
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
@@ -78,6 +82,41 @@ document.addEventListener("DOMContentLoaded", function () {
             form.scrollIntoView({ behavior: "smooth" });
         });
     });
+});
+
+document.getElementById("addStudentButton").addEventListener("click", function() {
+    // Réinitialiser les champs du formulaire
+    document.getElementById("createFormEmail").value = "";
+    document.getElementById("createFormName").value = "";
+    document.getElementById("createFormSurname").value = "";
+    document.getElementById("createFormPassword").value = "";
+    document.getElementById("createFormIdProm").value = "";
+    document.getElementById("createFormIdRole").value = "1"; // Étudiant par défaut
+    
+    // Afficher le formulaire
+    const form = document.getElementById("createUserForm");
+    form.style.display = "block";
+    
+    // Faire défiler jusqu'au formulaire
+    form.scrollIntoView({ behavior: "smooth" });
+});
+
+// Ajouter un gestionnaire pour le bouton "Ajouter un pilote"
+document.querySelector(".div-pilots .btn.add").addEventListener("click", function() {
+    // Réinitialiser les champs du formulaire
+    document.getElementById("createFormEmail").value = "";
+    document.getElementById("createFormName").value = "";
+    document.getElementById("createFormSurname").value = "";
+    document.getElementById("createFormPassword").value = "";
+    document.getElementById("createFormIdProm").value = ""; // Peut rester vide ou vous pouvez mettre une valeur par défaut
+    document.getElementById("createFormIdRole").value = "2"; // Pilote par défaut
+    
+    // Afficher le formulaire
+    const form = document.getElementById("createUserForm");
+    form.style.display = "block";
+    
+    // Faire défiler jusqu'au formulaire
+    form.scrollIntoView({ behavior: "smooth" });
 });
 
     
