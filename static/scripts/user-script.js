@@ -77,3 +77,28 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sélectionnez le bouton "Ajouter un étudiant"
+        const addButton = document.getElementById("addStudentButton");
+    
+        // Ajoutez un gestionnaire d'événements au bouton
+        addButton.addEventListener("click", function () {
+            // Réinitialisez les champs du formulaire de création
+            document.getElementById("createFormEmail").value = "";
+            document.getElementById("createFormName").value = "";
+            document.getElementById("createFormSurname").value = "";
+            document.getElementById("createFormPassword").value = "";
+            document.getElementById("createFormIdProm").value = "";
+            document.getElementById("createFormIdRole").value = "1"; // Par défaut, rôle "Étudiant"
+    
+            // Affichez le formulaire de création
+            const form = document.getElementById("createUserForm");
+            form.style.display = "block";
+    
+            // Faites défiler jusqu'au formulaire
+            form.scrollIntoView({ behavior: "smooth" });
+        });
+    });
+
+    

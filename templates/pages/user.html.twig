@@ -290,7 +290,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <button class="btn add">Ajouter un étudiant</button>
+                    <button id="addStudentButton" class="btn btn-primary">Ajouter un étudiant</button>
                 </div>
             </div>
 
@@ -307,6 +307,19 @@
                     <option value="2">Pilote</option>
                 </select>
                 <button type="submit">Mettre à jour</button>
+            </form>
+
+            <form method="POST" action="/createUser" id="createUserForm" style="display: none;">
+                <input type="text" name="email" id="createFormEmail" placeholder="Email" required>
+                <input type="text" name="name" id="createFormName" placeholder="Prénom" required>
+                <input type="text" name="surname" id="createFormSurname" placeholder="Nom" required>
+                <input type="password" name="password" id="createFormPassword" placeholder="Mot de passe" required>
+                <input type="text" name="Id_Prom" id="createFormIdProm" placeholder="Promotion" required>
+                <select name="Id_Role" id="createFormIdRole">
+                    <option value="1">Étudiant</option>
+                    <option value="2">Pilote</option>
+                </select>
+                <button type="submit" class="btn btn-success">Créer</button>
             </form>
 
             <!-- Section gestion des entreprises -->
