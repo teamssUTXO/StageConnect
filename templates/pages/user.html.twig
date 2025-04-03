@@ -260,8 +260,8 @@
                                 <td>{{ offer.Id_Offer }}</td>
                                 <td>{{ offer.title }}</td> <!-- Quand on appuie ça retourne vers une page complète avec les étudiants -->
                                 <td>
-                                    <button class="btn add-student" onclick="window.location.href='/add-student/{{ offer.Id_Offer }}'">Modifier</button>
-                                    <button class="btn delete" onclick="window.location.href='/delete-offer/{{ offer.Id_Offer }}'">Supprimer</button>
+                                    <button class="btn modify-offer" data-id="{{ offer.Id_Offer }}" data-title="{{ offer.title }}" data-description="{{ offer.description }}" data-competence="{{ offer.competence }}" data-remuneration="{{ offer.remuneration }}" data-type="{{ offer.typeoffer }}" data-level="{{ offer.studieslevel }}" data-duration="{{ offer.duration }}" data-siret="{{ offer.Siret }}">Modifier</button>
+                                    <button class="btn delete-offer" data-id="{{ offer.Id_Offer }}">Supprimer</button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -271,7 +271,19 @@
                     <button class="btn create" onclick="window.location.href='/create-offer'">Créer une offre</button>
                 </div>
             </div>
-
+            <!-- Form for updating/creating offers -->
+            <form method="POST" action="/updateOffer" id="updateOfferForm" style="display: none;">
+                <input type="hidden" name="Id_Offer" id="formIdOffer">
+                <input type="text" name="title" id="formOfferTitle" placeholder="Titre de l'offre" required>
+                <textarea name="description" id="formOfferDescription" placeholder="Description" required></textarea>
+                <textarea name="competence" id="formOfferCompetence" placeholder="Compétences requises" required></textarea>
+                <input type="text" name="remuneration" id="formOfferRemuneration" placeholder="Rémunération">
+                <input type="text" name="typeoffer" id="formOfferType" placeholder="Type d'offre" required>
+                <input type="text" name="studieslevel" id="formOfferStudiesLevel" placeholder="Niveau d'études requis">
+                <input type="text" name="duration" id="formOfferDuration" placeholder="Durée">
+                <input type="text" name="Siret" id="formOfferSiret" placeholder="Siret de l'entreprise" required>
+                <button type="submit">Mettre à jour</button>
+            </form>
 
             <!-- Section gestion des promotions -->
             <div id="promotions-management" class="content-section">

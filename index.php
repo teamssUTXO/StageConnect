@@ -346,6 +346,27 @@ switch ($segments[0]) {
                 http_response_code(405); // Méthode non autorisée
             }
             break;
+        
+        case 'updateOffer' : 
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controlleroffer->updateOffer();
+            } else {
+                echo 'Méthode non autorisée.';
+            }
+            break;
+        // case 'updateOffer' : 
+        //     if (session_status() === PHP_SESSION_NONE) {
+        //         session_start();
+        //     }
+        //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        //         $controlleroffer->updateOffer(); // Appelle la méthode createCompany du contrôleur
+        //     } else {
+        //         echo 'Méthode non autorisée.';
+        //     }
+        //     break;
 
     default:
         echo '404 Not Found';

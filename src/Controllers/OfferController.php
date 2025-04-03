@@ -65,4 +65,89 @@ class OfferController extends Controller {
       'offer'=> $offer,
     ]);
   }
+  public function updateOffer() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $offerId = $_POST['Id_Offer'];
+        
+        $offerData = [
+            'title' => $_POST['title'],
+            'description' => $_POST['description'],
+            'competence' => $_POST['competence'],
+            'remuneration' => $_POST['remuneration'],
+            'typeoffer' => $_POST['typeoffer'],
+            'studieslevel' => $_POST['studieslevel'],
+            'duration' => $_POST['duration'],
+            'Siret' => $_POST['Siret']
+        ];
+        
+        $success = $this->offerModel->updateOffer($offerId, $offerData);
+        
+        if ($success) {
+            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Offre mise à jour avec succès.'];
+        } else {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Erreur lors de la mise à jour de l\'offre.'];
+        }
+        
+        header('Location: /user');
+        exit;
+    }
+    
+    header('Location: /user');
+    exit;
+}
+
+public function createOffer() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $currentDate = date('Y-m-d');
+        
+        $offerData = [
+            'title' => $_POST['title'],
+            'description' => $_POST['description'],
+            'competence' => $_POST['competence'],
+            'remuneration' => $_POST['remuneration'],
+            'typeoffer' => $_POST['typeoffer'],
+            'studieslevel' => $_POST['studieslevel'],
+            'duration' => $_POST['duration'],
+            'Siret' => $_POST['Siret'],
+            'publication_date' => $currentDate,
+            'candidate_nb' => 0
+        ];
+        
+        $success = $this->offerModel->createOffer($offerData);
+        
+        if ($success) {
+            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Offre créée avec succès.'];
+        } else {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Erreur lors de la création de l\'offre.'];
+        }
+        
+        header('Location: /user');
+        exit;
+    }
+    
+    header('Location: /user');
+    exit;
+}
+
+public function deleteOffer() {
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    if (!isset($data['Id_Offer'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'ID de l\'offre manquant']);
+        exit;
+    }
+    
+    $offerId = $data['Id_Offer'];
+    $success = $this->offerModel->deleteOffer($offerId);
+    
+    if ($success) {
+        http_response_code(200);
+        echo json_encode(['success' => 'Offre supprimée avec succès']);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Erreur lors de la suppression de l\'offre']);
+    }
+    exit;
+}
 }

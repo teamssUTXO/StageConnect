@@ -85,4 +85,29 @@ class OfferModel extends Model {
 
         return $result ?? null;
     }
+    public function getOfferById($id) {
+        $result = $this->connexion->select($this->table, [
+            'Id_Offer' => $id
+        ]);
+        return $result ? $result[0] : null;
+    }
+    
+    public function updateOffer($id, $data) {
+        $result = $this->connexion->update($this->table, $data, [
+            'Id_Offer' => $id
+        ]);
+        return $result;
+    }
+    
+    public function deleteOffer($id) {
+        $result = $this->connexion->delete($this->table, [
+            'Id_Offer' => $id
+        ]);
+        return $result;
+    }
+    
+    public function createOffer($data) {
+        $result = $this->connexion->insert($this->table, $data);
+        return $result;
+    }
 }
