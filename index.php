@@ -367,6 +367,17 @@ switch ($segments[0]) {
                 echo 'Méthode non autorisée.';
             }
             break;
+        case 'deleteOffer':
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+                $controlleroffer->deleteOffer(); // Appelle la méthode deleteCompany du contrôleur
+            } else {
+                echo 'Méthode non autorisée.';
+                http_response_code(405); // Méthode non autorisée
+            }
+            break;
 
     default:
         echo '404 Not Found';
