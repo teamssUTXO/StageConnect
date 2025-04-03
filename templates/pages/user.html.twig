@@ -242,8 +242,8 @@
                                 <td>{{ tut.name }} {{ tut.surname }}</td>
                                 <td>{{ tut.mail }}</td>
                                 <td>
-                                    <button class="btn modify-promo" data-id="{{ tut.Id_Users }}" data-prom="{{ tut.Id_Promotion }}">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
-                                    <button class="btn delete">Supprimer</button>
+                                    <button class="btn modify-promo" data-id="{{ tut.Id_Users }}">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
+                                    <button class="btn delete" data-id="{{ tut.Id_Users }}">Supprimer</button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -316,8 +316,8 @@
                                     <td>{{ student.mail }}</td>
                                     <td>{{ student.Id_Promotion }}</td>
                                     <td>
-                                        <button class="btn modify-promo" data-id="{{ student.Id_Users }}" data-prom={{ student.Id_Promotion}}>Modifier</button>
-                                        <button class="btn delete" data-id="{{ student.id }}">Supprimer</button>
+                                        <button class="btn modify-promo" data-id="{{ student.Id_Users }}">Modifier</button>
+                                        <button class="btn delete" data-id="{{ student.Id_Users }}">Supprimer</button>
                                     </td>
                                 </tr>
                             {% else %}
@@ -339,7 +339,7 @@
                     <table class="companies-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Siret</th>
                                 <th>Nom</th>
                                 <th>Email</th>
                                 <th>Actions</th>
@@ -352,8 +352,7 @@
                                 <td>{{ corporations.name }}</td>
                                 <td>{{ corporations.mail }}</td>
                                 <td>
-                                    <button class="btn modify-company" data-id="{{ corporations.Siret }}" data-phone="{{ corporations.phone }}" data-des = "{{ corporations.compdescription}}" data-grade = "{{corporations.rating}}">Modifier</button>
-                                    <button class="btn delete">Supprimer</button>
+                                    <button class="btn delete" data-id="{{ corporations.Siret }}">Supprimer</button>
                                 </td>
                             </tr>
                             {% else %}
