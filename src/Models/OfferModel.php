@@ -109,5 +109,14 @@ class OfferModel extends Model {
     public function createOffer($data) {
         $result = $this->connexion->insert($this->table, $data);
         return $result;
+
+    public function getOffersArray($wishlistuser){
+        $offers = [];
+
+        foreach ($wishlistuser as $id) {
+            array_push($offers, $this->connexion->select($this->table, ["Id_Offer" => $id],));
+        }
+
+        return $offers;
     }
 }

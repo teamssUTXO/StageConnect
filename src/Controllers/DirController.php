@@ -7,6 +7,7 @@ use App\Controllers\UserController;
 use App\Models\CorporationModel;
 use App\Models\OfferModel;
 use App\Models\CandidateModel;
+use App\Models\WishlistModel;
 
 
 class DirController extends Controller {
@@ -16,6 +17,7 @@ class DirController extends Controller {
     protected $modelcorporation = null;
     protected $modeloffer = null;
     protected $modelcandidate = null;
+    protected $modelwishlist = null;
 
     public function __construct($templateEngine) { 
         $this->controllercompany = new CompanyController($templateEngine);
@@ -24,6 +26,7 @@ class DirController extends Controller {
         $this->modelcorporation = new CorporationModel();
         $this->modeloffer = new OfferModel();
         $this->modelcandidate = new CandidateModel();
+        $this->modelwishlist = new WishlistModel();
 
         $this->templateEngine = $templateEngine;
     }
@@ -118,6 +121,9 @@ class DirController extends Controller {
     public function renderPagesAccount(){
         $user = $_SESSION['user'] ?? null;
 
+        $wishlistuser = $this->modelwishlist->getWishlistForUser($user->Id_Users);
+        $offersinwishlist = $this->modeloffer->getOffersArray($wishlistuser);
+
         $alloffers = $this->modeloffer->getAllOffers();
         $promotion = $this->controlleruser->getUserProm($user->Id_Users);
         $candidateCount = $this->modelcandidate->getCandidateCount($user->Id_Users);
@@ -133,7 +139,6 @@ class DirController extends Controller {
         $totalPages = ceil($totalOffers / $offersPerPage); 
         $offersOnPage = array_slice($alloffers, $offset, $offersPerPage);
 
-
         echo $this->templateEngine->render('pages/user.html.twig', [
             'tutor' => $tutor,
             'students' => $students, 
@@ -148,6 +153,8 @@ class DirController extends Controller {
             'pageoffers' => $offersOnPage,
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
+
+            'offersinwishlist' => $offersinwishlist,
         ]);
     }
 

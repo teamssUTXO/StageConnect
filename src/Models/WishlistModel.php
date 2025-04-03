@@ -50,12 +50,13 @@ class WishlistModel extends Model {
 
     public function getWishlistForUser($userId) {
   
-      $results = $this->connexion->select("Wishlist", ["Id_Users" => $userId]);
+      $results = $this->connexion->selectJoin($this->table, "JOIN Offer o ON w.Id_Offer = o.Id_Offer",["Id_Users" => $userId]);
+
       $wishlistOffers = [];
+      
       foreach ($results as $row) {
-        
-          $wishlistOffers[] = is_object($row) ? $row->Id_Offer : $row['Id_Offer'];
+        $wishlistOffers[] = is_object($row) ? $row->Id_Offer : $row['Id_Offer'];
       }
       return $wishlistOffers;
-  }
-  }
+    }
+}

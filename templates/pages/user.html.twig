@@ -12,7 +12,7 @@
             <div class="sidebar">
                 <ul>
                      <li data-section="settings" onclick="showSection('settings')">Mon compte</li>
-                    <li data-section="whishlist" onclick="showSection('whishlist')">Whishlist</li>
+                    <li data-section="whishlist" onclick="showSection('whishlist')">Wishlist</li>
                     <li data-section="candidacy" onclick="showSection('candidacy')">Mes offres</li>
                     {% if user.Id_Role == 3 %}
                         <li data-section="students-stats" onclick="showSection('stats')">Statistiques</li>
@@ -98,43 +98,27 @@
                 </div>
             </div>
 
-            <!-- Section statistiques du compte -->
-            <div id="stats" class="content-section">
-                <h2>Statistiques de recherches</h2>
-                
-                <!-- Statistiques globales -->
-                <div class="stats-summary">
-                    <p><strong>Nombre d'offres candidatées :</strong> {{ candidateCount }}</p>
-                    <p><strong>Nombre d'avis laissés :</strong> {{ reviewCount }}</p>
-                </div>
-                
-                <!-- Dernière offre candidatée -->
-                <div class="latest-offer">
-                    <h3>Dernière offre candidatée</h3>
-                    {% if lastCandidate is defined and lastCandidate %}
-                        <p>
-                            <strong>{{ lastCandidate.title }}</strong>
-                            <br>
-                            Publiée le {{ lastCandidate.publication_date|date('d/m/Y') }}
-                        </p>
-                        <a href="/search?q={{lastCandidate.title ?? ''}}&l={{lastCandidate.localisation ?? ''}}&s={{lastCandidate.sector ?? ''}}&d={{lastCandidate.duration ?? ''}}&t={{lastCandidate.type ?? ''}}&n={{lastCandidate.studieslevel ?? ''}}">Voir l'offre</a>
+            <!--Section Whishlist-->
+            <div id="whishlist" class="content-section">
+                <h2>Votre Wishlist</h2>
+
+                <div class="div-candidacy">
+                    {% for offer in offersinwishlist[0] %}
+                        <div class="job-item">
+                            <img src="../../static/images/offer.jpg" alt="Logo de l'entreprise">
+                            <div class="job-content">
+                                <h3 class="job-title">{{ offer.title }}</h3>
+                            </div>
+                            <div class="job-actions">
+                                <button class="apply-btn" onclick="window.location.href='/candidacy/{{ offer.Id_Offer }}'">Postuler</button>
+                                <button class="details-btn" onclick="window.location.href='/search?q={{ offer.title | default('') }}&l={{ offer.localisation | default('') }}&s={{ offer.sector | default('') }}&t={{ offer.typeoffer | default('') }}&n='">
+                                    Voir plus de détails
+                                </button>
+                            </div>
+                        </div>
                     {% else %}
-                        <p>Aucune offre candidatée.</p>
-                    {% endif %}
-                </div>
-                
-                <!-- Dernier avis laissé -->
-                <div class="latest-review">
-                    <h3>Dernier avis laissé</h3>
-                    {% if lastReview is defined and lastReview %}
-                        <p>
-                            "{{ lastReview.comment }}" <br>
-                            Note : {{ lastReview.rating }} / 5 <br>
-                            Le {{ lastReview.date|date('d/m/Y') }}
-                        </p>
-                    {% else %}
-                        <p>Aucun avis laissé.</p>
-                    {% endif %}
+                        <p>Aucune offre enregistrée dans votre wishlist.</p>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -155,22 +139,7 @@
                 </div>
             </div>
 
-            <!--Section Whishlist-->
-            <div id="whishlist" class="content-section">
-                <h2>Votre Whishlist</h2>
-
-                <div class="div-candidacy">
-                    <section class="section-offrer">
-                        <h4>Offre 1</h4>
-                    </section>
-                    <section class="section-offrer">
-                        <h4>Offre 2</h4>
-                    </section>
-                    <section class="section-offrer">
-                        <h4>Offre 3</h4>
-                    </section>
-                </div>
-            </div>
+            
 
 
             <!--Section réglages du comptes (Pilote de Promotions)-->
