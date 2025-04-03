@@ -255,7 +255,6 @@ switch ($segments[0]) {
         }
         break;
 
-<<<<<<< Updated upstream
         case 'updateUser':
             session_start();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -273,26 +272,24 @@ switch ($segments[0]) {
                 echo 'Méthode non autorisée.';
             }
             break;
-=======
-    case 'rating':
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (isset($_SESSION['user'])) {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($segments[1])) {
-                $siret = $segments[1];
-            
-                $controllercompany->rating($siret);
-                exit();
-            } else {
-                echo '404 Not Found';
+
+        case 'rating':
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
             }
-        } else {
-            $controller->loginPage();
-        }
-        break;
-        
->>>>>>> Stashed changes
+            if (isset($_SESSION['user'])) {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($segments[1])) {
+                    $siret = $segments[1];
+                
+                    $controllercompany->rating($siret);
+                    exit();
+                } else {
+                    echo '404 Not Found';
+                }
+            } else {
+                $controller->loginPage();
+            }
+            break;
 
         case 'updateCompany':
             session_start();
