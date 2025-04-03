@@ -8,6 +8,8 @@ use App\Controllers\AuthentificationController;
 use App\Controllers\OfferController;
 use App\Controllers\CompanyController;
 use App\Controllers\CandidateController;
+use App\Controllers\WishlistController;
+use \App\Controllers\UserController;
 
 $host = 'db'; 
 $dbname = 'stageconnectbdd'; 
@@ -41,7 +43,8 @@ $controllerauth = new AuthentificationController($twig);
 $controlleroffer = new OfferController($twig);
 $controllercompany = new CompanyController($twig);
 $controllercandidate = new CandidateController($twig);
-$controlleruser = new \App\Controllers\UserController($twig);
+$controlleruser = new UserController($twig);
+$controllerwishlist = new WishlistController($twig);
 
 switch ($segments[0]) {
     case '':
@@ -130,9 +133,25 @@ switch ($segments[0]) {
             $controller->loginPage();
         }
         break;
+    
+    case 'wishlist':
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['user'])) {
+            if (count($segments) === 3 && $segments[0] === 'wishlist' && $segments[1] === 'toggle' && is_numeric($segments[2])) {
+                $offerId = $segments[2];
+                $controllerwishlist->toggle($offerId);
+                exit();
+            }
+        } else {
+            $controller->loginPage();
+        }
 
     case 'search':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user'])) {
             $controlleroffer->search(); 
             exit;
@@ -172,9 +191,6 @@ switch ($segments[0]) {
             // $controllercompany->listCompany();
             // $controlleruser->listUsers();
             $controller->renderPagesAccount();
-            
-            
-            
             exit;
         } else {
             $controller->loginPage();

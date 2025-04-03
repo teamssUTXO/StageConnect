@@ -16,6 +16,7 @@
                     <li data-section="whishlist" onclick="showSection('whishlist')">Whishlist</li>
                     <li data-section="candidacy" onclick="showSection('candidacy')">Mes offres</li>
                     {% if user.Id_Role == 3 %}
+                        <li data-section="students-stats" onclick="showSection('stats')">Statistiques</li>
                         <li data-section="evaluation" onclick="showSection('evaluation')">Évaluation</li>
                         <li data-section="companies-management" onclick="showSection('companies-management')">Gestion des entreprises</li>
                         <li data-section="offers-management" onclick="showSection('offers-management')">Gestion des offres</li>
@@ -34,40 +35,51 @@
             <!--Section régales du comptes-->
             <div id="settings" class="content-section active">
                 <h2>Mon Profil</h2>
-
-                <div class="div-pdp">
-                    <img class="pdp-user" src="images/Shadow-steam.webp" alt="Photo de profil">
-                    <div class="cv-input-container">
-                        <label for="cv-upload" class="cv-input-label">
-                            <i class="fas fa-upload"></i> Ajouter votre CV
-                        </label>
-                        <input type="file" id="cv-upload" class="cv-input" accept=".pdf,.doc,.docx">
+                {% if user.cv_path %}
+                    <div class="div-pdp">
+                        <img class="pdp-user" src="images/Shadow-steam.webp" alt="Photo de profil">
+                        <div class="cv-input-container">
+                            <label for="cv-upload" class="cv-input-label">
+                                <i class="fas fa-upload"></i> Modifier votre cv
+                            </label>
+                            <input type="file" id="cv-upload" class="cv-input" accept=".pdf,.doc,.docx">
+                        </div>
+                        
+                        <!-- Afficher un aperçu du CV téléchargé -->
+                        <div class="cv-preview" id="cv-preview">
+                            <a href="../../{{ user.cv_path }}" id="cv-link" target="_blank">
+                                <i class="fas fa-file-download"></i> Voir votre CV
+                            </a>
+                        </div>
                     </div>
-                    
-                    <!-- Afficher un aperçu du CV téléchargé -->
-                    <div class="cv-preview" id="cv-preview">
-                        <a href="#" id="cv-link" target="_blank">
-                            <i class="fas fa-file-download"></i> Voir votre CV
-                        </a>
+                {% else %}
+                    <div class="div-pdp">
+                        <img class="pdp-user" src="images/Shadow-steam.webp" alt="Photo de profil">
+                        <div class="cv-input-container">
+                            <label for="cv-upload" class="cv-input-label">
+                                <i class="fas fa-upload"></i> Ajouter un CV
+                            </label>
+                            <input type="file" id="cv-upload" class="cv-input" accept=".pdf,.doc,.docx">
+                        </div>
                     </div>
-                </div>
+                {% endif %}
 
                 <div class="separator"></div>
                 
                 <div class="div-info">
                     <div class="info-title">Prénom</div>
-                    <div contenteditable="true">Antonin</div>
+                    <div contenteditable="true">{{user.name}}</div>
                 </div>
                 
                 <div class="div-info">
                     <div class="info-title">Nom</div>
-                    <div contenteditable="true">Mignot</div>
+                    <div contenteditable="true">{{user.surname}}</div>
                 </div>
 
                 <div class="separator"></div>
                 
-                <div class="div-para">Promotion : <span>CPI A2</span></div>
-                <div class="div-para">Pilote de promotion : <span>Antoine Roussel</span></div>
+                <div class="div-para">Promotion : <span>nom de la promotion</span></div>
+                <div class="div-para">Pilote de promotion : <span>nom/prenom du pilote de la promotion</span></div>
 
                 <div class="separator"></div>
 
@@ -89,28 +101,53 @@
 
                 <div class="div-info">
                     <div class="info-title">Numéro de téléphone</div>
-                    <div contenteditable="true">01 00 00 00 00</div>
+                    <div contenteditable="true">{{user.phone}}</div>
                 </div>
                 
                 <div class="div-info">
                     <div class="info-title">Email</div>
-                    <div contenteditable="true">anto@gmail.com</div>
+                    <div contenteditable="true">{{user.mail}}</div>
                 </div>
-
-                <button class="changeMDP">Changer mon mot de passe</button>
             </div>
 
-            <!--Section statistiques du comptes-->
+            <!-- Section statistiques du compte -->
             <div id="stats" class="content-section">
                 <h2>Statistiques de recherches</h2>
-                <p>
-                    Toutes ces informations sous forme de diagrammes éventuellement
-                </p>
-                <ul>
-                    <li>Nombre d'entreprises consultées. (diagrammes des secteurs d'activitées des entreprises, nombres, ...)</li><br>
-                    <li>Nombre d'offres candidatées.(extrait des deux/trois dernieres offres ou ils peuvent cliqué pour voir)</li><br>
-                    <li>Nombre d'avis laissés.(extrait des deux/trois derniers avis)</li><br>
-                </ul>
+                
+                <!-- Statistiques globales -->
+                <div class="stats-summary">
+                    <p><strong>Nombre d'offres candidatées :</strong> {{ candidateCount }}</p>
+                    <p><strong>Nombre d'avis laissés :</strong> {{ reviewCount }}</p>
+                </div>
+                
+                <!-- Dernière offre candidatée -->
+                <div class="latest-offer">
+                    <h3>Dernière offre candidatée</h3>
+                    {% if lastCandidate is defined and lastCandidate %}
+                        <p>
+                            <strong>{{ lastCandidate.title }}</strong>
+                            <br>
+                            Publiée le {{ lastCandidate.publication_date|date('d/m/Y') }}
+                        </p>
+                        <a href="/search?q={{lastCandidate.title ?? ''}}&l={{lastCandidate.localisation ?? ''}}&s={{lastCandidate.sector ?? ''}}&d={{lastCandidate.duration ?? ''}}&t={{lastCandidate.type ?? ''}}&n={{lastCandidate.studieslevel ?? ''}}">Voir l'offre</a>
+                    {% else %}
+                        <p>Aucune offre candidatée.</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Dernier avis laissé -->
+                <div class="latest-review">
+                    <h3>Dernier avis laissé</h3>
+                    {% if lastReview is defined and lastReview %}
+                        <p>
+                            "{{ lastReview.comment }}" <br>
+                            Note : {{ lastReview.rating }} / 5 <br>
+                            Le {{ lastReview.date|date('d/m/Y') }}
+                        </p>
+                    {% else %}
+                        <p>Aucun avis laissé.</p>
+                    {% endif %}
+                </div>
             </div>
 
             <!--Section gestion des offres/candidatures-->

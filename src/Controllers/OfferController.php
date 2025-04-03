@@ -2,15 +2,18 @@
 namespace App\Controllers;
 
 use App\Models\OfferModel;
+use App\Models\WishlistModel;
 
 class OfferController extends Controller {
 
   protected $templateEngine;
   protected $offerModel;
+  protected $wishlistModel;
 
   public function __construct($templateEngine) {
     $this->templateEngine = $templateEngine;
     $this->offerModel = new OfferModel();
+    $this->wishlistModel = new WishlistModel();
   }
 
   public function search() {
@@ -37,13 +40,14 @@ class OfferController extends Controller {
 
     $offersOnPage = array_slice($offers, $offset, $offersPerPage);
 
-    // echo json_encode($offersOnPage);
+    $wishlistOffers = $this->wishlistModel->getWishlistForUser($user->Id_Users);
 
     echo $this->templateEngine->render('pages/search-offer.html.twig', [
       'user' => $user,
       'search' => $search ?? [],
       'count' => $offers ? count($offers) : 0,
       'offers' => $offersOnPage,
+      'wishlist' => $wishlistOffers,
       'currentPage' => $currentPage,
       'totalPages' => $totalPages,
     ]);

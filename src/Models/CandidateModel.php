@@ -27,4 +27,22 @@ class CandidateModel extends Model {
             'cv_path' => $cv_path
         ]);
     }
+
+    public function getCandidateCount($userId) {
+        // On utilise la méthode select() de Connexion pour récupérer toutes les candidatures de l'utilisateur
+        $results = $this->connexion->select("Candidate", ["Id_Users" => $userId]);
+        return count($results);
+    }
+
+    public function getLastCandidateOffer($userId) {
+        $sql = "SELECT o.* 
+                FROM Candidate c 
+                JOIN Offer o ON c.Id_Offer = o.Id_Offer 
+                WHERE c.Id_Users = :userId 
+                ORDER BY o.publication_date DESC 
+                LIMIT 1";
+        $stmt = $this->connexion->getpdo()->prepare($sql);
+        $stmt->execute(['userId' => $userId]);
+        return $stmt->fetch(\PDO::FETCH_OBJ);
+    }
 }

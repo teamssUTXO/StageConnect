@@ -147,7 +147,13 @@
                                 Voir plus de détails
                             </button>
              
-                            <i class="far fa-heart favorite-icon"></i>
+                            <a href="/wishlist/toggle/{{ offer.Id_Offer }}" class="favorite-link">
+                                {% if offer.Id_Offer in wishlist %}
+                                    <i class="fas fa-heart favorite-icon"></i>
+                                {% else %}
+                                    <i class="far fa-heart favorite-icon"></i>
+                                {% endif %}
+                            </a>
                         </div>
                     </div>
                 {% endfor %}
@@ -246,4 +252,5 @@
 
     <script src="../../static/scripts/filters-script.js"></script>
     <script src="../../static/scripts/modal-script.js"></script>
+    {# <script src="../../static/scripts/wishlist-script.js"></script> #}
 {% endblock %}
