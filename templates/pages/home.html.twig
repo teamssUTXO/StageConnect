@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
-    {% if flash %}
+    {% if session.flash %}
         <script>
-            alert("{{ flash|e('js') }}"); {#<div id="popup" class="popup">{{ flash }}</div>#}
-        </script> 
+            alert("{{ session.flash }}");
+        </script>
     {% endif %}
 
     <section class="hero">
@@ -25,7 +25,7 @@
             </form>
             <p class="opportunity-text">Votre profil intéresse des entreprises. Montrez-leur votre motivation !</p>
             <div class="button-container">
-                <button class="btn-opportunity">Recevoir des opportunités</button>
+                <button class="btn-opportunity" onclick="window.location.href='/contact'">Recevoir des opportunités</button>
             </div>
         </div>
     </section>

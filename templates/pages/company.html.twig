@@ -8,9 +8,9 @@
 
 {% block content %}
     {% if session.flash %}
-    <div class="alert alert-info">
-        {{ session.flash }}
-    </div>
+        <script>
+            alert("{{ session.flash }}");
+        </script>
     {% endif %}
 
     <main class="company-page">
@@ -24,27 +24,38 @@
                 <p class="company-slogan">{{company[0].compdescription}}</p>
                 <div class="company-rating">
                     {% set rating = company[0].rating ?? 0 %}
-                    {% set fullStars = rating|round(0, 'floor') %}
-                    {% set halfStar = (rating - fullStars >= 0.25 and rating - fullStars <= 0.75) ? 1 : 0 %}
-                    {% set emptyStars = 5 - fullStars - halfStar %}
-
                     <span class="rating-stars">
-                        {# Étoiles pleines #}
-                        {% for i in 1..fullStars %}
+                        {% if rating >= 1 %}
                             <i class="fas fa-star"></i>
-                        {% endfor %}
-
-                        {# Étoile à moitié #}
-                        {% if halfStar %}
-                            <i class="fas fa-star-half-alt"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
                         {% endif %}
 
-                        {# Étoiles vides #}
-                        {% for i in 1..emptyStars %}
+                        {% if rating >= 2 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
                             <i class="far fa-star"></i>
-                        {% endfor %}
+                        {% endif %}
+
+                        {% if rating >= 3 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+
+                        {% if rating >= 4 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+
+                        {% if rating >= 5 %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
                     </span>
-                    <span class="rating-value">{{ company[0].rating ?? "-" }}/5.0</span>
+                    <span class="rating-value">{{ "%.1f"|format(company[0].rating ?? 0) }}/5.0</span>
                     <span class="rating-count">({{ company[0].nbrating ?? "0" }} avis)</span>
                 </div>
             </div>

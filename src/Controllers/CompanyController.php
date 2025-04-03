@@ -24,17 +24,21 @@ class CompanyController extends Controller {
     $offset = ($currentPage - 1) * $offersPerPage;
 
     $company = $this->corporationModel->getById($id);
-
+  
+    if ($company == []) {
+      $_SESSION['flash'] = "Vous ne pouvez pas voir le descriptif de cette entreprise car elle ne possède pas d'offre";
+      header("Location: /search-company");
+    }
+    
     $totalOffers = count($company);
     $totalPages = ceil($totalOffers / $offersPerPage);
     $offersOnPage = array_slice($company, $offset, $offersPerPage);
 
-    $wishlistOffers = $this->wishlistModel->getWishlistForUser($user->Id_Users);
+    
 
     echo $this->templateEngine->render("pages/company.html.twig", [
       'user' => $user,
       'company' => $company,
-      'wishlist' => $wishlistOffers,
       'currentPage' => $currentPage,
       'totalPages' => $totalPages,
     ]);
@@ -105,55 +109,54 @@ class CompanyController extends Controller {
     exit();
   }
 
-public function updateCompany() {
-  $Siret = $_POST['Siret'] ?? null;
-  $name = $_POST['name'] ?? null;
-  $mail = $_POST['mail'] ?? null;
-  $phone = $_POST['phone'] ?? null;
-  $description = $_POST['description'] ?? null; 
-  $intern = $_POST['intern'] ?? null;
-  
+  public function updateCompany() {
+    $Siret = $_POST['Siret'] ?? null;
+    $name = $_POST['name'] ?? null;
+    $mail = $_POST['mail'] ?? null;
+    $phone = $_POST['phone'] ?? null;
+    $description = $_POST['description'] ?? null; 
+    $intern = $_POST['intern'] ?? null;
+    
 
-  if (!$Siret || !$name || !$mail || !$phone || !$description) {
-      echo "Données manquantes.";
+    if (!$Siret || !$name || !$mail || !$phone || !$description) {
+        echo "Données manquantes.";
+        return;
+    }
+
+    // Appelez la méthode du modèle pour mettre à jour l'utilisateur
+    $user = $this->corporationModel->updateCompany($Siret, $name, $mail, $phone, $description, $intern);
+
+    if ($user) {
+        // Redirigez immédiatement après la mise à jour
+        header("Location: /account");
+        exit; // Assurez-vous que le script s'arrête après la redirection
+    } else {
+        echo "Échec de la modification de l'utilisateur.";
+    }
+  }
+
+
+  public function createCompany() {
+    $Siret = $_POST['Siret'] ?? null;
+    $name = $_POST['name'] ?? null;
+    $mail = $_POST['mail'] ?? null;
+    $phone = $_POST['phone'] ?? null;
+    $description = $_POST['description'] ?? null; 
+    $grade = $_POST['grade'] ?? null;
+
+
+    if (!$Siret || !$name || !$mail || !$phone || !$description || !$grade) {
+      $_SESSION['flash'] = "Données manquantes.";
       return;
-  }
+    }
 
-  // Appelez la méthode du modèle pour mettre à jour l'utilisateur
-  $user = $this->corporationModel->updateCompany($Siret, $name, $mail, $phone, $description, $intern);
-
-  if ($user) {
-      // Redirigez immédiatement après la mise à jour
-      header("Location: /account");
-      exit; // Assurez-vous que le script s'arrête après la redirection
-  } else {
-      echo "Échec de la modification de l'utilisateur.";
-  }
-}
-
-
-public function createCompany() {
-  $Siret = $_POST['Siret'] ?? null;
-  $name = $_POST['name'] ?? null;
-  $mail = $_POST['mail'] ?? null;
-  $phone = $_POST['phone'] ?? null;
-  $description = $_POST['description'] ?? null; 
-  $grade = $_POST['grade'] ?? null;
-
-
-  if (!$Siret || !$name || !$mail || !$phone || !$description || !$grade) {
-    echo "Données manquantes.";
-    return;
-  }
-
-  $user = $this->corporationModel->createCompany($Siret, $name, $mail, $phone, $description, $grade);
-  if ($user) {
-      // Redirigez immédiatement après la mise à jour
-      header("Location: /account");
-      exit; // Assurez-vous que le script s'arrête après la redirection
-  } else {
-      echo "Échec de la modification de l'entreprise.";
+    $user = $this->corporationModel->createCompany($Siret, $name, $mail, $phone, $description, $grade);
+    if ($user) {
+        // Redirigez immédiatement après la mise à jour
+        header("Location: /account");
+        exit; // Assurez-vous que le script s'arrête après la redirection
+    } else {
+        echo "Échec de la modification de l'entreprise.";
+    }
   }
 }
-}
-

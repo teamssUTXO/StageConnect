@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block content %}
+    {% if session.flash %}
+        <script>
+            alert("{{ session.flash }}");
+        </script>
+    {% endif %}
+
     <div class="search">
         <h1>Rechercher des entreprises</h1>
         <p class="search-description">Trouvez des entreprises qui correspondent à vos aspirations professionnelles.</p>
@@ -78,15 +84,6 @@
                     <option value="offer">Des offres de stage</option>
                 </select>
             </div>
-
-            <div class="sort-items">
-                <label for="sort-by2">Trier par :</label>
-                <select id="sort-by2">
-                    <option value="name">Nom de l'entreprise</option>
-                    <option value="location">Date d'ancienneté</option>
-                    <option value="size">Taille</option>
-                </select>
-            </div>
         </div>
 
       <div class="search-results-info">
@@ -101,7 +98,7 @@
             {% if companies is not empty %}
                 {% for company in companies %}
                     <div class="company-item">
-                        <img src="{{ company.image }}" alt="Logo de l'entreprise">
+                        <img src="../../static/images/companie.jpg" alt="Logo de l'entreprise">
                         <div class="company-content">
                             <h3 class="company-name">{{ company.name }}</h3>
                             <div class="company-details">

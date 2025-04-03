@@ -185,6 +185,9 @@ switch ($segments[0]) {
         }
         if (isset($_SESSION['user'])) {
             $controllercompany->search(); 
+            if (isset($_SESSION['flash'])) {
+                unset($_SESSION['flash']);
+            }
             exit;
         } else {
             $controller->loginPage();
@@ -198,7 +201,9 @@ switch ($segments[0]) {
         if (isset($_SESSION['user'])) {
             if (isset($segments[1])) {
                 $controllercompany->company($segments[1]);
-                
+                if (isset($_SESSION['flash'])) {
+                    unset($_SESSION['flash']);
+                }
                 exit;
             } else {
                 echo '404 Not Found';
