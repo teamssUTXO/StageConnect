@@ -2,7 +2,6 @@
 const sidebarItems = document.querySelectorAll('.sidebar ul li');
 const contentSections = document.querySelectorAll('.content-section');
 
-// Fonction pour afficher une section spécifique et masquer les autres
 function showSection(sectionId) {
     // Masquer toutes les sections
     contentSections.forEach(section => {
@@ -12,6 +11,8 @@ function showSection(sectionId) {
     // Masquer les formulaires lorsqu'on change de section
     document.getElementById("updateUserForm").style.display = "none";
     document.getElementById("createUserForm").style.display = "none";
+    document.getElementById("updateCompanyForm").style.display = "none";
+    document.getElementById("updateOfferForm").style.display = "none"; // Ajoutez cette ligne
 
     // Afficher la section correspondante
     const targetSection = document.getElementById(sectionId);
@@ -336,6 +337,109 @@ document.querySelectorAll(".btn.delete-company").forEach(button => {
         .catch(error => {
             console.error("Erreur :", error);
             alert("Une erreur s'est produite lors de la suppression de l'entreprise.");
+        });
+    });
+});
+
+// Sélectionnez tous les boutons avec la classe "modify-offer"
+const modifyOfferButtons = document.querySelectorAll(".btn.modify-offer");
+
+// Ajoutez un gestionnaire d'événements à chaque bouton
+modifyOfferButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        // Récupérez l'ID de l'offre à partir de l'attribut data-id
+        const offerId = this.getAttribute("data-id");
+        const title = this.getAttribute("data-title");
+        const description = this.getAttribute("data-description");
+        const competence = this.getAttribute("data-competence");
+        const remuneration = this.getAttribute("data-remuneration");
+        const type = this.getAttribute("data-type");
+        const level = this.getAttribute("data-level");
+        const duration = this.getAttribute("data-duration");
+        const siret = this.getAttribute("data-siret");
+        
+        // Remplissez les champs du formulaire
+        document.getElementById("formIdOffer").value = offerId;
+        document.getElementById("formOfferTitle").value = title || "";
+        document.getElementById("formOfferDescription").value = description || "";
+        document.getElementById("formOfferCompetence").value = competence || "";
+        document.getElementById("formOfferRemuneration").value = remuneration || "";
+        document.getElementById("formOfferType").value = type || "";
+        document.getElementById("formOfferStudiesLevel").value = level || "";
+        document.getElementById("formOfferDuration").value = duration || "";
+        document.getElementById("formOfferSiret").value = siret || "";
+        
+        // Affichez le formulaire
+        const form = document.getElementById("updateOfferForm");
+        form.style.display = "block";
+        
+        // Faites défiler jusqu'au formulaire
+        form.scrollIntoView({ behavior: "smooth" });
+    });
+});
+
+// Ajouter un gestionnaire pour le bouton "Créer une offre"
+document.querySelector(".btn.create").addEventListener("click", function() {
+    // Réinitialiser les champs du formulaire
+    document.getElementById("formIdOffer").value = "";
+    document.getElementById("formOfferTitle").value = "";
+    document.getElementById("formOfferDescription").value = "";
+    document.getElementById("formOfferCompetence").value = "";
+    document.getElementById("formOfferRemuneration").value = "";
+    document.getElementById("formOfferType").value = "";
+    document.getElementById("formOfferStudiesLevel").value = "";
+    document.getElementById("formOfferDuration").value = "";
+    document.getElementById("formOfferSiret").value = "";
+    
+    // Modifiez l'action du formulaire pour la création
+    const form = document.getElementById("updateOfferForm");
+    form.action = "/createOffer";
+    
+    // Affichez le formulaire
+    form.style.display = "block";
+    
+    // Faites défiler jusqu'au formulaire
+    form.scrollIntoView({ behavior: "smooth" });
+});
+
+// Ajouter un gestionnaire pour le bouton de suppression d'offre
+document.querySelectorAll(".btn.delete-offer").forEach(button => {
+    button.addEventListener("click", function () {
+        // Récupérez l'ID de l'offre à partir de l'attribut data-id
+        const offerId = this.getAttribute("data-id");
+
+        if (!offerId) {
+            alert("ID de l'offre manquant.");
+            return;
+        }
+
+        // Demander confirmation avant de supprimer
+        if (!confirm("Êtes-vous sûr de vouloir supprimer cette offre ?")) {
+            return;
+        }
+
+        // Effectuer une requête DELETE
+        fetch(`/deleteOffer`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Id_Offer: offerId })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Offre supprimée avec succès.");
+                // Rafraîchir la page ou supprimer la ligne correspondante dans le tableau
+                location.reload();
+            } else {
+                return response.json().then(data => {
+                    throw new Error(data.message || "Échec de la suppression de l'offre.");
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Erreur :", error);
+            alert("Une erreur s'est produite lors de la suppression de l'offre.");
         });
     });
 });
