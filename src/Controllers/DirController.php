@@ -118,6 +118,7 @@ class DirController extends Controller {
     public function renderPagesAccount(){
         $user = $_SESSION['user'] ?? null;
 
+        $promotion = $this->controlleruser->getUserProm($user->Id_Users);
         $candidateCount = $this->modelcandidate->getCandidateCount($user->Id_Users);
         $lastCandidate = $this->modelcandidate->getLastCandidateOffer($user->Id_Users);
         $corporation = $this->controllercompany->listCompany();
@@ -129,6 +130,7 @@ class DirController extends Controller {
             'tutor' => $tutor,
             'students' => $students, 
             'corporation' => $corporation, 
+            'promotion' => $promotion,
             'user' => $user ,
             'candidateCount' => $candidateCount,
             'lastCandidate'  => $lastCandidate,

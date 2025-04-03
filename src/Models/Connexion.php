@@ -218,35 +218,6 @@ class connexion {
         return false;
     }
     
-    // public function deleteJoin($table, $join = "", $conditions = [], $alias = null) {
-    //     // Déterminer l'alias à utiliser (premier caractère du nom de la table ou alias spécifié)
-    //     $tableAlias = $alias ?: strtolower(substr($table, 0, 1));
-        
-    //     // Construction de la requête DELETE avec une sous-requête pour gérer les jointures
-    //     $sql = "DELETE $tableAlias FROM $table AS $tableAlias";
-        
-    //     // Ajouter les jointures
-    //     if (is_object($join) && property_exists($join, 'value')) {
-    //         $sql .= " " . $join->value;
-    //     } elseif (is_string($join)) {
-    //         $sql .= " " . $join;
-    //     }
-        
-    //     // Préparer les conditions
-    //     $params = [];
-    //     if (!empty($conditions)) {
-    //         $where = [];
-    //         foreach ($conditions as $column => $value) {
-    //             $where[] = "$tableAlias.$column = :$column";
-    //             $params[$column] = $value;
-    //         }
-    //         $sql .= " WHERE " . implode(" AND ", $where);
-    //     }
-        
-    //     $stmt = $this->pdo->prepare($sql);
-    //     return $stmt->execute($params);
-    // }
-    
     /**
      * Méthode pour tester le bon fonctionnement de la connexion et des méthodes CRUD
      * 
@@ -405,31 +376,3 @@ class connexion {
         return $sql;
     }
 }
-
-
-// // Instantiation de la classe connexion
-// $db = new connexion();
-
-// // Exécution des tests sur une table existante
-// $testResults = $db->testFunctionality('Users');
-
-// // Affichage des résultats
-// echo "<pre>";
-// print_r($testResults);
-// echo "</pre>";
-
-// Exemple d'utilisation
-// $newUserId = $db->insert('Users', [
-//     'name' => 'Antoine',
-//     'surname' => 'Dupont',
-//     'mail' => 'user@example.com',
-//     'password' => password_hash('mot_de_passe_secure', PASSWORD_DEFAULT),
-//     'Id_Promotion' => 1,
-//     'Id_Role' => 1
-// ]);
-
-// if ($newUserId) {
-//     echo "Nouvel utilisateur créé avec l'ID: " . $newUserId;
-// } else {
-//     echo "Erreur lors de la création de l'utilisateur";
-// }

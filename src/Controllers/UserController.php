@@ -103,4 +103,10 @@ class UserController extends Controller {
         return $this->userModel->getAllTutor();
     }
 
+    public function getUserProm($userId) {
+        $userprom = $this->userModel->getUserWithPromotion($userId);
+        
+        return $userprom;
+    }
+
 }

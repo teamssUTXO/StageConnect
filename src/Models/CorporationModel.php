@@ -56,9 +56,6 @@ class CorporationModel extends Model {
             'phone'=> $phone,
             'rating'=> $grade
         ];
-    
-
-
         return $this->connexion->insert($this->table, $data);
     }
     

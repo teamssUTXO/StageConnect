@@ -108,6 +108,16 @@ class UserModel extends Model {
         return $tutor;
     }
 
+    public function getUserWithPromotion($userId) {
+        $join = "JOIN Promotion p ON u.Id_Promotion = p.Id_Promotion";
+
+        $params = [
+            'Id_Users' => $userId
+        ];
+    
+        return $this->connexion->selectJoin('Users', $join, $params, 'u')[0] ?? null;
+    }
+
 
 
 
