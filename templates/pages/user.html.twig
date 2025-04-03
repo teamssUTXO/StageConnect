@@ -341,7 +341,7 @@
                                 <td>{{ corporations.mail }}</td>
                                 <td>
                                     <button class="btn modify-company" data-id="{{ corporations.Siret }}" data-phone="{{ corporations.phone }}" data-des = "{{ corporations.compdescription}}" data-grade = "{{corporations.rating}}">Modifier</button>
-                                    <button class="btn delete" data-id="{{ corporations.Siret }}">Supprimer</button>
+                                    <button class="btn delete-company" data-id="{{ corporations.Siret }}">Supprimer</button>
                                 </td>
                             </tr>
                             {% else %}
@@ -365,31 +365,7 @@
                 <input type="text" name="grade" id="formCompanyGrade" placeholder="Note">
                 <button type="submit">Mettre à jour</button>
             </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
             
             <!-- Formulaires de modification et création (un seul exemplaire de chaque) -->
             <form method="POST" action="/updateUser" id="updateUserForm" style="display: none;">
