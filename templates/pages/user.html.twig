@@ -11,7 +11,7 @@
         <div class="container">
             <div class="sidebar">
                 <ul>
-                    <li data-section="settings" onclick="showSection('settings')">Mon compte</li>
+                     <li data-section="settings" onclick="showSection('settings')">Mon compte</li>
                     <li data-section="security" onclick="showSection('security')">Confidentialité</li>
                     <li data-section="whishlist" onclick="showSection('whishlist')">Whishlist</li>
                     <li data-section="candidacy" onclick="showSection('candidacy')">Mes offres</li>
@@ -32,13 +32,12 @@
         </div>
         <!-- Comptes étudiants -->
         <div class="content">
-
             <!--Section régales du comptes-->
             <div id="settings" class="content-section active">
                 <h2>Mon Profil</h2>
                 {% if user.cv_path %}
                     <div class="div-pdp">
-                        <img class="pdp-user" src="../../static/images/user.jpg" alt="Photo de profil">
+                        <img class="pdp-user" src="images/Shadow-steam.webp" alt="Photo de profil">
                         <div class="cv-input-container">
                             <label for="cv-upload" class="cv-input-label">
                                 <i class="fas fa-upload"></i> Modifier votre cv
@@ -316,7 +315,7 @@
                                     <td>{{ student.mail }}</td>
                                     <td>{{ student.Id_Promotion }}</td>
                                     <td>
-                                        <button class="btn modify-promo" data-id="{{ student.Id_Users }}">Modifier</button>
+                                        <button class="btn modify-promo" data-id="{{ student.Id_Users }}" >Modifier</button>
                                         <button class="btn delete" data-id="{{ student.Id_Users }}">Supprimer</button>
                                     </td>
                                 </tr>
@@ -352,6 +351,7 @@
                                 <td>{{ corporations.name }}</td>
                                 <td>{{ corporations.mail }}</td>
                                 <td>
+                                    <button class="btn modify-company" data-id="{{ corporations.Siret }}" data-phone="{{ corporations.phone }}" data-des = "{{ corporations.description}}" data-grade = "{{corporations.grade}}">Modifier</button>
                                     <button class="btn delete" data-id="{{ corporations.Siret }}">Supprimer</button>
                                 </td>
                             </tr>
