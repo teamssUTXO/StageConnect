@@ -40,17 +40,17 @@ class OfferModel extends Model {
         ];
 
         $rawfilters = [
-            // 'localisation'=> $search[1],
-            // 'sector'=> $search[2],
-            // 'duration'=> $search[3],
-            // 'type'=> $search[4],
-            // 'studies'=> $search[5],
+            'Corporation.localisation'=> $search[1],
+            'Corporation.sector'=> $search[2],
+            'typeoffer'=> $search[3],
+            'studieslevel'=> $search[4],
         ];
 
         $filters = array_filter($rawfilters, fn($v) => $v !== null && $v !== '');
-
+        
         $result = $this->connexion->selectJoinWithFilters($this->table, Joins::CORP, $conditions, $filters);
-
+        
+        
         return $result ?? null;
     }
 

@@ -19,24 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const compphone = button.getAttribute("data-compphone") || "Non spécifié";
             const rating = button.getAttribute("data-compeval") || "0";
 
-            // affiche les données dans la console pour debug
-            console.log({
-                title, location, compname, date, remuneration, duration, 
-                description, skills, compdesc, compmail, compphone, rating
-            });
-
             // champs de la modale
             document.getElementById("modal-title").textContent = title;
             document.getElementById("modal-location").textContent = location;
             document.getElementById("modal-compname").textContent = compname;
             document.getElementById("modal-compname2").textContent = compname;
-            document.getElementById("modal-date").textContent = date;
+            document.getElementById("modal-date").textContent = formatDate(date);
             
             const remunerationText = remuneration && remuneration !== "Non spécifié" ? 
                 `${remuneration} €` : "Non spécifié";
             document.getElementById("modal-remuneration").textContent = remunerationText;
             
-            document.getElementById("modal-duration").textContent = duration;
+            document.getElementById("modal-duration").textContent = duration + " mois";
             document.getElementById("modal-description").textContent = description;
             document.getElementById("modal-compdesc").textContent = compdesc;
             document.getElementById("modal-compmail").textContent = `${compmail}`;
@@ -76,6 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("no-scroll");
         });
     });
+
+    function formatDate(dateString) {
+        const match = dateString.match(/\d{4}-\d{2}-\d{2}/);
+        if (!match) return "Date invalide";
+    
+        const postDate = new Date(match[0]);
+        const now = new Date();
+    
+        const diffMonths = (now.getFullYear() - postDate.getFullYear()) * 12 + (now.getMonth() - postDate.getMonth());
+    
+        if (diffMonths < 1) return "moins d'un mois";
+        if (diffMonths < 12) return `${diffMonths} mois`;
+        return `${Math.floor(diffMonths / 12)} ans`;
+    }
 
     // gere le bouton de fermeture
     closeModalBtn.addEventListener("click", () => {

@@ -17,7 +17,7 @@
         <!-- Section Présentation de l'entreprise -->
         <section class="company-header">
             <div class="company-logo">
-                <img src="images/Shadow-steam.webp" alt="Logo de l'entreprise">
+                <img src="../../static/images/companie.jpg" alt="Logo de l'entreprise">
             </div>
             <div class="company-info">
                 <h1>{{ company[0].name }}</h1>
@@ -67,7 +67,16 @@
                     <i class="fas fa-calendar-alt"></i>
                     <div class="detail-content">
                         <span class="detail-label">Type de l'entreprise</span>
-                        <span class="detail-value">{{ company[0].type ?? "non définit"}}</span>
+                        {% if company[0].type == "large-corp" %}
+                            <span class="detail-value">Grande Entreprise</span>
+                        {% elseif company[0].type == "startup" %}
+                            <span class="detail-value">Startup</span>
+                        {% elseif company[0].type == "pme" %}
+                           <span class="detail-value">PME</span>
+                        {% else %}
+                            <span class="detail-value">ESN</span>
+                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
@@ -80,7 +89,7 @@
                 {% if company is not empty %}
                     {% for offer in company %}
                         <div class="job-item">
-                            <img src="{{ offer.image }}" alt="Logo de l'entreprise">
+                            <img src="../../static/images/offer.jpg" alt="Logo de l'entreprise">
                             <div class="job-content">
                                 <h3 class="job-title">{{ offer.title }}</h3>
                                 <div class="job-details">
@@ -100,20 +109,14 @@
                             </div>
                             <div class="job-actions">
                                 <button class="apply-btn" onclick="window.location.href='/candidacy/{{offer.Id_Offer}}'">Postuler</button>
-                                <button class="details-btn" onclick="window.location.href='/search?q={{offer.title ?? ''}}&l={{offer.localisation ?? ''}}&s={{offer.sector ?? ''}}&d={{offer.duration ?? ''}}&t={{offer.type ?? ''}}&n={{offer.studieslevel ?? ''}}'">
+                                <button class="details-btn" onclick="window.location.href='/search?q={{offer.title ?? ''}}&l={{offer.localisation ?? ''}}&s={{offer.sector ?? ''}}&t={{offer.typeoffer ?? ''}}&n='">
                                     Voir plus de détails
                                 </button>
-                
-                                <a href="/wishlist/toggle/{{ offer.Id_Offer }}" class="favorite-link">
-                                    {% if offer.Id_Offer in wishlist %}
-                                        <i class="fas fa-heart favorite-icon"></i>
-                                    {% else %}
-                                        <i class="far fa-heart favorite-icon"></i>
-                                    {% endif %}
-                                </a>
                             </div>
                         </div>
                     {% endfor %}
+                {% else %}
+                <p>Cette entreprise ne propose pas d'offre</p>
                 {% endif %}
 
                 {% if totalPages > 1 %}

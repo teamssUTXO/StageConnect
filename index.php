@@ -158,6 +158,9 @@ switch ($segments[0]) {
             if (count($segments) === 3 && $segments[0] === 'wishlist' && $segments[1] === 'toggle' && is_numeric($segments[2])) {
                 $offerId = $segments[2];
                 $controllerwishlist->toggle($offerId);
+                if (isset($_SESSION['flash'])) {
+                    unset($_SESSION['flash']);
+                }
                 exit();
             }
         } else {
@@ -195,6 +198,7 @@ switch ($segments[0]) {
         if (isset($_SESSION['user'])) {
             if (isset($segments[1])) {
                 $controllercompany->company($segments[1]);
+                
                 exit;
             } else {
                 echo '404 Not Found';
@@ -210,8 +214,6 @@ switch ($segments[0]) {
             session_start();
         }
         if (isset($_SESSION['user'])) {
-            // $controllercompany->listCompany();
-            // $controlleruser->listUsers();
             $controller->renderPagesAccount();
             exit;
         } else {
