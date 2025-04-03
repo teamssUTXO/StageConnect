@@ -283,6 +283,135 @@ body {
 .btn:hover {
     transform: scale(1.05);
 }
+/* ======================== */
+/* Offres des entreprises */
+/* ======================== */
+.job-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.job-item:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.job-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+.job-content {
+    flex: 1;
+    text-align: left;
+}
+
+.job-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--black);
+}
+
+.job-details {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    color: var(--gray);
+}
+
+.job-details i {
+    margin-right: 5px;
+    color: var(--primary-color)
+}
+
+.job-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.apply-btn, .save-btn, .details-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color var(--transition), transform var(--transition);
+}
+
+.apply-btn {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.apply-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black);
+    transform: scale(1.05);
+}
+
+.save-btn {
+    background-color: var(--secondary-color);
+    color: var(--black);
+}
+
+.save-btn:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.details-btn {
+    background-color: var(--white);
+    border: 2px solid var(--black);
+    color: var(--black);
+    text-decoration: none;
+    margin-right: 10px;
+
+}
+
+.details-btn:hover {
+    background-color: var(--black);
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+.favorite-icon {
+    
+    font-size: 20px;
+    color: var(--gray);
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.favorite-icon:hover {
+    color: var(--primary-color);
+}
+
+.favorite-icon.fas {
+    color: var(--primary-color);
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.no-results p {
+    font-size: 16px;
+    color: var(--gray);
+}
 
 /* ======================== */
 /* Responsive Design */

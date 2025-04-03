@@ -85,4 +85,14 @@ class OfferModel extends Model {
 
         return $result ?? null;
     }
+
+    public function getOffersArray($wishlistuser){
+        $offers = [];
+
+        foreach ($wishlistuser as $id) {
+            array_push($offers, $this->connexion->select($this->table, ["Id_Offer" => $id],));
+        }
+
+        return $offers;
+    }
 }
