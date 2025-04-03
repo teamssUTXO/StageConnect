@@ -159,4 +159,35 @@ class CompanyController extends Controller {
         echo "Échec de la modification de l'entreprise.";
     }
   }
+
+  public function deleteCompany() {
+    // Vérifiez si la méthode HTTP est DELETE
+    if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+        echo "Méthode non autorisée.";
+        http_response_code(405); // Méthode non autorisée
+        return;
+    }
+
+    // Récupérez les données brutes de la requête DELETE
+    $input = json_decode(file_get_contents('php://input'), true);
+    $Siret = $input['Siret'] ?? null;
+
+    if (!$Siret) {
+        echo "Données manquantes.";
+        http_response_code(400); // Mauvaise requête
+        return;
+    }
+
+    // Appelez la méthode du modèle pour supprimer l'entreprise
+    $company = $this->corporationModel->deleteCompany($Siret);
+
+    if ($company) {
+        // Réponse de succès
+        echo "Entreprise supprimée avec succès.";
+        http_response_code(200); // OK
+    } else {
+        echo "Échec de la suppression de l'entreprise.";
+        http_response_code(500); // Erreur interne du serveur
+    }
+}
 }

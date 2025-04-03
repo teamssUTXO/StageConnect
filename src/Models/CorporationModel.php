@@ -83,6 +83,13 @@ class CorporationModel extends Model {
 
         return $this->connexion->update($this->table, $data, $condition);
     }
+
+    public function deleteCompany($siret): bool {
+        return $this->connexion->delete($this->table, [
+            'Siret' => $siret
+        ]);
+    }
+
     public function updateRating($siret, $newRating) {
         $result = $this->connexion->select($this->table, ['Siret' => $siret]);
         if (empty($result)) {
