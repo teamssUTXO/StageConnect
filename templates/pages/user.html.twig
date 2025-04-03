@@ -12,7 +12,6 @@
             <div class="sidebar">
                 <ul>
                      <li data-section="settings" onclick="showSection('settings')">Mon compte</li>
-                    <li data-section="security" onclick="showSection('security')">Confidentialité</li>
                     <li data-section="whishlist" onclick="showSection('whishlist')">Whishlist</li>
                     <li data-section="candidacy" onclick="showSection('candidacy')">Mes offres</li>
                     {% if user.Id_Role == 3 %}
@@ -241,6 +240,38 @@
                     <button class="btn add">Ajouter un pilote</button>
                 </div>
             </div>
+
+            <!-- Section gestion des offres -->
+            <div id="offers-management" class="content-section">
+                <h2>Gestion des offres</h2>
+
+                <div class="div-promotions">
+                    <table class="promotions-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom de l'offre</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for offer in offers %}
+                            <tr>
+                                <td>{{ offer.Id_Offer }}</td>
+                                <td>{{ offer.title }}</td> <!-- Quand on appuie ça retourne vers une page complète avec les étudiants -->
+                                <td>
+                                    <button class="btn add-student" onclick="window.location.href='/add-student/{{ offer.Id_Offer }}'">Ajouter un étudiant</button>
+                                    <button class="btn delete" onclick="window.location.href='/delete-offer/{{ offer.Id_Offer }}'">Supprimer</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <button class="btn create" onclick="window.location.href='/create-offer'">Créer une offre</button>
+                </div>
+            </div>
+
 
             <!-- Section gestion des promotions -->
             <div id="promotions-management" class="content-section">

@@ -79,8 +79,10 @@ class OfferModel extends Model {
         $result =  $this->connexion->insert($this->table, $data);
         return $result ?? null;
     }
-}
 
-// echo Joins::WISHLIST->value;
-// $offerModel = new OfferModel();  // Création d'une instance de la classe
-// echo json_encode($offerModel->offerCorporation(1)); // Appel de la méthode sur l'instance
+    public function getAllOffers () {
+        $result = $this->connexion->select($this->table);
+
+        return $result ?? null;
+    }
+}

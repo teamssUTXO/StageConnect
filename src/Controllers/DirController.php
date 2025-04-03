@@ -118,12 +118,20 @@ class DirController extends Controller {
     public function renderPagesAccount(){
         $user = $_SESSION['user'] ?? null;
 
+        $alloffers = $this->modeloffer->getAllOffers();
         $promotion = $this->controlleruser->getUserProm($user->Id_Users);
         $candidateCount = $this->modelcandidate->getCandidateCount($user->Id_Users);
         $lastCandidate = $this->modelcandidate->getLastCandidateOffer($user->Id_Users);
         $corporation = $this->controllercompany->listCompany();
         $students = $this->controlleruser->listUsers();
         $tutor = $this->controlleruser->listTutor();
+
+        $currentPage = $_GET['page'] ?? 1;
+        $offersPerPage = 10; 
+        $offset = ($currentPage - 1) * $offersPerPage;
+        $totalOffers = count($alloffers);
+        $totalPages = ceil($totalOffers / $offersPerPage); 
+        $offersOnPage = array_slice($alloffers, $offset, $offersPerPage);
 
 
         echo $this->templateEngine->render('pages/user.html.twig', [
@@ -134,6 +142,12 @@ class DirController extends Controller {
             'user' => $user ,
             'candidateCount' => $candidateCount,
             'lastCandidate'  => $lastCandidate,
+            
+            'offers' => $alloffers,
+            'count' => $alloffers ? count($alloffers) : 0,
+            'pageoffers' => $offersOnPage,
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages,
         ]);
     }
 
