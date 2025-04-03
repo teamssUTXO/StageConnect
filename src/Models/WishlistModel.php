@@ -12,7 +12,7 @@ class WishlistModel extends Model {
     }
 
     public function isInWishlist($userId, $offerId) {
-        $result = $this->connexion->select("Wishlist", [
+        $result = $this->connexion->select($this->table, [
             "Id_Users" => $userId,
             "Id_Offer" => $offerId
         ]);
@@ -21,7 +21,7 @@ class WishlistModel extends Model {
 
     // Ajoute une offre dans la wishlist
     public function addToWishlist($userId, $offerId) {
-        return $this->connexion->insert("Wishlist", [
+        return $this->connexion->insert($this->table, [
             "Id_Users" => $userId,
             "Id_Offer" => $offerId
         ]);
@@ -29,7 +29,7 @@ class WishlistModel extends Model {
 
     // Retire une offre de la wishlist
     public function removeFromWishlist($userId, $offerId) {
-        return $this->connexion->delete("Wishlist", [
+        return $this->connexion->delete($this->table, [
             "Id_Users" => $userId,
             "Id_Offer" => $offerId
         ]);
