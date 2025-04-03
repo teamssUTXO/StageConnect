@@ -34,40 +34,32 @@
                     <label for="category-filter">Secteur</label>
                     <select name="s" id="category-filter">
                         <option value="" hidden {% if search[2] is empty %}selected{% endif %}>Choisir un secteur</option>
-                        <option value="IT" {% if search[2] == 'IT' %}selected{% endif %}>IT</option>
-                        <option value="Finance" {% if search[2] == 'Finance' %}selected{% endif %}>Finance</option>
-                        <option value="Commerce" {% if search[2] == 'Commerce' %}selected{% endif %}>Commerce</option>
-                        <option value="Droit" {% if search[2] == 'Droit' %}selected{% endif %}>Droit</option>
-                        <option value="Langues" {% if search[2] == 'Langues' %}selected{% endif %}>Langues</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="duration-filter">Durée</label>
-                    <select name="d" id="duration-filter">
-                        <option value="" hidden {% if search[4] is empty %}selected{% endif %}>Choisir une durée</option>
-                        <option value="1-3" {% if search[4] == "1-3" %}selected{% endif %}>1 à 3 mois</option>
-                        <option value="3-6" {% if search[4] == "3-6" %}selected{% endif %}>3 à 6 mois</option>
-                        <option value="6+" {% if search[4] == "6+" %}selected{% endif %}>6 mois et plus</option>
+                        <option value="Informatique" {% if search[2] == 'Informatique' %}selected{% endif %}>Informatique</option>
+                        <option value="Défense" {% if search[2] == 'Défense' %}selected{% endif %}>Défense</option>
+                        <option value="Énergie" {% if search[2] == 'Énergie' %}selected{% endif %}>Énergie</option>
+                        <option value="Transport" {% if search[2] == 'Transport' %}selected{% endif %}>Transport</option>
+                        <option value="Télécommunications" {% if search[2] == 'Télécommunications' %}selected{% endif %}>Télécommunications</option>
+                        <option value="Mode" {% if search[2] == 'Mode' %}selected{% endif %}>Mode</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="type-filter">Type de stage</label>
                     <select name="t" id="type-filter">
-                        <option value="" hidden {% if search[5] is empty %}selected{% endif %}>Choisir un type</option>
-                        <option value="full-time" {% if search[5] == "full-time" %}selected{% endif %}>Temps plein</option>
-                        <option value="part-time" {% if search[5] == "part-time" %}selected{% endif %}>Temps partiel</option>
-                        <option value="remote"{% if search[5] == "remote" %}selected{% endif %}>Télétravail</option>
+                        <option value="" hidden {% if search[3] is empty %}selected{% endif %}>Choisir un type</option>
+                        <option value="Presentiel" {% if search[3] == "Presentiel" %}selected{% endif %}>Temps plein</option>
+                        <option value="Hybride" {% if search[3] == "Hybride" %}selected{% endif %}>Temps partiel</option>
+                        <option value="Teletravail"{% if search[3] == "Teletravail" %}selected{% endif %}>Télétravail</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="education-filter">Niveau d'études</label>
                     <select name="n" id="education-filter">
-                        <option value="" hidden {% if search[6] is empty %}selected{% endif %}>Choisir un niveau</option>
-                        <option value="bac" {% if search[6] == "bac" %}selected{% endif %}>Bac</option>
-                        <option value="bac+2" {% if search[6] == "bac+2" %}selected{% endif %}>Bac+2</option>
-                        <option value="bac+3" {% if search[6] == "bac+3" %}selected{% endif %}>Bac+3</option>
-                        <option value="bac+4" {% if search[6] == "bac+4" %}selected{% endif %}>Bac+4</option>
-                        <option value="bac+5" {% if search[6] == "bac+5" %}selected{% endif %}>Bac+5</option>
+                        <option value="" hidden {% if search[4] is empty %}selected{% endif %}>Choisir un niveau</option>
+                        <option value="BAC" {% if search[4] == "BAC" %}selected{% endif %}>Bac</option>
+                        <option value="BAC+2" {% if search[4] == "BAC+2" %}selected{% endif %}>Bac+2</option>
+                        <option value="BAC+3" {% if search[4] == "BAC+3" %}selected{% endif %}>Bac+3</option>
+                        <option value="BAC+4" {% if search[4] == "BAC+4" %}selected{% endif %}>Bac+4</option>
+                        <option value="BAC+5" {% if search[4] == "BAC+5" %}selected{% endif %}>Bac+5</option>
                     </select>
                 </div>
             </div>
@@ -108,11 +100,11 @@
             {% if offers is not empty %}
                 {% for offer in offers %}
                     <div class="job-item">
-                        <img src="{{ offer.image }}" alt="Logo de l'entreprise">
+                        <img src="../../static/images/offer.jpg" alt="Image de l'offre">
                         <div class="job-content">
                             <h3 class="job-title">{{ offer.title }}</h3>
                             <div class="job-details">
-                                <p><i class="fas fa-map-marker-alt"></i> {{ offer.location }}</p>
+                                <p><i class="fas fa-map-marker-alt"></i> {{ offer.localisation }}</p>
                                 <p><i class="fa-solid fa-building"></i> {{ offer.name }}</p>
                                 <p><i class="fas fa-clock"></i> Posté il y a 
                                     {% set diff = date().diff(date(offer.publication_date)) %}
@@ -132,7 +124,7 @@
 
                                 {# pour injecter dans le script js #}
                                 data-title="{{ offer.title ?? '' }}"
-                                data-location="{{ offer.location ?? 'Non spécifié' }}"
+                                data-location="{{ offer.localisation ?? 'Non spécifié' }}"
                                 data-compname="{{ offer.name ?? '' }}"
                                 data-date="{{ offer.publication_date ?? '' }}"
                                 data-remuneration="{{ offer.remuneration ?? '' }}"

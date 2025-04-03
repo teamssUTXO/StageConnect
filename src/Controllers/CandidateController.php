@@ -63,7 +63,7 @@ class CandidateController extends Controller {
         // enregistrement dans bdd
         $model->enregistrerCandidature($id_user, $id_offre, $message, $cv_path);
 
-        $_SESSION['flash'] = "Vous avez déjà postulé à cette offre !";
+        $_SESSION['flash'] = "La candidature a bien été envoyé !";
 
         header("Location: /");
         exit();

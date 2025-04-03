@@ -15,23 +15,23 @@ class AuthentificationController extends Controller {
 
     public function login() {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          $mail = $_POST['mail'] ?? '';
-          $password = $_POST['password'] ?? '';
-          
-          $user = $this->userModel->getUserByEmail($mail);
-          
-          if ($user && $password=== $user->password) { // if ($user && password_verify($password, $user->password)) {
-              session_start();
-              $_SESSION['user'] = $user;
+        $mail = $_POST['mail'] ?? '';
+        $password = $_POST['password'] ?? '';
+        
+        $user = $this->userModel->getUserByEmail($mail);
+        
+        if ($user && password_verify($password, $user->password)) {
+            session_start();
+            $_SESSION['user'] = $user;
 
-              header('Location: /');
-          } else {
-              echo $this->templateEngine->render('pages/login.html.twig', [
-                'error' => 'Email ou mot de passe incorrect.'
-              ]);
-          }
+            header('Location: /');
+        } else {
+            echo $this->templateEngine->render('pages/login.html.twig', [
+              'error' => 'Email ou mot de passe incorrect.'
+            ]);
+        }
       } else {
-          echo $this->templateEngine->render('pages/login.html.twig');
+        echo $this->templateEngine->render('pages/login.html.twig');
       }
     }
 

@@ -157,8 +157,14 @@ class connexion {
         // Filtres 
         if (!empty($filtres)) {
             foreach ($filtres as $column => $value) {
-                $paramKey = 'filter_' . $column;
-                $clauses[] = "$tableAlias.$column = :$paramKey";
+                // On remplace les points dans le nom du paramètre par un underscore
+                $paramKey = 'filter_' . str_replace('.', '_', $column);
+                // Si la colonne contient un point, on l'utilise directement, sinon on préfixe avec l'alias de la table principale
+                if (strpos($column, '.') !== false) {
+                    $clauses[] = "$column = :$paramKey";
+                } else {
+                    $clauses[] = "$tableAlias.$column = :$paramKey";
+                }
                 $params[$paramKey] = $value;
             }
         }
