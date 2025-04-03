@@ -204,7 +204,7 @@
                                 <td>{{ tut.name }} {{ tut.surname }}</td>
                                 <td>{{ tut.mail }}</td>
                                 <td>
-                                    <button class="btn modify">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
+                                    <button class="btn modify-promo" data-id="{{ tut.Id_Users }}">Modifier</button> <!--On peut modifier les promotions dont il est le tuteur-->
                                     <button class="btn delete">Supprimer</button>
                                 </td>
                             </tr>
@@ -215,6 +215,22 @@
                     <button class="btn add">Ajouter un pilote</button>
                 </div>
             </div>
+
+
+             <form method="POST" action="/updateUser" id="updateUserForm" style="display: none;">
+                <input type="hidden" name="Id_User" id="formIdUser">
+                <input type="text" name="email" id="formEmail" placeholder="Email">
+                <input type="text" name="name" id="formName" placeholder="Prénom">
+                <input type="text" name="surname" id="formSurname" placeholder="Nom">
+                <input type="password" name="password" id="formPassword" placeholder="Mot de passe" value="">
+                <input type="text" name="Id_Prom" id="formIdProm" placeholder="Promotion">
+                <select name="Id_Role" id="formIdRole">
+                    <option value="1">Étudiant</option>
+                    <option value="2">Pilote</option>
+                </select>
+                <button type="submit">Mettre à jour</button>
+            </form>
+
 
             <!-- Section gestion des promotions -->
             <div id="promotions-management" class="content-section">
