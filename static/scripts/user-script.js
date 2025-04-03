@@ -121,6 +121,133 @@ document.querySelector(".div-pilots .btn.add").addEventListener("click", functio
     form.scrollIntoView({ behavior: "smooth" });
 });
 
+
+// Ajouter un gestionnaire pour le bouton de suppression d'étudiant
+document.querySelectorAll(".btn.delete").forEach(button => {
+    button.addEventListener("click", function () {
+        // Récupérez l'ID de l'utilisateur à partir de l'attribut data-id
+        const userId = this.getAttribute("data-id");
+
+        if (!userId) {
+            alert("ID utilisateur manquant.");
+            return;
+        }
+
+        // Demander confirmation avant de supprimer
+        if (!confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+            return;
+        }
+
+        // Effectuer une requête DELETE
+        fetch(`/deleteUser`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Id_User: userId })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Utilisateur supprimé avec succès.");
+                // Rafraîchir la page ou supprimer la ligne correspondante dans le tableau
+                location.reload();
+            } else {
+                return response.json().then(data => {
+                    throw new Error(data.message || "Échec de la suppression de l'utilisateur.");
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Erreur :", error);
+            alert("Une erreur s'est produite lors de la suppression de l'utilisateur.");
+        });
+    });
+});
+
+// Ajouter un gestionnaire pour le bouton de suppression de pilote  
+document.querySelectorAll(".btn.delete-pilot").forEach(button => {
+    button.addEventListener("click", function () {
+        // Récupérez l'ID de l'utilisateur à partir de l'attribut data-id
+        const userId = this.getAttribute("data-id");
+
+        if (!userId) {
+            alert("ID utilisateur manquant.");
+            return;
+        }
+
+        // Demander confirmation avant de supprimer
+        if (!confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+            return;
+        }
+
+        // Effectuer une requête DELETE
+        fetch(`/deleteUser`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Id_User: userId })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Utilisateur supprimé avec succès.");
+                // Rafraîchir la page ou supprimer la ligne correspondante dans le tableau
+                location.reload();
+            } else {
+                return response.json().then(data => {
+                    throw new Error(data.message || "Échec de la suppression de l'utilisateur.");
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Erreur :", error);
+            alert("Une erreur s'est produite lors de la suppression de l'utilisateur.");
+        });
+    });
+});
+
+// Ajouter un gestionnaire pour le bouton de suppression des entreprises
+document.querySelectorAll(".btn.delete-company").forEach(button => {
+    button.addEventListener("click", function () {
+        // Récupérez l'ID de l'utilisateur à partir de l'attribut data-id
+        const userId = this.getAttribute("data-id");
+
+        if (!userId) {
+            alert("ID utilisateur manquant.");
+            return;
+        }
+
+        // Demander confirmation avant de supprimer
+        if (!confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+            return;
+        }
+
+        // Effectuer une requête DELETE
+        fetch(`/deleteUser`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Id_User: userId })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Utilisateur supprimé avec succès.");
+                // Rafraîchir la page ou supprimer la ligne correspondante dans le tableau
+                location.reload();
+            } else {
+                return response.json().then(data => {
+                    throw new Error(data.message || "Échec de la suppression de l'utilisateur.");
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Erreur :", error);
+            alert("Une erreur s'est produite lors de la suppression de l'utilisateur.");
+        });
+    });
+});
+
 // Sélectionnez tous les boutons avec la classe "modify-company"
 const modifyCompanyButtons = document.querySelectorAll(".btn.modify-company");
 
@@ -212,16 +339,7 @@ function showSection(sectionId) {
         
         // Faites défiler jusqu'au formulaire
         form.scrollIntoView({ behavior: "smooth" });
-    });
-
-
-
-
-
-
-
-
-
-    
+    });   
 }
+
     

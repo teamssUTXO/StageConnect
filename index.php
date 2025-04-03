@@ -278,6 +278,16 @@ switch ($segments[0]) {
             }
             break;
 
+        case 'deleteUser':
+            session_start();
+            if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+                $controlleruser->deleteUser(); // Appelle la méthode deleteUser du contrôleur
+            } else {
+                echo 'Méthode non autorisée.';
+                http_response_code(405); // Méthode non autorisée
+            }
+            break;
+
         case 'rating':
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
@@ -314,7 +324,6 @@ switch ($segments[0]) {
                 echo 'Méthode non autorisée.';
             }
             break;
-
 
     default:
         echo '404 Not Found';

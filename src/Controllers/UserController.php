@@ -64,6 +64,37 @@ class UserController extends Controller {
         }
     }
 
+    public function deleteUser() {
+        // Vérifiez si la méthode HTTP est DELETE
+        if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+            echo "Méthode non autorisée.";
+            http_response_code(405); // Méthode non autorisée
+            return;
+        }
+    
+        // Récupérez les données brutes de la requête DELETE
+        $input = json_decode(file_get_contents('php://input'), true);
+        $Id_User = $input['Id_User'] ?? null;
+    
+        if (!$Id_User) {
+            echo "Données manquantes.";
+            http_response_code(400); // Mauvaise requête
+            return;
+        }
+    
+        // Appelez la méthode du modèle pour supprimer l'utilisateur
+        $user = $this->userModel->deleteUser($Id_User);
+    
+        if ($user) {
+            // Réponse de succès
+            echo "Utilisateur supprimé avec succès.";
+            http_response_code(200); // OK
+        } else {
+            echo "Échec de la suppression de l'utilisateur.";
+            http_response_code(500); // Erreur interne du serveur
+        }
+    }
+
     public function listUsers() {
         return $this->userModel->getAllStudents();
     }
