@@ -51,10 +51,10 @@ class CorporationModel extends Model {
         $data = [
             'Siret'=>$Siret,
             'name'=> $name,
-            'description' => $description,
+            'compdescription' => $description,
             'mail'=> $mail,
             'phone'=> $phone,
-            'grade'=> $grade
+            'rating'=> $grade
         ];
     
 
@@ -71,10 +71,10 @@ class CorporationModel extends Model {
     public function updateCompany($Siret, $name, $mail, $phone, $description, $grade): bool {
         $data = [
             'name'=> $name,
-            'description' => $description,
+            'compdescription' => $description,
             'mail'=> $mail,
             'phone'=> $phone,
-            'grade' => $grade
+            'rating' => $grade
         ];
 
         $condition = [
