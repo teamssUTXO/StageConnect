@@ -197,10 +197,9 @@ class connexion {
         // Préparation des colonnes et des valeurs pour la requête
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_map(fn($key) => ":$key", array_keys($data)));
-        
         // Construction de la requête SQL
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        
+   
         // Préparation et exécution de la requête
         $stmt = $this->pdo->prepare($sql);
         $success = $stmt->execute($data);

@@ -47,14 +47,16 @@ class CorporationModel extends Model {
     }
 
 
-    public function createCompany($name, $mail, $phone, $description, $intern): bool {
+    public function createCompany($Siret, $name, $mail, $phone, $description, $intern): bool {
         $data = [
+            'Siret'=>$Siret,
             'name'=> $name,
             'description' => $description,
             'mail'=> $mail,
             'phone'=> $phone,
             'intern' => $intern
         ];
+    
 
 
         return $this->connexion->insert($this->table, $data);
