@@ -63,6 +63,11 @@ class UserModel extends Model {
         return $this->connexion->update($this->table, $data, $condition);
     }
 
+    public function deleteUser($Id_User): bool {
+        $condition = ['Id_Users' => $Id_User];
+        return $this->connexion->delete($this->table, $condition);
+    }
+
     public function getAllStudents(): array {
         $condition = ['Id_Role' => 1];
         $students = $this->connexion->select($this->table, $condition);

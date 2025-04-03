@@ -64,6 +64,26 @@ class UserController extends Controller {
         }
     }
 
+    public function deleteUser() {
+        $Id_User = $_POST['Id_User'] ?? null;
+    
+        if (!$Id_User) {
+            echo "Données manquantes.";
+            return;
+        }
+    
+        // Appelez la méthode du modèle pour supprimer l'utilisateur
+        $user = $this->userModel->deleteUser($Id_User);
+    
+        if ($user) {
+            // Redirigez immédiatement après la suppression
+            header("Location: /account");
+            exit; // Assurez-vous que le script s'arrête après la redirection
+        } else {
+            echo "Échec de la suppression de l'utilisateur.";
+        }
+    }
+
     public function listUsers() {
         return $this->userModel->getAllStudents();
     }
