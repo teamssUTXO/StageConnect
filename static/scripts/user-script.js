@@ -119,4 +119,100 @@ document.querySelector(".div-pilots .btn.add").addEventListener("click", functio
     form.scrollIntoView({ behavior: "smooth" });
 });
 
+// Sélectionnez tous les boutons avec la classe "modify-company"
+const modifyCompanyButtons = document.querySelectorAll(".btn.modify-company");
+
+// Ajoutez un gestionnaire d'événements à chaque bouton
+modifyCompanyButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        // Récupérez le Siret de l'entreprise à partir de l'attribut data-id
+        const siret = this.getAttribute("data-id");
+        const phone = this.getAttribute("data-phone");
+
+        // Récupérez les données de l'entreprise dans la ligne correspondante
+        const row = this.closest("tr");
+        const name = row.querySelector("td:nth-child(2)").textContent.trim();
+        const email = row.querySelector("td:nth-child(3)").textContent.trim();
+        
+        
+        // Vous pourriez avoir besoin de récupérer d'autres informations
+        // comme description, téléphone, etc. depuis la base de données
+        // car elles ne sont peut-être pas affichées dans le tableau
+        
+        // Remplissez les champs du formulaire avec les informations disponibles
+        document.getElementById("formSiret").value = siret;
+        document.getElementById("formCompanyName").value = name;
+        document.getElementById("formCompanyEmail").value = email;
+        document.getElementById("formCompanyPhone").value = phone;
+        
+        // Affichez le formulaire
+        const form = document.getElementById("updateCompanyForm");
+        form.style.display = "block";
+        
+        // Faites défiler jusqu'au formulaire
+        form.scrollIntoView({ behavior: "smooth" });
+    });
+});
+
+// Masquer les formulaires lorsqu'on change de section (ajoutez à votre fonction showSection)
+// Modifiez la fonction showSection pour inclure le nouveau formulaire
+function showSection(sectionId) {
+    // Masquer toutes les sections
+    contentSections.forEach(section => {
+        section.classList.remove('active');
+    });
+
+    // Masquer les formulaires lorsqu'on change de section
+    document.getElementById("updateUserForm").style.display = "none";
+    document.getElementById("createUserForm").style.display = "none";
+    document.getElementById("updateCompanyForm").style.display = "none"; // Ajoutez cette ligne
+
+    // Afficher la section correspondante
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+
+    // Mettre à jour l'élément actif dans la sidebar
+    sidebarItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('onclick').includes(sectionId)) {
+            item.classList.add('active');
+        }
+    });
+
+
+
+
+    document.querySelector(".div-companies .btn.add").addEventListener("click", function() {
+        // Créez un formulaire de création d'entreprise ou réutilisez celui de modification
+        // Réinitialiser les champs du formulaire
+        document.getElementById("formSiret").value = "";
+        document.getElementById("formCompanyName").value = "";
+        document.getElementById("formCompanyEmail").value = "";
+        document.getElementById("formCompanyPhone").value = "";
+        document.getElementById("formCompanyDescription").value = "";
+        document.getElementById("formCompanyIntern").value = "1"; // Valeur par défaut
+        
+        // Modifiez l'action du formulaire pour la création
+        const form = document.getElementById("updateCompanyForm");
+        form.action = "/createCompany";
+        
+        // Affichez le formulaire
+        form.style.display = "block";
+        
+        // Faites défiler jusqu'au formulaire
+        form.scrollIntoView({ behavior: "smooth" });
+    });
+
+
+
+
+
+
+
+    
+
+    
+}
     
