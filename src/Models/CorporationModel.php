@@ -47,14 +47,14 @@ class CorporationModel extends Model {
     }
 
 
-    public function createCompany($Siret, $name, $mail, $phone, $description, $intern): bool {
+    public function createCompany($Siret, $name, $mail, $phone, $description, $grade): bool {
         $data = [
             'Siret'=>$Siret,
             'name'=> $name,
             'description' => $description,
             'mail'=> $mail,
             'phone'=> $phone,
-            'intern' => $intern
+            'grade'=> $grade
         ];
     
 

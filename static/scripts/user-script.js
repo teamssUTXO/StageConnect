@@ -144,6 +144,8 @@ modifyCompanyButtons.forEach(button => {
         document.getElementById("formCompanyName").value = name;
         document.getElementById("formCompanyEmail").value = email;
         document.getElementById("formCompanyPhone").value = phone;
+
+
         
         // Affichez le formulaire
         const form = document.getElementById("updateCompanyForm");
@@ -192,7 +194,8 @@ function showSection(sectionId) {
         document.getElementById("formCompanyEmail").value = "";
         document.getElementById("formCompanyPhone").value = "";
         document.getElementById("formCompanyDescription").value = "";
-        document.getElementById("formCompanyIntern").value = "1"; // Valeur par défaut
+        
+       
         
         // Modifiez l'action du formulaire pour la création
         const form = document.getElementById("updateCompanyForm");
@@ -211,7 +214,7 @@ function showSection(sectionId) {
 
 
 
-    
+
 
     
 }

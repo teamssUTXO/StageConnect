@@ -206,7 +206,7 @@ class connexion {
         
         // Si l'insertion a réussi, on retourne l'ID de la nouvelle ligne
         if ($success) {
-            return $this->pdo->lastInsertId();
+            return true;
         }
         
         return false;

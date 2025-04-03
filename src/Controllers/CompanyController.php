@@ -81,7 +81,7 @@ public function updateCompany() {
   $intern = $_POST['intern'] ?? null;
   
 
-  if (!$Siret || !$name || !$mail || !$phone || !$description || !$intern) {
+  if (!$Siret || !$name || !$mail || !$phone || !$description) {
       echo "Données manquantes.";
       return;
   }
@@ -105,21 +105,21 @@ public function createCompany() {
   $mail = $_POST['mail'] ?? null;
   $phone = $_POST['phone'] ?? null;
   $description = $_POST['description'] ?? null; 
-  $intern = $_POST['intern'] ?? null;
+  $grade = $_POST['grade'] ?? null;
 
-  if (!$Siret || !$name || !$mail || !$phone || !$description || !$intern) {
+
+  if (!$Siret || !$name || !$mail || !$phone || !$description || !$grade) {
     echo "Données manquantes.";
     return;
   }
 
-  $user = $this->corporationModel->createCompany($Siret, $name, $mail, $phone, $description, $intern);
-
+  $user = $this->corporationModel->createCompany($Siret, $name, $mail, $phone, $description, $grade);
   if ($user) {
       // Redirigez immédiatement après la mise à jour
       header("Location: /account");
       exit; // Assurez-vous que le script s'arrête après la redirection
   } else {
-      echo "Échec de la modification de l'utilisateur.";
+      echo "Échec de la modification de l'entreprise.";
   }
 }
 
