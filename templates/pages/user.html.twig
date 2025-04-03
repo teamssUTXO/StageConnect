@@ -338,7 +338,7 @@
                     <table class="companies-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Siret</th>
                                 <th>Nom</th>
                                 <th>Email</th>
                                 <th>Actions</th>
@@ -351,8 +351,7 @@
                                 <td>{{ corporations.name }}</td>
                                 <td>{{ corporations.mail }}</td>
                                 <td>
-                                    <button class="btn block">Bloquer</button>
-                                    <button class="btn delete">Supprimer</button>
+                                    <button class="btn delete" data-id="{{ corporations.Siret }}">Supprimer</button>
                                 </td>
                             </tr>
                             {% else %}
