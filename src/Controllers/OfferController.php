@@ -121,7 +121,7 @@ public function createOffer() {
             $_SESSION['flash'] = ['type' => 'error', 'message' => 'Erreur lors de la création de l\'offre.'];
         }
         
-        header('Location: /user');
+        header('Location: /account');
         exit;
     }
     
