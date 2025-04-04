@@ -2,41 +2,41 @@
 const sidebarItems = document.querySelectorAll('.sidebar ul li');
 const contentSections = document.querySelectorAll('.content-section');
 
-function showSection(sectionId) {
-    // Masquer toutes les sections
-    contentSections.forEach(section => {
-        section.classList.remove('active');
-    });
+// function showSection(sectionId) {
+//     // Masquer toutes les sections
+//     contentSections.forEach(section => {
+//         section.classList.remove('active');
+//     });
 
-    // Masquer les formulaires lorsqu'on change de section
-    document.getElementById("updateUserForm").style.display = "none";
-    document.getElementById("createUserForm").style.display = "none";
-    document.getElementById("updateCompanyForm").style.display = "none";
-    document.getElementById("updateOfferForm").style.display = "none"; // Ajoutez cette ligne
+//     // Masquer les formulaires lorsqu'on change de section
+//     document.getElementById("updateUserForm").style.display = "none";
+//     document.getElementById("createUserForm").style.display = "none";
+//     document.getElementById("updateCompanyForm").style.display = "none";
+//     document.getElementById("updateOfferForm").style.display = "none"; // Ajoutez cette ligne
 
-    // Afficher la section correspondante
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
+//     // Afficher la section correspondante
+//     const targetSection = document.getElementById(sectionId);
+//     if (targetSection) {
+//         targetSection.classList.add('active');
+//     }
 
-    // Mettre à jour l'élément actif dans la sidebar
-    sidebarItems.forEach(item => {
-        item.classList.remove('active');
-        if (item.getAttribute('onclick').includes(sectionId)) {
-            item.classList.add('active');
-        }
-    });
-}
+//     // Mettre à jour l'élément actif dans la sidebar
+//     sidebarItems.forEach(item => {
+//         item.classList.remove('active');
+//         if (item.getAttribute('onclick').includes(sectionId)) {
+//             item.classList.add('active');
+//         }
+//     });
+// }
 
-// Ajouter un écouteur d'événements à chaque élément de la sidebar
-sidebarItems.forEach(item => {
-    item.addEventListener('click', () => {
-        // Récupérer l'ID de la section à afficher depuis l'attribut onclick
-        const sectionId = item.getAttribute('onclick').match(/'(.*?)'/)[1];
-        showSection(sectionId);
-    });
-});
+// // Ajouter un écouteur d'événements à chaque élément de la sidebar
+// sidebarItems.forEach(item => {
+//     item.addEventListener('click', () => {
+//         // Récupérer l'ID de la section à afficher depuis l'attribut onclick
+//         const sectionId = item.getAttribute('onclick').match(/'(.*?)'/)[1];
+//         showSection(sectionId);
+//     });
+// });
 
 // Afficher la première section par défaut au chargement de la page
 document.addEventListener("DOMContentLoaded", function () {
@@ -260,6 +260,7 @@ function showSection(sectionId) {
     document.getElementById("updateUserForm").style.display = "none";
     document.getElementById("createUserForm").style.display = "none";
     document.getElementById("updateCompanyForm").style.display = "none"; // Ajoutez cette ligne
+    document.getElementById("updateOfferForm").style.display = "none";
 
     // Afficher la section correspondante
     const targetSection = document.getElementById(sectionId);
