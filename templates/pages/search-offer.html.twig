@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block content %}
+    {% if session.flash %}
+        <script>
+            alert("{{ session.flash }}");
+        </script>
+    {% endif %}
     <div class="search">
         <h1>Rechercher des offres de stage</h1>
         <p class="search-description">Trouvez le stage qui correspond à vos compétences et à vos aspirations professionnelles.</p>

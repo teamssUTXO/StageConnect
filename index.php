@@ -158,9 +158,11 @@ switch ($segments[0]) {
         }
 
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 2) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
-            die;
+            header("Location: /search");
+            die();
+            
         }
 
         if (isset($_SESSION['user'])) {
@@ -182,6 +184,9 @@ switch ($segments[0]) {
         }
         if (isset($_SESSION['user'])) {
             $controlleroffer->search(); 
+            if (isset($_SESSION['flash'])) {
+                unset($_SESSION['flash']);
+            }
             exit;
         } else {
             $controller->loginPage();
@@ -345,7 +350,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
@@ -362,7 +367,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
@@ -378,7 +383,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
@@ -395,7 +400,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
@@ -410,7 +415,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
@@ -425,7 +430,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }

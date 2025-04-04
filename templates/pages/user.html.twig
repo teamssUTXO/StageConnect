@@ -21,6 +21,8 @@
                         <li data-section="pilots-management" onclick="showSection('pilots-management')">Gestion des pilotes</li>
                     {% elseif user.Id_Role == 2 %}
                         <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
+                        <li data-section="companies-management" onclick="showSection('companies-management')">Gestion des entreprises</li>
+                        <li data-section="offers-management" onclick="showSection('offers-management')">Gestion des offres</li>
                     {% endif %}
                 </ul>
             </div>
@@ -99,19 +101,19 @@
                 <h2>Votre Wishlist</h2>
 
                 <div class="div-candidacy">
-                    {% if not offersinwishlist[0] %}
+                    {% if not offersinwishlist %}
                         <p>Aucune offre enregistrée dans votre wishlist.</p>
                     {% endif %}
 
-                    {% for offer in offersinwishlist[0] %}
+                    {% for offer in offersinwishlist %}
                         <div class="job-item">
                             <img src="../../static/images/offer.jpg" alt="Logo de l'entreprise">
                             <div class="job-content">
-                                <h3 class="job-title">{{ offer.title }}</h3>
+                                <h3 class="job-title">{{ offer[0].title }}</h3>
                             </div>
                             <div class="job-actions">
-                                <button class="apply-btn" onclick="window.location.href='/candidacy/{{ offer.Id_Offer }}'">Postuler</button>
-                                <button class="details-btn" onclick="window.location.href='/search?q={{ offer.title | default('') }}&l={{ offer.localisation | default('') }}&s={{ offer.sector | default('') }}&t={{ offer.typeoffer | default('') }}&n='">
+                                <button class="apply-btn" onclick="window.location.href='/candidacy/{{ offer[0].Id_Offer }}'">Postuler</button>
+                                <button class="details-btn" onclick="window.location.href='/search?q={{ offer[0].title | default('') }}&l={{ offer[0].localisation | default('') }}&s={{ offer[0].sector | default('') }}&t={{ offer[0].typeoffer | default('') }}&n='">
                                     Voir plus de détails
                                 </button>
                             </div>
