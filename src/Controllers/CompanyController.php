@@ -187,7 +187,7 @@ class CompanyController extends Controller {
         http_response_code(200); // OK
     } else {
         echo "Échec de la suppression de l'entreprise.";
-        http_response_code(500); // Erreur interne du serveur
+        http_response_code(500); // PAS OK
     }
 }
 }

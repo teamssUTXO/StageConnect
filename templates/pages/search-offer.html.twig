@@ -124,7 +124,9 @@
                                 data-compdesc="{{ offer.compdescription ?? '' }}"
                                 data-compmail="{{ offer.mail ?? '' }}"
                                 data-compphone="{{ offer.phone ?? '' }}"
-                                data-compeval="{{ offer.rating ?? 0 }}">
+                                data-compeval="{{ offer.rating ?? 0 }}"
+                                data-views = "{{offer.views ?? 0}}"
+                                data-candidacies = "{{offer.candidacies ?? 0}}">
 
                                 Voir plus de détails
                             </button>
@@ -203,6 +205,13 @@
                     <div class="skills-section">
                         <h3>Compétences requises</h3>
                         <ul id="modal-skills-list"></ul>
+                    </div>
+
+                    <!-- Section Description -->
+                    <div class="description-section">
+                        <h3>Statistiques de l'offre</h3>
+                        <p id="modal-offerviews"></p>
+                        <p id="modal-offercandidacies"></p>
                     </div>
 
                     <!-- Section Avantages -->

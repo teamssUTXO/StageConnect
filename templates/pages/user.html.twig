@@ -19,7 +19,6 @@
                         <li data-section="offers-management" onclick="showSection('offers-management')">Gestion des offres</li>
                         <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
                         <li data-section="pilots-management" onclick="showSection('pilots-management')">Gestion des pilotes</li>
-                        <li data-section="students-candidacy" onclick="showSection('students-candidacy')">Gestion des candidatures étudiants</li>
                     {% elseif user.Id_Role == 2 %}
                         <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
                     {% endif %}
@@ -33,7 +32,7 @@
                 <h2>Mon Profil</h2>
                 {% if user.cv_path %}
                     <div class="div-pdp">
-                        <img class="pdp-user" src="images/Shadow-steam.webp" alt="Photo de profil">
+                        <img class="pdp-user" src="../../static/images/user.jpg" alt="Photo de profil">
                         <div class="cv-input-container">
                             <label for="cv-upload" class="cv-input-label">
                                 <i class="fas fa-upload"></i> Modifier votre cv
@@ -180,7 +179,7 @@
 
                 <div class="separator"></div>
                 
-                <div class="div-para">Promotion que vous pilotez : <span>CPI A2, FISA A3</span></div>
+                <div class="div-para">Promotion que vous pilotez : <span>{{promotion.name}}</span></div>
 
                 <div class="separator"></div>
 

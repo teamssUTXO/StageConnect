@@ -68,7 +68,9 @@ switch ($segments[0]) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controllerauth->login(); 
         } else {
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             if (isset($_SESSION['user'])) {
                 $controller->homePage();
                 exit;

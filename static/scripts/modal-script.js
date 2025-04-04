@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const compmail = button.getAttribute("data-compmail") || "Non spécifié";
             const compphone = button.getAttribute("data-compphone") || "Non spécifié";
             const rating = button.getAttribute("data-compeval") || "0";
+            const views = button.getAttribute("data-views") || "0";
+            const nbcandidacies = button.getAttribute("data-candidacies") || "0";
 
             // champs de la modale
             document.getElementById("modal-title").textContent = title;
@@ -35,6 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("modal-compdesc").textContent = compdesc;
             document.getElementById("modal-compmail").textContent = `${compmail}`;
             document.getElementById("modal-compphone").textContent = `${compphone}`;
+
+            document.getElementById("modal-offerviews").textContent = `Nombre de vues: ${views}`;
+            document.getElementById("modal-offercandidacies").textContent = `Nombre de candidatures: ${nbcandidacies}`;
             
             // évaluation
             const ratingValue = parseInt(rating) || 0;
