@@ -124,10 +124,12 @@ class DirController extends Controller {
         $wishlistuser = $this->modelwishlist->getWishlistForUser($user->Id_Users);
         $offersinwishlist = $this->modeloffer->getOffersArray($wishlistuser);
 
+        $candidateOffers = $this->modeloffer->getCandidateOffers($user->Id_Users);
+
         $alloffers = $this->modeloffer->getAllOffers();
         $promotion = $this->controlleruser->getUserProm($user->Id_Users);
         $candidateCount = $this->modelcandidate->getCandidateCount($user->Id_Users);
-        $lastCandidate = $this->modelcandidate->getLastCandidateOffer($user->Id_Users);
+
         $corporation = $this->controllercompany->listCompany();
         $students = $this->controlleruser->listUsers();
         $tutor = $this->controlleruser->listTutor();
@@ -145,8 +147,7 @@ class DirController extends Controller {
             'corporation' => $corporation, 
             'promotion' => $promotion,
             'user' => $user ,
-            'candidateCount' => $candidateCount,
-            'lastCandidate'  => $lastCandidate,
+            
             
             'offers' => $alloffers,
             'count' => $alloffers ? count($alloffers) : 0,
@@ -155,6 +156,9 @@ class DirController extends Controller {
             'totalPages' => $totalPages,
 
             'offersinwishlist' => $offersinwishlist,
+
+            'candidateOffers' => $candidateOffers,
+            'candidateCount' => $candidateCount,
         ]);
     }
 

@@ -120,4 +120,15 @@ class OfferModel extends Model {
 
         return $offers;
     }
+
+    public function getCandidateOffers($userId) {
+        $join = "JOIN Candidate c ON o.Id_Offer = c.Id_Offer";
+        
+        // Préciser que Id_Users vient de la table Candidate (alias 'c')
+        $conditions = ['c.Id_Users' => $userId];
+    
+        $result = $this->connexion->selectJoin('Offer', $join, $conditions, 'o');
+        
+        return $result ?? [];
+    }
 }

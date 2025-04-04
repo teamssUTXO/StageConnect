@@ -98,35 +98,41 @@ class connexion {
     }
 
     public function selectJoin($table, $join = "", $conditions = [], $alias = null) {
-        // Déterminer l'alias à utiliser (premier caractère du nom de la table ou alias spécifié)
-        $tableAlias = $alias ?: strtolower(substr($table, 0, 1));
-        
-        // Colonnes à sélectionner
-        $sql = "SELECT * FROM $table AS $tableAlias";
-        
-        // Ajouter les jointures
-        if (is_object($join) && property_exists($join, 'value')) {
-            $sql .= " " . $join->value;
-        } elseif (is_string($join)) {
-            $sql .= " " . $join; // Si c'est une simple chaîne, on l'ajoute directement
-        }        
-        
-        // Préparer les conditions
-        $params = [];
-        if (!empty($conditions)) {
-            $where = [];
-            // print_r($conditions);
-            foreach ($conditions as $column => $value) {
-                $where[] = "$tableAlias.$column = :$column";
-                $params[$column] = $value;
+    // Déterminer l'alias à utiliser (premier caractère du nom de la table ou alias spécifié)
+    $tableAlias = $alias ?: strtolower(substr($table, 0, 1));
+    
+    // Colonnes à sélectionner
+    $sql = "SELECT * FROM $table AS $tableAlias";
+    
+    // Ajouter les jointures
+    if (is_object($join) && property_exists($join, 'value')) {
+        $sql .= " " . $join->value;
+    } elseif (is_string($join)) {
+        $sql .= " " . $join; // Si c'est une simple chaîne, on l'ajoute directement
+    }        
+    
+    // Préparer les conditions
+    $params = [];
+    if (!empty($conditions)) {
+        $where = [];
+        foreach ($conditions as $column => $value) {
+            // Vérifier si le nom de la colonne contient un point pour déterminer l'alias
+            if (strpos($column, '.') !== false) {
+                list($alias, $column) = explode('.', $column, 2); // Sépare l'alias et le nom de la colonne
+            } else {
+                $alias = $tableAlias; // Utilise l'alias de la table principale par défaut
             }
-            $sql .= " WHERE " . implode(" AND ", $where);
+            $where[] = "$alias.$column = :$column"; // Utilise l'alias approprié pour la condition
+            $params[$column] = $value;
         }
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        $sql .= " WHERE " . implode(" AND ", $where);
     }
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 
     public function selectJoinWithFilters($table, $join = "", $conditions = [], $filtres = [], $alias = null) {
         // Déterminer l'alias à utiliser (premier caractère du nom de la table ou alias spécifié)

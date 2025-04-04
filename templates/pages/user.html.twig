@@ -15,15 +15,12 @@
                     <li data-section="whishlist" onclick="showSection('whishlist')">Wishlist</li>
                     <li data-section="candidacy" onclick="showSection('candidacy')">Mes offres</li>
                     {% if user.Id_Role == 3 %}
-                        <li data-section="students-stats" onclick="showSection('stats')">Statistiques</li>
-                        <li data-section="evaluation" onclick="showSection('evaluation')">Évaluation</li>
                         <li data-section="companies-management" onclick="showSection('companies-management')">Gestion des entreprises</li>
                         <li data-section="offers-management" onclick="showSection('offers-management')">Gestion des offres</li>
                         <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
                         <li data-section="pilots-management" onclick="showSection('pilots-management')">Gestion des pilotes</li>
                         <li data-section="students-candidacy" onclick="showSection('students-candidacy')">Gestion des candidatures étudiants</li>
                     {% elseif user.Id_Role == 2 %}
-                        <li data-section="evaluation" onclick="showSection('evaluation')">Évaluation</li>
                         <li data-section="students-management" onclick="showSection('students-management')">Gestion des étudiants</li>
                     {% endif %}
                 </ul>
@@ -103,6 +100,10 @@
                 <h2>Votre Wishlist</h2>
 
                 <div class="div-candidacy">
+                    {% if not offersinwishlist[0] %}
+                        <p>Aucune offre enregistrée dans votre wishlist.</p>
+                    {% endif %}
+
                     {% for offer in offersinwishlist[0] %}
                         <div class="job-item">
                             <img src="../../static/images/offer.jpg" alt="Logo de l'entreprise">
@@ -116,8 +117,6 @@
                                 </button>
                             </div>
                         </div>
-                    {% else %}
-                        <p>Aucune offre enregistrée dans votre wishlist.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -125,17 +124,33 @@
             <!--Section gestion des offres/candidatures-->
             <div id="candidacy" class="content-section">
                 <h2>Gestion des offres</h2>
-
+                
+                <p>Vous avez candidaté à {{candidateCount}} {% if candidateCount < 2%} offre {% else %} offres.{% endif %}</p>
                 <div class="div-candidacy">
-                    <section class="section-offrer">
-                        <h4>Offre Candidaté 1</h4>
-                    </section>
-                    <section class="section-offrer">
-                        <h4>Offre Candidaté 2</h4>
-                    </section>
-                    <section class="section-offrer">
-                        <h4>Offre Candidaté 3</h4>
-                    </section>
+                    {% if not candidateOffers %}
+                        <p>Aucune candidature enregistrée.</p>
+                    {% endif %}
+                    {% for offer in candidateOffers %}
+                        <div class="job-item">
+                            <img src="../../static/images/offer.jpg" alt="Logo de l'entreprise">
+                            <div class="job-content">
+                                <h3 class="job-title">{{ offer.title }}</h3>
+                            </div>
+                            <div class="job-actions">
+                                <button class="apply-btn" onclick="window.location.href='/candidacy/{{ offer.Id_Offer }}'">Postuler</button>
+                                <button class="details-btn" onclick="window.location.href='/search?q={{ offer.title | default('') }}&l={{ offer.localisation | default('') }}&s={{ offer.sector | default('') }}&t={{ offer.typeoffer | default('') }}&n='">
+                                    Voir plus de détails
+                                </button>
+                                <a class="apply-btn" href="../../data/offre/{{offer.Id_Offer}}/cv{{ user.Id_Users }}.pdf" download>
+                                    Télécharger le CV
+                                </a>
+                                <textarea id="message" readonly>{{ offer.message[:100] }}</textarea>
+                            </div>
+                            <div class="job-message">
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 

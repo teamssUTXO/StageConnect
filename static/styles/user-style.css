@@ -338,6 +338,19 @@ body {
     gap: 10px;
 }
 
+.job-actions textarea {
+    width: 50%;
+    height: 40px;
+    padding: 8px;
+    border: 2px solid var(--black);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    resize: none;
+    outline: none;
+}
+
 .apply-btn, .save-btn, .details-btn {
     padding: 8px 15px;
     border: none;
