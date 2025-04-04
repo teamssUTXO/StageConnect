@@ -295,7 +295,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
@@ -311,7 +311,7 @@ switch ($segments[0]) {
             session_start();
         }
         $user = $_SESSION['user'];
-        if ($user->Id_Role == 2 || $user->Id_Role == 1) {
+        if ($user->Id_Role == 1) {
             $_SESSION['flash'] = "Vous ne pouvez pas ajouter une offre dans votre wishlist.";
             die;
         }
