@@ -426,6 +426,56 @@ body {
     color: var(--gray);
 }
 
+#updateCompanyForm {
+    display: none;
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#updateCompanyForm input,
+#updateCompanyForm textarea {
+    width: 98%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gray);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#updateCompanyForm input:focus,
+#updateCompanyForm textarea:focus {
+    border-color: var(--primary-color);
+}
+
+#updateCompanyForm textarea {
+    resize: none;
+    height: 80px;
+}
+
+#updateCompanyForm button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#updateCompanyForm button:hover {
+    background-color: var(--primary-dark);
+}
+
 #updateUserForm, 
 #createUserForm {
     display: none;
@@ -500,6 +550,7 @@ body {
 #createUserForm {
     border-left: 5px solid var(--success-color);
 }
+
 
 
 

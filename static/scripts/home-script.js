@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="company-card">
                     <img src="../../static/images/companie.jpg" alt="${company.name}">
                     <h3>${company.name}</h3>
-                    <p>${company.compdescription}</p>
+                    <p>${company.compdescription.split('. ')[0] + '.'}</p>
                     <span class="category">${company.sector}</span>
                 </div>
             `;
