@@ -4,6 +4,8 @@ StageConnect est une plateforme de gestion de stages développée pour les étud
 
 Cette application a été développée dans le cadre du bloc Web de la deuxième année au CESI et avait pour but d'apprendre le PHP.
 
+![Page d'authentification de la plateforme](static/images/README-auth.png)
+
 ## 🚀 Fonctionnalités
 
 - Recherche d'offres de stage
@@ -11,6 +13,8 @@ Cette application a été développée dans le cadre du bloc Web de la deuxième
 - Espace entreprise
 - Système de wishlist
 - Gestion des profils (étudiants, pilotes, administrateurs)
+
+![Page d'offres](static/images/README-offers.png)
 
 ## 🛠 Technologies utilisées
 
